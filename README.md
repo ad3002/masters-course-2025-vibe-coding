@@ -42,26 +42,8 @@
    - Первые практические эксперименты
 
 **Аудиозаписи:**
-
-<details>
-<summary>Часть 1 (52 мин)</summary>
-
-<audio controls>
-  <source src="audio/AI_coding_lecture1_part1.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-</details>
-
-<details>
-<summary>Часть 2 (53 мин)</summary>
-
-<audio controls>
-  <source src="audio/AI_coding_lecture1_part2.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-</details>
+- 📻 [Часть 1 (52 мин)](audio/AI_coding_lecture1_part1.mp3)
+- 📻 [Часть 2 (53 мин)](audio/AI_coding_lecture1_part2.mp3)
 
 #### 2. [Два подхода к AI-программированию](materials/workshop2.md)
    - Автономные агенты vs IDE-интеграции
@@ -69,26 +51,8 @@
    - Голос как интерфейс разработки
 
 **Аудиозаписи:**
-
-<details>
-<summary>Часть 1 (40 мин)</summary>
-
-<audio controls>
-  <source src="audio/AI_coding_lecture2_part1.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-</details>
-
-<details>
-<summary>Часть 2 (40 мин)</summary>
-
-<audio controls>
-  <source src="audio/AI_coding_lecture2_part2.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-</details>
+- 📻 [Часть 1 (40 мин)](audio/AI_coding_lecture2_part1.mp3)
+- 📻 [Часть 2 (40 мин)](audio/AI_coding_lecture2_part2.mp3)
 
 #### 3. [Разработка через спецификации и AI-агентов](materials/workshop3.md)
    - TDD/BDD/ATDD в эпоху AI
@@ -96,26 +60,8 @@
    - Контракты, тесты и нефункциональные требования
 
 **Аудиозаписи:**
-
-<details>
-<summary>Часть 1 (55 мин)</summary>
-
-<audio controls>
-  <source src="audio/AI_coding_lecture3_part1.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-</details>
-
-<details>
-<summary>Часть 2 (55 мин)</summary>
-
-<audio controls>
-  <source src="audio/AI_coding_lecture3_part2.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-</details>
+- 📻 [Часть 1 (55 мин)](audio/AI_coding_lecture3_part1.mp3)
+- 📻 [Часть 2 (55 мин)](audio/AI_coding_lecture3_part2.mp3)
 
 ## Ключевые концепции
 
