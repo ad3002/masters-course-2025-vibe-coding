@@ -168,6 +168,7 @@ transcriptions/           # Будут добавлены
 ## Команда курса
 
 ### 👨‍🏫 Алексей Комиссаров, PhD — основной ведущий
+- Email: [ad3002@gmail.com](mailto:ad3002@gmail.com)
 - Telegram: [@ad3002](https://t.me/ad3002)
 - Предыдущий курс: [AI-Assisted Programming 2024](https://github.com/ad3002/masters-course-2024-ai-assisted-programming)
 - 20+ лет программирования, vibe coding энтузиаст
