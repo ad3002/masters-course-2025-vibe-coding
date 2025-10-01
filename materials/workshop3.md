@@ -500,10 +500,6 @@ sequenceDiagram
     else Backend недоступен
         API->>FE: 503 Service Unavailable
     end
-
-    style API fill:#ffd43b
-    style FE fill:#51cf66,color:#fff
-    style BE fill:#339af0,color:#fff
 ```
 
 **Структура контракта (JSON Schema):**
