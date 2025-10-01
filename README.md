@@ -115,8 +115,7 @@ materials/
 ├── workshop1.md          # Лекция 1: Введение
 ├── workshop2.md          # Лекция 2: Подходы и инструменты
 ├── workshop3.md          # Лекция 3: Спецификации и агенты
-│   ├── image1.png        # TDD цикл Red-Green-Refactor
-│   └── image2.png        # Архитектура команды агентов
+│   └── workshop3/        # Диаграммы (mermaid)
 └── exam.md               # Формат финального экзамена
 
 audio/
