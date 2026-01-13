@@ -296,4 +296,50 @@ c499ef6 fix: Add error handling in init()
 
 ---
 
+### 9. Чангалиди Антон
+
+**Репозиторий**: https://github.com/TohaRhymes/llm_tester
+
+**Проект**: LLM Test Generator — сервис генерации экзаменов из Markdown контента с автоматической оценкой ответов
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Полноценный FastAPI сервис: генерация экзаменов, grading, поддержка OpenAI и YandexGPT, модульный frontend (6 JS модулей), Docker |
+| **Качество эволюции** | **5** | **79 коммитов** с issue-driven development (#9, #10, #18...). Эволюция: frontend refactoring, security audit, добавление providers |
+| **Тесты** | **5** | **13 unit test файлов**, 2 integration, **4 BDD .feature файла** (Gherkin). TDD подход: "Tests written BEFORE implementation" |
+| **Документация** | **5** | Эталонная: README, CLAUDE.md, **CONTRIBUTING.md (480 строк!)**, SECURITY.md с audit, CHANGELOG.md, docs/ папка |
+| **Vibe Coding подход** | **5** | Идеальное соответствие: TDD/BDD workflow, issue-driven development, CLAUDE.md для AI-агентов, security audit |
+
+#### Итого: **25/25** (5.0)
+
+#### Особенности проекта
+
+**Почему это эталон:**
+
+1. **TDD/BDD методология** — тесты написаны ДО кода, документировано в CLAUDE.md и CONTRIBUTING.md
+2. **Issue-driven development** — коммиты ссылаются на issues (#9, #10, #18)
+3. **Security audit** — SECURITY.md с историей исправлений, test_security.py
+4. **CONTRIBUTING.md** — 480 строк с полным описанием TDD workflow
+
+**Цитата из test_generator.py:**
+> "Unit tests for question generator (TDD - RED phase). Tests written BEFORE implementation."
+
+**Цитата из CLAUDE.md:**
+> "Write failing tests first (RED phase). Write minimal code to pass tests (GREEN phase). Refactor while keeping tests green."
+
+**Структура тестов:**
+```
+tests/
+├── unit/           # 13 файлов (TDD)
+├── integration/    # 2 файла
+└── bdd/
+    └── features/   # 4 Gherkin .feature файла
+```
+
+**Вердикт**: Эталонная работа с полной TDD/BDD методологией и security audit.
+
+---
+
 *Документ обновляется по мере проверки работ*
