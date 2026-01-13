@@ -393,4 +393,54 @@ tests/
 
 ---
 
+### 11. Иванов Андрей
+
+**Репозиторий**: https://github.com/cashman2100/aida_product
+
+**Проект**: AIDA (AI Dialog Assistant) — инструмент для структурирования диалогов через Mistral AI
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Полноценное приложение: FastAPI backend, Mistral AI для парсинга диалогов, навигация с подсветкой, редактирование с синхронизацией |
+| **Качество эволюции** | **3** | **15 коммитов** — маловато, но есть 3 PR и feature branches с правильным workflow |
+| **Тесты** | **5** | **4 BDD .feature файла + step definitions (pytest-bdd)**, GitHub Actions CI с coverage, lint, security checks |
+| **Документация** | **5** | README, DEVELOPMENT.md, **.claude/** с AGENT_INSTRUCTIONS.md (26KB!) — инструкции для всех ролей команды |
+| **Vibe Coding подход** | **5** | Идеальное соответствие: multi-agent team (Analyst→Architect→Developer→Reviewer→Tester→DevOps), YouTrack интеграция |
+
+#### Итого: **23/25** (4.6)
+
+#### Особенности проекта
+
+**Multi-agent workflow (.claude/AGENT_INSTRUCTIONS.md):**
+- Роли: Аналитик, Архитектор, Разработчик, Код-ревьюер, Тестировщик, ДевОпс
+- Обязательные комментарии в YouTrack от каждой роли
+- Branch-first подход: ветка создаётся ДО кодинга
+- Формат: `feature/AIDA-{ID}-{описание}`
+
+**GitHub Actions CI (tests.yml):**
+- BDD тесты с coverage (pytest-bdd)
+- Lint: flake8, black, isort
+- Security: bandit, safety
+- Матрица Python версий: 3.10, 3.11, 3.12
+
+**BDD тесты:**
+```
+tests/bdd/
+├── features/       # 4 .feature файла
+│   ├── save_text.feature
+│   ├── parse_dialog.feature
+│   ├── edit_replica.feature
+│   └── data_integrity.feature
+└── steps/          # Step definitions
+    ├── test_common_steps.py
+    ├── test_edit_steps.py
+    └── ...
+```
+
+**Что снизило оценку:** Только 15 коммитов — недостаточно для демонстрации итеративной разработки.
+
+---
+
 *Документ обновляется по мере проверки работ*
