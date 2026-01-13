@@ -503,4 +503,47 @@ agent/
 
 ---
 
+### 13. Каширский Марк
+
+**Репозиторий**: https://github.com/mariklolik/vibe
+
+**Проект**: ResearchMCP — MCP-сервер для автоматизации ML research в Cursor IDE
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | MCP-сервер с **70 инструментами** для полного цикла ML-исследования: papers → ideas → experiments → paper writing |
+| **Качество эволюции** | **2** | **Только 9 коммитов!** Критически мало для демонстрации итеративной разработки |
+| **Тесты** | **4** | 5 pytest файлов (test_workflow.py, test_ideas.py, test_integration.py и др.) + test_e2e.py. Нет BDD |
+| **Документация** | **5** | Отличная: README (22KB), CLAUDE.md, AGENTS.md с multi-agent workflow, CONTRIBUTING.md |
+| **Vibe Coding подход** | **4** | CLAUDE.md с инструкциями для AI, AGENTS.md с архитектурой. Но минимальная эволюция |
+
+#### Итого: **20/25** (4.0)
+
+#### Особенности проекта
+
+**70 MCP инструментов для research workflow:**
+```
+1. CONTEXT         → fetch_hf_trending, search_papers
+2. IDEAS           → generate_ideas, submit_idea
+3. APPROVAL        → USER: APPROVE <id> CODE <code>
+4. EXPERIMENTS     → run_experiment, log_experiment
+5. ANALYSIS        → compare_baselines, check_significance
+6. WRITING         → format_table, expand_paper
+7. FORMAT          → cast_to_format, compile_paper
+```
+
+**Multi-agent архитектура (AGENTS.md):**
+- Research Agent (Primary LLM) — генерирует идеи, пишет
+- Workflow Orchestrator (MCP) — координирует workflow
+- User (Human-in-the-Loop) — approval с confirmation codes
+
+**Цитата из README:**
+> "End-to-end AI research pipeline MCP server. Enables vibe-coding style research workflow from idea generation to paper publication."
+
+**Что критически снизило оценку:** Только 9 коммитов — проект выглядит как "закоммиченный целиком".
+
+---
+
 *Документ обновляется по мере проверки работ*
