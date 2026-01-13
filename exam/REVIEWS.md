@@ -140,4 +140,38 @@
 
 ---
 
+### 4. Исхаков Анвар
+
+**Репозиторий**: https://github.com/KekStroke/audio-event-annotation
+
+**Проект**: Audio Event Annotation Tool — веб-приложение для аннотации больших аудио-файлов
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Полноценный инструмент: Flask backend, wavesurfer.js frontend, waveform/spectrogram визуализация, CRUD аннотаций, экспорт JSON, работа с файлами до 16GB. **82 коммита** |
+| **Качество эволюции** | **5** | PROJECT_CONTEXT.md с Decision Log, эволюция от базы до region spectrogram player, zoom controls, quick region creation, overlap prevention |
+| **Тесты** | **5** | **24 BDD feature файла!** pytest-bdd с Gherkin. Покрытие: API, UI, drag selection, zoom, e2e. Тесты пишутся ДО кода |
+| **Документация** | **5** | README, PROJECT_CONTEXT.md, USAGE.md, USER_GUIDE.md, API.md, development-rules.md, global-rules.md |
+| **Vibe Coding подход** | **5** | Идеальное соответствие! development-rules.md с BDD/TDD workflow для AI-агентов, global-rules.md, Cursor IDE, 24 Gherkin сценария |
+
+#### Итого: **25/25** (5.0)
+
+#### Особенности проекта
+
+**Почему это эталон Vibe Coding:**
+
+1. **development-rules.md** — инструкции для AI-агента с BDD/TDD workflow
+2. **24 BDD features** — спецификация как исчерпывающее описание поведения
+3. **global-rules.md** — ограничения (400 строк макс, идемпотентность)
+4. **PROJECT_CONTEXT.md** — Decision Log с архитектурными решениями
+
+**Цитата из development-rules.md:**
+> "Только ПОСЛЕ того как убедился что тесты падают с правильными ошибками, ты должен написать код, который после запуска сделает их зелеными."
+
+**Вердикт**: Эталонная работа, демонстрирующая BDD/TDD подход с AI-агентами.
+
+---
+
 *Документ обновляется по мере проверки работ*
