@@ -205,4 +205,37 @@ a314a36 Merge pull request #1 from denmalbas007/develop
 
 ---
 
+### 6. Лаптев Андрей
+
+**Репозиторий**: https://github.com/madandrey/task-tracker
+
+**Проект**: TaskFlow — Kanban-style task tracker (конкурент Jira/Trello)
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Полноценный Kanban tracker: subtasks, comments, labels, projects, statistics, export, dark/light themes. FastAPI + SQLite |
+| **Качество эволюции** | **3** | 5 коммитов — маловато, но есть развитие (v2.0 с 10 новыми фичами, user auth). Лучше чем 3 коммита, но недостаточно |
+| **Тесты** | **4** | 32 теста в test_api.py. Покрытие CRUD, subtasks, comments, labels, filtering, statistics. BDD_SPECS.md (markdown) |
+| **Документация** | **5** | Отличная: README с архитектурой, API docs, BDD_SPECS.md, сравнение с конкурентами |
+| **Vibe Coding подход** | **3** | Нет CLAUDE.md. BDD как markdown (не .feature). Упоминание "AI-assisted development", но без методологии |
+
+#### Итого: **20/25** (4.0)
+
+#### Коммиты:
+```
+3403d31 Merge pull request #1 from madandrey/develop
+2f19d49 feat: Add user auth, beautiful Jira-inspired design
+c499ef6 fix: Add error handling in init()
+3a70bd6 v2.0: Production-ready TaskFlow with 10 new features
+2148b21 🚀 Initial commit: TaskFlow - Beautiful Task Tracker
+```
+
+**Положительные стороны:** Функциональный продукт, 32 теста, качественная документация.
+
+**Что снизило оценку:** Мало коммитов (5), нет AI-методологии, BDD как markdown.
+
+---
+
 *Документ обновляется по мере проверки работ*
