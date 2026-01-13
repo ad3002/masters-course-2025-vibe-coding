@@ -174,4 +174,35 @@
 
 ---
 
+### 5. Малбашич Данило
+
+**Репозиторий**: https://github.com/denmalbas007/draw-together
+
+**Проект**: DrawTogether — real-time collaborative drawing board
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Полноценное приложение: FastAPI + WebSocket, layers, undo/redo, gallery, chat, export PNG, ~3500 строк |
+| **Качество эволюции** | **2** | **Только 3 коммита!** Нет видимой эволюции — проект "закоммичен целиком". Противоречит духу vibe coding |
+| **Тесты** | **4** | 50+ тестов. test_api.py, test_models.py, test_advanced_features.py. BDD_SPECS.md (но не pytest-bdd) |
+| **Документация** | **5** | Отличная: README, BDD_SPECS.md, API_DOCUMENTATION.md, ARCHITECTURE.md с диаграммами |
+| **Vibe Coding подход** | **3** | Нет CLAUDE.md. BDD как markdown (не .feature файлы). Нет документированной AI-методологии |
+
+#### Итого: **19/25** (3.8)
+
+#### Проблема: отсутствие эволюции
+
+**Коммиты:**
+```
+a314a36 Merge pull request #1 from denmalbas007/develop
+2984196 🚀 Production Release v2.0
+6d2c057 🎨 DrawTogether: Real-time Collaborative Drawing Board
+```
+
+Проект выглядит как написанный целиком и закоммиченный за раз. Это противоречит ключевому принципу курса — **итеративной разработке от простого к сложному**.
+
+---
+
 *Документ обновляется по мере проверки работ*
