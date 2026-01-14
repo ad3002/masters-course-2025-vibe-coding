@@ -706,4 +706,67 @@ copilot/add-i18n-support-for-messages → PR #48
 
 ---
 
+### 16. Дубенский Артём
+
+**Репозиторий**: https://github.com/Kukva/time-tracker
+
+**Проект**: Time Tracker CLI — консольный инструмент для трекинга рабочего времени
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **4** | Рабочий CLI: start/stop/status/report. JSON storage, валидация, обработка corrupted данных. Но функционал минимальный |
+| **Качество эволюции** | **2** | **Только 11 коммитов!** Проект выглядит как написанный за одну сессию |
+| **Тесты** | **4** | ~20 pytest тестов, покрытие edge cases и corrupted JSON. BDD .feature файл (но без step definitions) |
+| **Документация** | **3** | README (базовый), TODO.md (roadmap). Нет CLAUDE.md, нет описания архитектуры |
+| **Vibe Coding подход** | **2** | Нет CLAUDE.md, нет AI-инструкций, BDD только как спецификация (не запускаемые тесты) |
+
+#### Итого: **15/25** (3.0)
+
+#### Особенности проекта
+
+**Структура:**
+```
+src/
+├── tracker.py    # CLI логика (click)
+└── storage.py    # JSON persistence
+
+tests/
+├── test_tracker.py  # 20 тестов
+└── test_storage.py  # 4 теста
+```
+
+**BDD .feature (не запускаемый):**
+```gherkin
+Feature: Track work time
+  As a freelance developer
+  I want to track my work sessions
+  So that I can invoice clients accurately
+
+  Scenario: Start new work session
+    Given I am not currently tracking time
+    When I run "track start 'coding homework'"
+    Then I should see "✓ Session started: coding homework"
+```
+
+**Что хорошо:**
+- Чистый код с валидацией
+- Хорошая обработка ошибок (corrupted JSON)
+- Тесты покрывают edge cases
+
+**Что снизило оценку:**
+- **Только 11 коммитов** — критически мало для демонстрации итеративной разработки
+- **Нет CLAUDE.md** — не документирован AI-workflow
+- **BDD без step definitions** — .feature файл не запускается как тест
+- **Минимальный функционал** — базовый CLI без расширений
+
+**Рекомендации для улучшения:**
+1. Добавить CLAUDE.md с описанием AI-методологии
+2. Реализовать BDD с pytest-bdd (step definitions)
+3. Больше итераций и коммитов
+4. Расширить функционал (CSV export, weekly reports)
+
+---
+
 *Документ обновляется по мере проверки работ*
