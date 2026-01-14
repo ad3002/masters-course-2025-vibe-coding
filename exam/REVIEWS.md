@@ -546,4 +546,78 @@ agent/
 
 ---
 
+### 14. Ширшов Дмитрий
+
+**Источник**: GitLab (архив папки RetopoFlow-Blender-MCP-main)
+
+**Проект**: RetopoFlow AI — MCP-сервер для AI-assisted ретопологии в Blender + multi-agent система
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Масштабный проект: **71 MCP tool** для Blender, multi-agent pipeline (5 агентов), CLI и API. **107K строк Python кода** |
+| **Качество эволюции** | **3** | Архив без git истории, но масштаб проекта (107K строк) свидетельствует о значительной эволюции |
+| **Тесты** | **5** | **112 тестовых файлов**, **46 BDD .feature файлов** (3658 строк), unit/integration/memory tests, "No mocks policy" |
+| **Документация** | **5** | CLAUDE.md с Three-Layer Rule, **.claude/rules/** (4 файла!), README, docs/architecture/, docs/heuristics/ |
+| **Vibe Coding подход** | **5** | Идеальное соответствие: 5 специализированных агентов, BDD как спецификация, Pydantic контракты, heuristics system |
+
+#### Итого: **23/25** (4.6)
+
+#### Особенности проекта
+
+**Масштаб:**
+- 282 Python файла
+- 107,452 строки Python кода
+- 112 тестовых файлов
+- 46 BDD .feature файлов
+
+**Two-project architecture:**
+
+**1. RetopoFlow-Blender-MCP** — MCP сервер:
+- 71 инструмент для Blender (mesh analysis, remeshing, viewport, selection, modifiers)
+- Three-Layer Rule: Server → Tools → Handlers
+- TCP Socket коммуникация с Blender addon
+
+**2. retopoflow-core-ai** — Multi-agent система:
+```
+┌─────────────────────────────────────────────────┐
+│              Coordinator Agent                   │
+│         (Pipeline: P0→P1→P2→P3)                 │
+└──────┬──────────────┬───────────────────┬───────┘
+       │              │                   │
+┌──────▼──────┐ ┌─────▼─────┐ ┌───────────▼────────┐
+│ SensorAgent │ │  Workers  │ │ ConformanceAgent   │
+│ (Analysis)  │ │Flat/Curved│ │ (Validation)       │
+└─────────────┘ └───────────┘ └────────────────────┘
+```
+
+**5 агентов:**
+- **SensorAgent** — анализ топологии, классификация зон
+- **CoordinatorAgent** — оркестрация pipeline (P0-P3)
+- **FlatWorkerAgent** — агрессивное упрощение плоских зон
+- **CurvedWorkerAgent** — сохранение кривизны
+- **ConformanceAgent** — валидация результатов
+
+**Heuristics system:**
+- Профили: balanced, aggressive_decimation, preserve_detail, fast_processing
+- Industry presets: game_asset, film_vfx, 3d_printing
+- Token budgets для LLM решений
+
+**CLAUDE.md Three-Layer Rule:**
+```
+| Layer | Path | Does |
+|-------|------|------|
+| Server | src/server.py | @mcp.tool() wrappers ONLY |
+| Tools | src/tools/*.py | Validation, formatting |
+| Handlers | src/blender_handlers/*.py | bpy API operations |
+```
+
+**Цитата из CLAUDE.md:**
+> "Rule: server.py has NO logic. Tools validate params. Handlers do bpy work."
+
+**Замечание:** Проект предоставлен как архив без git истории. Масштаб проекта (107K строк) принят как косвенное свидетельство эволюции.
+
+---
+
 *Документ обновляется по мере проверки работ*
