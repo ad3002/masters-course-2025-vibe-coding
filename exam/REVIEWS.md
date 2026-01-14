@@ -983,4 +983,95 @@ Then [ожидаемый результат]
 
 ---
 
+### 20. Дубский Евгений
+
+**Репозиторий**: https://github.com/erarta/luna.ai
+
+**Проект**: LUNA.AI / ПушИИстик — AI-powered образовательная платформа для детей 5-11 лет с hardware toy
+
+#### ⚠️ Командный проект
+
+**Распределение коммитов:**
+| Автор | Коммиты | % |
+|-------|---------|---|
+| JuliaJu | 82 | 32% |
+| Claude (AI) | 64 | 25% |
+| Evgeniy | 63 | 24% |
+| Evgeniy Dubskiy | 24 | 9% |
+| Другие | 29 | 11% |
+
+**Вклад Евгения (~87 коммитов из 262, 33%):**
+- **Hardware (ESP32-A1S)** — Luna Voice component, Squeezelite audio playback (~13K insertions)
+- **CI/CD** — GitHub Actions, AWS CodeBuild workflows для mobile builds
+- **Documentation** — AWS access guides, Kubernetes deployment, developer onboarding (~7K insertions)
+- **Mobile (Flutter)** — skeleton loaders, voice pipeline integration
+- **AGI module** — часть работы над voice pipeline
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Enterprise-level: **15 микросервисов** (DDD), Flutter mobile, Next.js admin, ESP32 hardware toy, Supabase + Redis + Qdrant |
+| **Качество эволюции** | **4** | 87 коммитов личный вклад. Командный проект — не весь код автора |
+| **Тесты** | **4** | 49 test файлов в services/, 80%+ target coverage. Нет BDD .feature файлов |
+| **Документация** | **5** | Отличная: CLAUDE.md, `.claude/rules/` (700+ строк project-context.md + code-examples.md), docs/ |
+| **Vibe Coding подход** | **5** | MCP (Supabase), Serena AI для code navigation, **64 коммита от Claude**, DDD architecture |
+
+#### Итого: **23/25** (4.6)
+
+#### Особенности проекта
+
+**Enterprise-scale архитектура (15 микросервисов):**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    AGI Voice Pipeline                        │
+├─────────────────────────────────────────────────────────────┤
+│  ESP32-A1S → Speech Service → Guardrails → Memory → AI      │
+│             → Guardrails (output) → TTS → Audio response    │
+└─────────────────────────────────────────────────────────────┘
+
+Services (DDD: domain → application → infrastructure → presentation):
+├── auth-service (8001)      ├── emotion-service (8005)
+├── user-service (8002)      ├── english-service (8006)
+├── speech-service (8003)    ├── analytics-service (8007)
+├── ai-service (8004)        ├── gamification-service (8008)
+├── guardrails-service (8009)├── memory-service (8010)
+├── agi-orchestrator (8011)  └── admin-panel (3002)
+```
+
+**Hardware component (ESP32-A1S):**
+- Luna Voice component с Squeezelite-based audio
+- ES8388 codec configuration
+- APLL для precise audio clock
+- 16kHz WAV recording, MP3 playback
+
+**AI-assisted development:**
+- `.mcp.json` — Supabase MCP integration
+- `.serena/` — Serena AI для Python code navigation
+- `.claude/rules/project-context.md` — 700+ строк контекста для агентов
+- `.claude/rules/code-examples.md` — паттерны кода (15 примеров)
+- **64 коммита от Claude** — AI как со-разработчик
+
+**DDD Structure (каждый сервис):**
+```
+service/
+├── app/
+│   ├── domain/           # Pure business logic
+│   ├── application/      # Use cases
+│   ├── infrastructure/   # Database, APIs
+│   └── presentation/     # REST API
+├── tests/
+└── docs/
+```
+
+**Цитата из CLAUDE.md:**
+> "Backend follows DDD: `domain/` → `application/` → `infrastructure/` → `presentation/`"
+
+**Цитата из project-context.md:**
+> "CRITICAL: Domain Layer Purity — NEVER import FastAPI, SQLAlchemy, Redis in domain/"
+
+**Замечание:** Командный проект с значительным личным вкладом в hardware, CI/CD и документацию.
+
+---
+
 *Документ обновляется по мере проверки работ*
