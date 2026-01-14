@@ -769,4 +769,72 @@ Feature: Track work time
 
 ---
 
+### 17. Лалетин Алексей
+
+**Репозиторий**: https://github.com/AlexeyLaletin/daggers-in-the-dark
+
+**Проект**: Blades in the Dark Faction Map — интерактивная карта фракций для настольной ролевой игры
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Full-stack: FastAPI + React + TypeScript + Electron. CRUD, wikilinks, Graph API, GM/Player режимы, Export/Import, pre-commit |
+| **Качество эволюции** | **4** | **28 коммитов** — неплохо, четкая эволюция от init → backend → frontend → desktop |
+| **Тесты** | **4** | 13 test файлов (906 строк), unit + API tests. Нет BDD .feature файлов |
+| **Документация** | **5** | README, TZ.md (спецификация на русском), SystemDesign.md (архитектура), AGENTS.md |
+| **Vibe Coding подход** | **5** | Отличное соответствие: 5 Cursor agents, .cursor/rules/ (TDD, docs), MCP интеграция, TZ как source of truth |
+
+#### Итого: **23/25** (4.6)
+
+#### Особенности проекта
+
+**Full-stack архитектура:**
+```
+daggers-in-the-dark/
+├── backend/          # FastAPI + SQLite
+│   ├── app/api/      # REST endpoints
+│   ├── app/services/ # wikilinks, graph
+│   └── tests/        # 13 test файлов
+├── frontend/         # React + TypeScript + Vite
+│   ├── src/
+│   └── e2e/          # Playwright e2e tests
+├── desktop/          # Electron wrapper
+└── Docs/
+    ├── TZ.md         # Техническое задание
+    └── SystemDesign.md
+```
+
+**Cursor Multi-Agent Architecture (.cursor/agents/):**
+- `base/AGENTS.md` — базовые правила
+- `python-developer/AGENTS.md` — Python-специфичные правила
+- `frontend-developer/AGENTS.md` — Frontend правила
+- `qa-engineer/AGENTS.md` — QA и тестирование
+- `system-architect/AGENTS.md` — архитектурные паттерны
+
+**Cursor Rules (.cursor/rules/):**
+- `practices/tdd.mdc` — TDD workflow (235 строк!)
+- `practices/documentation.mdc` — документирование
+- `practices/database.mdc` — работа с БД
+- `setup/security.mdc` — безопасность
+
+**MCP Integration:**
+```json
+// .cursor/mcp.json
+{
+  "shrimp-task-manager": { ... }
+}
+```
+
+**TZ.md как Source of Truth:**
+> "Все изменения кода и документации **должны соответствовать** `Docs/TZ.md`."
+> "Если запрошенное изменение **не покрыто** ТЗ — сначала обновить спецификацию."
+
+**Цитата из AGENTS.md:**
+> "If you have questions or ambiguity while implementing, you **must ask the user directly** before proceeding with assumptions."
+
+**Вердикт**: Отличный проект с профессиональной архитектурой и multi-agent workflow.
+
+---
+
 *Документ обновляется по мере проверки работ*
