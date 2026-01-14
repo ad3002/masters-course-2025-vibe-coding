@@ -620,4 +620,90 @@ agent/
 
 ---
 
+### 15. Бондарчук Анастасия
+
+**Репозиторий**: https://github.com/SpiritGreen/Random-article-bot
+
+**Проект**: Random Article Bot — Telegram-бот для личного архива ссылок с защитой от спама и XSS
+
+#### Оценки по критериям
+
+| Критерий | Оценка | Комментарий |
+|----------|:------:|-------------|
+| **Работоспособность MVP** | **5** | Полноценный Telegram бот: aiogram 3.x, SQLAlchemy, APScheduler, i18n (ru/en), rate limiting, XSS protection, Docker deploy |
+| **Качество эволюции** | **5** | **155 коммитов**, 80 PRs, версионирование (2.0→2.1→2.2), Copilot-driven development с "Initial plan" → implementation |
+| **Тесты** | **5** | **172 теста**, 18 test файлов, **BDD .feature на русском** (pytest-bdd), GitHub Actions CI, Codecov |
+| **Документация** | **5** | README (414 строк), CLAUDE.md (400 строк TDD), copilot-instructions.md (354 строки), docs/reports/, CHANGELOG.md |
+| **Vibe Coding подход** | **5** | Идеальное соответствие: .github/agents/, TDD workflow в CLAUDE.md, PR-driven development, BDD на русском, итерационные отчёты |
+
+#### Итого: **25/25** (5.0)
+
+#### Особенности проекта
+
+**Статистика:**
+- 155 коммитов
+- 80 Pull Requests
+- 172 автотеста
+- 18 тестовых файлов
+- BDD на русском языке
+
+**GitHub Copilot Agents (.github/agents/):**
+- `Bug-fix-teammate.agent.md` — агент для поиска и исправления багов
+- `Issue-manager.agent.md` — агент для управления issues
+
+**CLAUDE.md TDD workflow (400 строк!):**
+```
+ДО написания кода:
+- ✅ Проверь наличие тестов
+- ✅ Если тестов нет - создай их ПЕРЕД изменениями
+- ✅ Запусти существующие тесты
+
+ПОСЛЕ написания кода:
+- ✅ Запусти тесты: pytest tests/ -v
+- ✅ Убедись что ВСЕ тесты проходят
+- ✅ Добавь новые тесты для нового функционала
+```
+
+**BDD на русском (features/link_management.feature):**
+```gherkin
+# language: ru
+
+Функция: Управление ссылками
+  Как пользователь бота
+  Я хочу сохранять и управлять ссылками
+  Чтобы читать интересные статьи позже
+
+  Сценарий: Добавление и получение случайной ссылки
+    Дано у меня есть категория "Python"
+    Когда я добавляю ссылку "https://python.org" в категорию "Python"
+    И я запрашиваю случайную ссылку
+    Тогда я получаю ссылку "https://python.org"
+```
+
+**GitHub Actions CI:**
+- Матрица Python: 3.10, 3.11, 3.12
+- Coverage с Codecov
+- Автоматическое тестирование на push/PR
+
+**Итерационные отчёты (docs/reports/):**
+- CRITICAL_FIXES_2026_01_13.md
+- ITERATION_2_REPORT.txt
+- ITERATION_3_REPORT.md
+- SQLALCHEMY_TYPINGS_FIX.md
+- И другие...
+
+**Copilot PR workflow:**
+```
+copilot/update-copilot-instructions → PR #79
+copilot/update-config-md-docs → PR #80
+copilot/add-i18n-support-for-messages → PR #48
+```
+
+**Цитата из README:**
+> "172/172 passed ✅ (включая test_schedule_post.py)"
+
+**Вердикт**: Эталонная работа с полным TDD/BDD workflow, GitHub Copilot agents, и PR-driven development.
+
+---
+
 *Документ обновляется по мере проверки работ*
