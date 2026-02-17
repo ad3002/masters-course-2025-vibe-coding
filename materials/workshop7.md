@@ -1,2615 +1,2615 @@
-# Лекция 7: Полный цикл разработки продукта
-## От идеи до production за 3 часа с multi-agent командой
+# Lecture 7: Full Product Development Cycle
+## From Idea to Production in 3 Hours with a Multi-Agent Team
 
 ---
 
-## Мета-контекст: Амбициозный эксперимент
+## Meta-Context: An Ambitious Experiment
 
-**Цель лекции**: Показать ПОЛНЫЙ цикл разработки реального приложения - от спецификации через BDD до работающего продукта с тестами, аудитом безопасности и планом монетизации.
+**Lecture goal**: Demonstrate the COMPLETE development cycle of a real application - from specification through BDD to a working product with tests, security audit, and monetization plan.
 
-**Время**: 3 часа (плюс философские дискуссии)
+**Duration**: 3 hours (plus philosophical discussions)
 
-**Особенность**: Первая лекция где мы используем **multi-agent подход** - несколько инстансов Claude работают параллельно в разных ролях:
-- Программист (пишет код)
-- QA/Тестер (проверяет и находит баги)
-- Security Reviewer (аудит безопасности)
+**Unique aspect**: The first lecture where we use a **multi-agent approach** - several instances of Claude working in parallel in different roles:
+- Programmer (writes code)
+- QA/Tester (reviews and finds bugs)
+- Security Reviewer (security audit)
 
-*Комментарий Леши: "Мы хотим показать не только как писать код, а как из этого кода получить пользу. Можно ли вообще с машинами добиться видимости для инструмента?"*
+*Lesha's comment: "We want to show not just how to write code, but how to extract value from that code. Is it even possible to achieve visibility for a tool using machines?"*
 
 ---
 
-## Часть 1: Постановка задачи и выбор стека
+## Part 1: Problem Statement and Stack Selection
 
-### Проблема, которую решаем
+### The Problem We're Solving
 
 **Real pain point**:
-> "Дедлайны на ML конференции за полгода, и обычно они пропускаются. Узнают в последний момент, а не готовятся эти полгода. Умные ребята в больших лабораториях готовятся заранее, там статья готова сильно заранее. Мы хотим симулировать этих умных ребят."
+> "Deadlines for ML conferences are six months out, and they're usually missed. People find out at the last moment instead of preparing those six months ahead. Smart folks in big labs prepare in advance - their paper is ready well ahead of time. We want to emulate those smart folks."
 
-**Идея приложения**:
-- Парсить OpenReview (все ML конференции)
-- Хранить свои paper drafts / идеи
-- **Матчить** drafts с подходящими конференциями
-- Не пропускать дедлайны
+**Application idea**:
+- Parse OpenReview (all ML conferences)
+- Store your paper drafts / ideas
+- **Match** drafts with suitable conferences
+- Never miss deadlines
 
-*Комментарий Леши: "Простая проблема - не просирать дедлайны и матчить статьи с конференциями. Но это ещё и задачка на демонстрацию системы. Убить сразу двух зайцев."*
+*Lesha's comment: "Simple problem - don't miss deadlines and match papers to conferences. But it's also a task to demonstrate the system. Killing two birds with one stone."*
 
-### Архитектурные решения
+### Architectural Decisions
 
-**Выбор стека**: Flask + MongoDB + Python парсер
+**Stack choice**: Flask + MongoDB + Python parser
 
-**Почему НЕ разделяли фронт и бэк**:
-> "Недавно узнал, что в отличие от моего опыта... У меня был стек FastAPI, но с Flask оказалось, что машины на Flask'е охрененно пишут JavaScript всё то что нужно. Компоненты машина создает на лету без зависимостей."
+**Why we did NOT separate frontend and backend**:
+> "I recently learned that unlike my experience... I was used to FastAPI, but with Flask it turned out that machines write JavaScript brilliantly on Flask - everything you need. Components are created on the fly without dependencies."
 
-**Проблема с NPM зависимостями**:
-- Больше трёх случаев взлома через NPM пакеты
-- Любой маленький компонент = зависимость от десятков других пакетов
-- "Когда используешь JavaScript локально, этой проблемы нет"
-- Не нужно думать что кто-то сломает библиотеку которая делает lowercase → uppercase
+**The problem with NPM dependencies**:
+- More than three cases of hacks through NPM packages
+- Any small component = dependency on dozens of other packages
+- "When you use JavaScript locally, this problem doesn't exist"
+- No need to worry about someone breaking a library that does lowercase -> uppercase
 
-**Итоговый стек**:
+**Final stack**:
 ```
 Backend: Flask (Python)
-Database: MongoDB (в Docker)
+Database: MongoDB (in Docker)
 Parser: Python + openreview-py
 Frontend: Flask templates + vanilla JavaScript
-Task tracking: YouTrack (через MCP)
+Task tracking: YouTrack (via MCP)
 Version control: Git
 ```
 
-*Комментарий от меня (Claude): Это прагматичный выбор для прототипа. Flask + MongoDB = минимальный boilerplate, быстрый старт. Выбор JavaScript без NPM рискованный (нет экосистемы), но для MVP имеет смысл - контролируешь всё.*
+*Comment from me (Claude): This is a pragmatic choice for a prototype. Flask + MongoDB = minimal boilerplate, quick start. Choosing JavaScript without NPM is risky (no ecosystem), but for an MVP it makes sense - you control everything.*
 
-### Инструментальная магия
+### Tooling Magic
 
-**Новое открытие**: Можно давать голосовые задачи Клоду, который их пишет в чат
+**New discovery**: You can give voice tasks to Claude, who writes them into the chat
 
-*Леша охреневает*:
-> "Я понял, что можно Клода просить писать голосом в ChatGPT прямо в реальном времени. Мой день не прошёл зря. Лекция окупилась, потому что это прикольно!"
+*Lesha is amazed*:
+> "I realized you can ask Claude to write voice commands into ChatGPT in real time. My day was not wasted. The lecture paid for itself because this is cool!"
 
-**Технический setup**:
-- Zoom через iPad (студенты)
-- Claude через MacBook (голосовой интерфейс)
-- BlackHole (виртуальный драйвер) - Zoom слышит систему, но не микрофон
-- 11 Labs для голоса Claude
+**Technical setup**:
+- Zoom via iPad (students)
+- Claude via MacBook (voice interface)
+- BlackHole (virtual driver) - Zoom hears the system but not the microphone
+- 11 Labs for Claude's voice
 
-*Комментарий: Это показывает эволюцию workflow - от "печатать задачи" к "наговаривать задачи голосом". Естественный язык становится primary interface для программирования.*
+*Comment: This shows the evolution of workflow - from "typing tasks" to "dictating tasks by voice". Natural language is becoming the primary interface for programming.*
 
 ---
 
-## Часть 2: Спецификация и декомпозиция
+## Part 2: Specification and Decomposition
 
-### Формулировка задачи (Клодом-голосовым)
+### Task Formulation (by Voice-Claude)
 
-**Я сформулировал задачу**:
+**I formulated the task**:
 ```
 Conference Submission Tracker
 
-Проблема: 
-Исследователи пропускают дедлайны ML-конференций, 
-узнают за 3 дня, а не готовятся полгода заранее.
+Problem:
+Researchers miss ML conference deadlines,
+finding out 3 days before instead of preparing
+six months in advance.
 
-Решение: 
-Приложение парсит OpenReview, показывает конференции 
-с дедлайнами И делает матчинг между paper drafts/идеями 
-и подходящими конференциями.
+Solution:
+An application that parses OpenReview, shows conferences
+with deadlines AND matches paper drafts/ideas
+with suitable conferences.
 
-Сущности:
-- Conference (название, дедлайн, топики)
-- Paper Draft (идея, статус, топики)  
-- Submission (связь draft-conference)
+Entities:
+- Conference (name, deadline, topics)
+- Paper Draft (idea, status, topics)
+- Submission (draft-conference link)
 
-Стек: Flask, MongoDB, Python parser для OpenReview
+Stack: Flask, MongoDB, Python parser for OpenReview
 
-Цель: За полтора-два часа - рабочее приложение
+Goal: A working application in an hour and a half to two hours
 ```
 
-*Комментарий от меня: Хорошая спецификация. Конкретная проблема, понятные сущности, реалистичный таймфрейм. Это то что нужно для BDD.*
+*Comment from me: Good specification. Concrete problem, clear entities, realistic timeframe. This is exactly what you need for BDD.*
 
-### Создание задачи в YouTrack
+### Creating the Task in YouTrack
 
-**Процесс**:
-1. Создали проект "Conference Tracker" (сокращённо "con")
-2. Я наговорил спецификацию голосом
-3. Леша создал issue КОН-1 "Общий план проекта"
+**Process**:
+1. Created the "Conference Tracker" project (abbreviated "con")
+2. I dictated the specification by voice
+3. Lesha created issue CON-1 "Overall Project Plan"
 
-**Важный момент - BDD с самого начала**:
-> "Мы хотим чтобы он делал как мы на прошлых занятиях - чтобы было с BDD. Чтобы это было по науке красиво, а не бежать писать код."
+**Key point - BDD from the start**:
+> "We want it done the way we covered in previous sessions - with BDD. We want it done properly, scientifically, not just rushing to write code."
 
-**Инструкция для программиста** (которую я продиктовал):
+**Instructions for the programmer** (which I dictated):
 ```
-Подход - BDD и тесты сначала:
+Approach - BDD and tests first:
 
-1. Напиши BDD сценарии для ключевых фич:
-   - Парсинг конференций
-   - Сохранение в Mongo
-   - Показ списка с дедлайнами
-   - Матчинг драфтов с конференциями
+1. Write BDD scenarios for key features:
+   - Conference parsing
+   - Saving to Mongo
+   - Displaying list with deadlines
+   - Matching drafts to conferences
 
-2. Под каждый сценарий - юнит-тесты перед кодом
-   Тесты падают, потом пишем код чтобы зелёные
+2. For each scenario - unit tests before code
+   Tests fail, then we write code to make them green
 
-3. Декомпозируй на подзадачи:
-   - Парсер OpenReview
-   - MongoDB схема и подключение
+3. Decompose into subtasks:
+   - OpenReview parser
+   - MongoDB schema and connection
    - Flask endpoints
-   - Простой фронт для показа
+   - Simple frontend for display
 
-4. Линейная разработка в main
-   Одна задача за раз, тест зелёный - коммит - следующая
-   Порядок: парсер, Mongo схема, Flask API, фронт
-   
-Время: полтора-два часа на всё
+4. Linear development in main
+   One task at a time, test green - commit - next
+   Order: parser, Mongo schema, Flask API, frontend
+
+Time: an hour and a half to two hours for everything
 ```
 
-*Комментарий: Обратите внимание - НЕТ веток! Леша специально упростил workflow: "Один программист, одна монорепа, только одна ветка - линейное программирование".*
+*Comment: Note - NO branches! Lesha deliberately simplified the workflow: "One programmer, one monorepo, only one branch - linear programming".*
 
-### Первая декомпозиция (плохая)
+### First Decomposition (bad)
 
-**Проблема**: Клод-программист декомпозировал задачу "спустя рукава"
+**Problem**: Claude-the-programmer decomposed the task half-heartedly
 
-*Леша недоволен*:
-> "Он забыл вообще про TDD. Декомпозировал очень-очень плохо. Там очень мало текста. Не нужно так ставить задачи, иначе потом будет отвадить вечность."
+*Lesha is displeased*:
+> "He completely forgot about TDD. The decomposition is terrible. There's very little text. Don't set tasks like this, otherwise it will take forever later."
 
-**Что не так**:
-- Нет структуры "Почему - Что - Как"
-- Нет BDD сценариев
-- Нет чеклистов acceptance criteria
-- Слишком краткие описания
+**What went wrong**:
+- No "Why - What - How" structure
+- No BDD scenarios
+- No acceptance criteria checklists
+- Descriptions too brief
 
-### Правильная структура задачи
+### Proper Task Structure
 
-**Я объяснил как надо декомпозировать**:
+**I explained how to decompose properly**:
 
 ```
-Каждая подзадача должна содержать:
+Each subtask must contain:
 
-1. Почему - какую проблему решает эта часть 
-   в общем контексте приложения
+1. Why - what problem this part solves
+   in the overall application context
 
-2. Что - конкретный deliverable, 
-   что именно получим на выходе
+2. What - specific deliverable,
+   what exactly we get as output
 
-3. Как - технический подход, стек, 
-   ключевые решения
+3. How - technical approach, stack,
+   key decisions
 
-4. BDD сценарий - Given-When-Then для этой фичи
+4. BDD scenario - Given-When-Then for this feature
 
-5. Чеклист acceptance criteria - 
-   минимум 3-4 пункта, что должно работать 
-   чтобы задача done
+5. Acceptance criteria checklist -
+   minimum 3-4 items that must work
+   for the task to be done
 
-6. Тесты первые - напиши что именно тестируем 
-   до написания кода
+6. Tests first - write what exactly we test
+   before writing code
 
-Без этой структуры задачу не принимаем!
+Without this structure, the task is not accepted!
 ```
 
-*Леша добавил*:
-> "Любое разбиение на задачи должно быть сделано хорошо. У задачи должен быть необходимый контекст, чтобы можно было её решить. Если у вас issue на страницу - это нормально!"
+*Lesha added*:
+> "Any task decomposition must be done well. The task must have the necessary context to be solvable. If your issue is a full page - that's normal!"
 
-*Комментарий от меня: Это золотое правило. Задача = спецификация + контекст. Для AI это критично - без контекста он начнёт додумывать и пойдёт не туда.*
+*Comment from me: This is the golden rule. Task = specification + context. For AI this is critical - without context it starts guessing and goes off track.*
 
-**Результат**: Клод переделал декомпозицию нормально
+**Result**: Claude redid the decomposition properly
 
 ---
 
-## Часть 3: Разработка - MongoDB и схема данных
+## Part 3: Development - MongoDB and Data Schema
 
-### КОН-2: MongoDB схема и подключение
+### CON-2: MongoDB Schema and Connection
 
-**Что делал программист**:
-1. Создал структуру проекта
-2. Написал `requirements.txt` (Flask, pymongo)
-3. Создал `.env` файл для MongoDB URI
-4. Поднял MongoDB через Docker Compose
-5. Написал **тесты СНАЧАЛА** (TDD)
+**What the programmer did**:
+1. Created project structure
+2. Wrote `requirements.txt` (Flask, pymongo)
+3. Created `.env` file for MongoDB URI
+4. Spun up MongoDB via Docker Compose
+5. Wrote **tests FIRST** (TDD)
 
-**Важный момент - моки vs реальная БД**:
+**Key moment - mocks vs real DB**:
 
-*Леша изначально*:
-> "У нас из сюрпризов - Mongo не стоит на компе. Сейчас посмотрим сможет ли он это понять."
+*Lesha initially*:
+> "One of the surprises - Mongo isn't installed on the machine. Let's see if it can figure this out."
 
-*Я предложил*: "Моки хороши для юнит-тестов, но интеграция с реальной базой покажет косяки раньше."
+*I suggested*: "Mocks are good for unit tests, but integration with a real database will reveal issues earlier."
 
-**Что такое моки** (я объяснял):
+**What are mocks** (I explained):
 ```
-Моки - подмена реальных зависимостей (БД, API) 
-фейковыми объектами в тестах.
+Mocks - replacing real dependencies (DB, API)
+with fake objects in tests.
 
-Плюсы:
-- Тесты быстрые
-- Не зависят от внешних систем
-- Изолированные - проверяют только твой код
+Pros:
+- Tests are fast
+- Don't depend on external systems
+- Isolated - only test your code
 
-Минусы:  
-- Тестируешь не реальное поведение
-- Можешь пропустить баги интеграции
-- Надо поддерживать моки синхронно с реальными системами
+Cons:
+- You test behavior that isn't real
+- Can miss integration bugs
+- Need to keep mocks in sync with real systems
 
-Мой взгляд: юнит-тесты с моками, 
-интеграционные с реальной БД.
+My view: unit tests with mocks,
+integration tests with real DB.
 ```
 
-*Леша согласился*: "Давай Mongo в Docker поставим лучше. Не надо мокать."
+*Lesha agreed*: "Let's set up Mongo in Docker instead. No need to mock."
 
-**Результат**: Клод сам создал `docker-compose.yml` и поднял MongoDB
+**Result**: Claude created `docker-compose.yml` on its own and spun up MongoDB
 
-*Комментарий от меня: Правильное решение. Для прототипа за 2 часа - реальная MongoDB в Docker быстрее и честнее чем мучиться с моками.*
+*Comment from me: Right decision. For a prototype built in 2 hours - real MongoDB in Docker is faster and more honest than struggling with mocks.*
 
-### BDD тесты (первая попытка)
+### BDD Tests (first attempt)
 
-**Что получилось**:
-- 7 тестов прошли (зелёные)
-- Два BDD сценария:
-  1. Сохранение и получение конференции
-  2. Связь драфта с конференцией
+**What we got**:
+- 7 tests passed (green)
+- Two BDD scenarios:
+  1. Saving and retrieving a conference
+  2. Linking a draft to a conference
 
-**Но была проблема**: Леша не знал ЧТО именно протестировано
+**But there was a problem**: Lesha didn't know WHAT exactly was tested
 
-*Леша*:
-> "Я всё ещё не знаю какой JSON у ответа от API. У нас нет нигде задачи узнать этот JSON. Если чешется любопытство - это не проблема программиста, мы ему задачу не ставили."
+*Lesha*:
+> "I still don't know what the JSON response from the API looks like. We don't have a task anywhere to find out this JSON. If curiosity itches - that's not the programmer's problem, we didn't assign that task."
 
-*Комментарий от меня: Классическая проблема TDD - "кто тестирует тесты?". Если программист пишет и код и тесты, может схалявить. Поэтому позже мы запустили отдельного агента-тестера.*
+*Comment from me: Classic TDD problem - "who tests the tests?". If the programmer writes both code and tests, they can cut corners. That's why we later launched a separate tester agent.*
 
-### Важность размера файлов
+### Importance of File Size
 
-**Проблема контекста**:
+**The context problem**:
 
-*Леша*:
-> "Оптимальные размеры файлов - 300-500 строк максимум. Не более. Всё, 1000 строк это уже большой файл. Если больше 500, Клод берёт VGREP и работает по кускам."
+*Lesha*:
+> "Optimal file sizes - 300-500 lines maximum. No more. A 1000-line file is already too big. If it's over 500, Claude uses VGREP and works in chunks."
 
-**Почему это важно**:
-- Большие файлы жрут tokens на входе/выходе
-- AI начинает читать файл целиком, контекст кончается моментально
-- Лучше 10 файлов по 100 строк, чем один на тысячу
+**Why this matters**:
+- Large files consume tokens on input/output
+- AI starts reading the entire file, context runs out instantly
+- Better to have 10 files of 100 lines than one of a thousand
 
-*Я добавил*: 
-> "Классика - 200-400 строк максимум. Один файл = одна ответственность. Читаемость - человек держит в голове примерно столько же. Для AI - selective reading работает эффективнее."
+*I added*:
+> "Classic - 200-400 lines maximum. One file = one responsibility. Readability - a person can hold about that much in their head. For AI - selective reading works more efficiently."
 
-*Комментарий от меня: Это не только про AI. Хорошая практика для любого кода. Но с AI это становится критично - иначе выжигаешь контекст впустую.*
+*Comment from me: This isn't just about AI. Good practice for any code. But with AI it becomes critical - otherwise you burn context for nothing.*
 
 ---
 
-## Часть 4: Парсер OpenReview - реальные данные
+## Part 4: OpenReview Parser - Real Data
 
-### КОН-3: Парсинг конференций
+### CON-3: Conference Parsing
 
-**Задача**: Спарсить все конференции с OpenReview, сохранить в MongoDB
+**Task**: Parse all conferences from OpenReview, save to MongoDB
 
-**Подход программиста**: Начал с BDD (правильно!)
+**Programmer's approach**: Started with BDD (correct!)
 
-**BDD сценарии**:
-1. Парсинг списка активных конференций
-2. Сохранение в базу данных
-3. Обработка ошибок парсера
+**BDD scenarios**:
+1. Parsing the list of active conferences
+2. Saving to database
+3. Parser error handling
 
-**Неожиданное открытие**: Есть официальная библиотека `openreview-py`!
+**Unexpected discovery**: There's an official library `openreview-py`!
 
-*Леша*:
-> "Есть OpenReview-py оказывается! Но сторонние либы - риск (поддержка, security, актуальность). Два варианта: используем если maintained, или парсим сами."
+*Lesha*:
+> "Turns out there's an openreview-py! But third-party libraries are a risk (maintenance, security, currency). Two options: use it if it's maintained, or parse ourselves."
 
-*Я спросил*: "Посмотри на GitHub - когда последний коммит, сколько issues. Если alive - берём, экономим время."
+*I asked*: "Check GitHub - when was the last commit, how many issues. If it's alive - take it, save time."
 
-**Решение**: Клод правильно прочитал документацию, это официальная библиотека
+**Decision**: Claude correctly read the documentation; it's an official library
 
-*Комментарий от меня: Хорошее pragmatic решение. Проверить maintained ли проект, и если да - не изобретать велосипед.*
+*Comment from me: Good pragmatic decision. Check if the project is maintained, and if so - don't reinvent the wheel.*
 
-### Компактизация контекста (проблема!)
+### Context Compaction (problem!)
 
-**Что произошло**: У программиста кончился контекст, произошла компактизация
+**What happened**: The programmer ran out of context, compaction occurred
 
-*Леша обеспокоен*:
-> "Это как с тобой сейчас - когда у тебя контекст на час аудио кончается, я беру транскрипцию и вставляю. Клод-программист делает то же самое, только в закрытом виде."
+*Lesha is concerned*:
+> "It's like with you right now - when your context for an hour of audio runs out, I take the transcription and paste it in. Claude-the-programmer does the same thing, only behind closed doors."
 
-**Проблемы компактизации** (я перечислил):
+**Compaction problems** (I listed them):
 ```
-- Нет контроля - не видишь ЧТО выкинули
-- Ненадёжно - иногда фейлится если "too large"
-- Непрозрачно - добавление инструкций не гарантирует учёт
+- No control - you can't see WHAT was discarded
+- Unreliable - sometimes fails if "too large"
+- Opaque - adding instructions doesn't guarantee they're considered
 
-Что теряется чаще всего:
-- Архитектурные решения ("почему так")
-- BDD требования из начала
-- Ограничения ("не использовать NPM")
+What gets lost most often:
+- Architectural decisions ("why we did it this way")
+- BDD requirements from the beginning
+- Constraints ("don't use NPM")
 ```
 
-*Леша*: "Это самая неприятная штука. Вы кидаете кубик на удачу и ничего не контролируете."
+*Lesha*: "This is the most unpleasant thing. You're rolling the dice on luck and controlling nothing."
 
-*Комментарий от меня: Да, компактизация - чёрный ящик и biggest risk multi-turn разработки. Anthropic должны улучшить это - дать control над тем что сохраняется.*
+*Comment from me: Yes, compaction is a black box and the biggest risk of multi-turn development. Anthropic should improve this - give control over what gets preserved.*
 
-### Результат парсинга
+### Parsing Result
 
-**Проблема**: Только 6 конференций вместо ~145
+**Problem**: Only 6 conferences instead of ~145
 
-*Леша подозревает*:
-> "У Клода 2024 год в cutoff, а не 2025. Если пытаешься вставить GPT-5 mini, он сопротивляется. Всё что связано с датами - проверяйте."
+*Lesha suspects*:
+> "Claude has a 2024 knowledge cutoff, not 2025. If you try to insert GPT-5 mini, it resists. Anything related to dates - always check."
 
-**Но главное** - функциональность есть, данные парсятся, сохраняются в MongoDB
+**But the main thing** - the functionality works, data is parsed, saved to MongoDB
 
-*Комментарий: Типичная проблема - AI может иметь outdated представления о current date. Нужно было explicit передать что сейчас конец октября 2025.*
+*Comment: Typical problem - AI can have outdated notions about the current date. Should have explicitly stated that it's late October 2025.*
 
 ---
 
-## Часть 5: Multi-agent команда - тестер и ревьюер
+## Part 5: Multi-Agent Team - Tester and Reviewer
 
-### Запуск второго агента - QA/Тестер
+### Launching the Second Agent - QA/Tester
 
-**Мотивация**: Проверить честны ли BDD тесты первого программиста
+**Motivation**: Verify whether the first programmer's BDD tests are honest
 
-*Леша*:
-> "Как мы можем понять что наш Gherkin сценарий правильно имплементирован в коде? Может там стоит `return True` например?"
+*Lesha*:
+> "How can we tell if our Gherkin scenario is correctly implemented in code? Maybe it just has `return True` for example?"
 
-**КОН-5: Аудит написанных BDD тестов**
+**CON-5: Audit of Written BDD Tests**
 
-**Задача для тестера** (я сформулировал):
+**Task for the tester** (I formulated):
 ```
-Audit BDD тестов - проверка качества и честности
+BDD test audit - quality and honesty check
 
-Цель: Убедиться что BDD тесты реально проверяют 
-поведение системы, а не просто "зелёные галочки"
+Goal: Ensure that BDD tests actually verify
+system behavior, not just produce "green checkmarks"
 
-Что проверить:
+What to check:
 
-1. Честность step definitions
-   - Открой все @given/@when/@then функции
-   - Есть ли реальная логика или просто return True
-   - Каждый @then должен содержать assert
+1. Honesty of step definitions
+   - Open all @given/@when/@then functions
+   - Is there real logic or just return True
+   - Every @then must contain an assert
 
-2. Mutation testing вручную  
-   - Сломай код парсера намеренно
-   - Запусти BDD тесты
-   - Ожидание: тесты должны ПОКРАСНЕТЬ
-   - Если остались зелёные - найди почему
+2. Manual mutation testing
+   - Break the parser code intentionally
+   - Run BDD tests
+   - Expectation: tests should TURN RED
+   - If they stay green - find out why
 
-3. Edge cases покрытие
-   - Что если OpenReview API вернул пустой список? 
-     Ошибку 500? Timeout?
-   - Есть ли BDD сценарии для этих случаев?
-   - Если нет - добавь минимум 2 negative scenarios
+3. Edge case coverage
+   - What if OpenReview API returns an empty list?
+     A 500 error? Timeout?
+   - Are there BDD scenarios for these cases?
+   - If not - add at least 2 negative scenarios
 
-4. Читаемость Gherkin
-   - Прочитай .feature файлы
-   - Понятно ли ЧТО проверяется без чтения кода?
+4. Gherkin readability
+   - Read the .feature files
+   - Is it clear WHAT is being tested without reading code?
 
 Acceptance criteria:
-✅ Все step definitions содержат реальные assertions
-✅ Минимум один тест покраснел когда код сломали
-✅ Добавлено 2+ negative scenarios  
-✅ Feature файлы читаются как спецификация
+✅ All step definitions contain real assertions
+✅ At least one test turned red when code was broken
+✅ 2+ negative scenarios added
+✅ Feature files read like a specification
 
-Результат: Коммент в КОН-3 с findings
+Result: Comment in CON-3 with findings
 ```
 
-**Важно - разделение ролей**:
+**Important - separation of roles**:
 
-*Я предложил*:
-> "Тестер: читает код (read-only), запускает тесты, ломает код локально, находит баги → создаёт issue. НЕ фиксит код сам!"
+*I suggested*:
+> "Tester: reads code (read-only), runs tests, breaks code locally, finds bugs -> creates issue. Does NOT fix code themselves!"
 
-*Леша согласился*:
-> "Ты QA/Tester. Когда находишь баг: создай issue в YouTrack, приложи steps to reproduce, останови работу. НЕ правь код сам - это работа программиста."
+*Lesha agreed*:
+> "You're a QA/Tester. When you find a bug: create an issue in YouTrack, attach steps to reproduce, stop work. Do NOT fix code yourself - that's the programmer's job."
 
-*Комментарий от меня: Это ключевой принцип. Separation of concerns. Тестер не должен править код - конфликт интересов. Как в реальной команде.*
+*Comment from me: This is a key principle. Separation of concerns. The tester should not fix code - conflict of interest. Just like in a real team.*
 
-### Что нашёл тестер (РЕАЛЬНЫЙ УСПЕХ!)
+### What the Tester Found (REAL SUCCESS!)
 
-**Найденные проблемы**:
+**Issues discovered**:
 ```
-✅ `@given` "OpenReview доступен" содержал только `pass`
-   - Заглушка вместо real setup
+✅ `@given` "OpenReview is available" contained only `pass`
+   - Stub instead of real setup
 
-✅ `@then` "Все конференции содержат ID" 
-   не проверял ID
-   - Слабый assert, 2005 строк кода не проверялись
+✅ `@then` "All conferences contain ID"
+   didn't actually check ID
+   - Weak assert, 2005 lines of code not verified
 
-✅ Отсутствие negative scenarios
-   - Только happy path тестировался
+✅ Missing negative scenarios
+   - Only happy path was tested
 ```
 
-**Исправления тестера**:
+**Tester's fixes**:
 ```
-✅ Заглушки заменены реальной логикой
-✅ Mutation testing показал что тесты 
-   теперь краснеют при поломке
-✅ Добавлены negative cases:
-   - MongoDB недоступен
-   - Попытка подключить несуществующую конференцию
+✅ Stubs replaced with real logic
+✅ Mutation testing showed that tests
+   now turn red when code breaks
+✅ Negative cases added:
+   - MongoDB unavailable
+   - Attempt to link non-existent conference
    - API request error
 ```
 
-*Леша*:
-> "По мне это выглядит как успех! Если это правда и реально один из тестов был зелёный при сломанном коде - мы поймали халяву."
+*Lesha*:
+> "In my view this looks like a success! If it's true and one of the tests was actually green with broken code - we caught someone slacking off."
 
-*Комментарий от меня: Это РЕАЛЬНОЕ доказательство концепции! Программист схалявил (возможно неосознанно), тестер поймал. Разделение ролей работает!*
+*Comment from me: This is REAL proof of concept! The programmer cut corners (perhaps unconsciously), the tester caught it. Role separation works!*
 
-### Mutation Testing - что это
+### Mutation Testing - What It Is
 
-**Я объяснял**:
+**I explained**:
 ```
-Mutation testing frameworks (для Python):
-- mutmut - самый популярный
-- cosmic-ray - более мощный
-- mutpy - старый
+Mutation testing frameworks (for Python):
+- mutmut - most popular
+- cosmic-ray - more powerful
+- mutpy - older
 
-Как работают:
-1. Берут код
-2. Делают мутации (меняют + на -, > на >=, удаляют строки)
-3. Прогоняют тесты на каждой мутации
-4. Если тесты остались зелёные при сломанном коде 
-   = "survived mutant" = плохой тест
+How they work:
+1. Take the code
+2. Create mutations (change + to -, > to >=, delete lines)
+3. Run tests on each mutation
+4. If tests stay green with broken code
+   = "survived mutant" = bad test
 
-Метрика: mutation score = (killed mutants) / (total mutants)
-Хороший test suite убивает 80%+ мутантов
+Metric: mutation score = (killed mutants) / (total mutants)
+A good test suite kills 80%+ mutants
 ```
 
-*Леша*: "Да, есть вообще фреймворк который ломает код и запускает тесты автоматически."
+*Lesha*: "Yes, there's actually a framework that breaks code and runs tests automatically."
 
-*Комментарий от меня: Тестер делал это руками (ломал код, смотрел краснеют ли тесты), но можно автоматизировать через mutmut. Для обучения ручной подход лучше - видишь процесс.*
+*Comment from me: The tester did this manually (broke code, checked if tests turned red), but it can be automated via mutmut. For learning, the manual approach is better - you see the process.*
 
 ---
 
-## Часть 6: Flask API и фронтенд
+## Part 6: Flask API and Frontend
 
-### КОН-4: Flask endpoints
+### CON-4: Flask Endpoints
 
-**Что делал программист**:
-- Создал REST API endpoints
-- `/conferences` - список конференций
-- `/drafts` - создание/получение драфтов
-- `/match` - матчинг драфтов с конференциями
+**What the programmer did**:
+- Created REST API endpoints
+- `/conferences` - list of conferences
+- `/drafts` - creating/retrieving drafts
+- `/match` - matching drafts with conferences
 
-**Параллельно**: Тестер всё ещё дорабатывал negative scenarios
+**In parallel**: The tester was still working on negative scenarios
 
-*Леша управляет двумя окнами*:
-> "У меня два окна Клода. Это можно делать внутри субагентов - сейчас мы разложили в отдельные окна, а субагенты сложат в одно."
+*Lesha is managing two windows*:
+> "I have two Claude windows. This can be done within sub-agents - right now we split them into separate windows, and sub-agents will fold them into one."
 
-### КОН-5: Простой фронтенд
+### CON-5: Simple Frontend
 
-**Что сделано**:
-- HTML страница со списком конференций
-- Форма для добавления draft
-- Показ матчинга draft → conference
-- Vanilla JavaScript (без NPM!)
+**What was built**:
+- HTML page with conference list
+- Form for adding a draft
+- Display of draft -> conference matching
+- Vanilla JavaScript (no NPM!)
 
-*Леша доволен*:
-> "Всё работает! Я подтыкал, никаких багов нет. Кроме 6 конференций вместо 145, но это парсер - что-то недоговорили."
+*Lesha is pleased*:
+> "Everything works! I poked around, no bugs at all. Except 6 conferences instead of 145, but that's the parser - we didn't specify something."
 
-*Комментарий от меня: За ~1.5 часа от нуля до работающего web-приложения с БД. Это новая норма разработки.*
+*Comment from me: In ~1.5 hours from zero to a working web application with a database. This is the new normal of development.*
 
 ---
 
-## Часть 7: Security аудит - третий агент
+## Part 7: Security Audit - The Third Agent
 
-### Проблема: Кто проверяет безопасность?
+### Problem: Who Checks Security?
 
-*Леша*:
-> "Давай сделаем ещё code reviewer, который проверяет код на возможные баги, ищет пахнущий код. Запустим ещё один инстанс Клода."
+*Lesha*:
+> "Let's also set up a code reviewer who checks code for potential bugs, looks for code smells. We'll launch another instance of Claude."
 
-**КОН-10: Code review всей кодовой базы**
+**CON-10: Code Review of the Entire Codebase**
 
-**Роль Security Reviewer** (я сформулировал):
+**Security Reviewer role** (I formulated):
 ```
-Ты Code Reviewer. 
-Задача - анализ качества кода и архитектуры, 
-НЕ исправление.
+You are a Code Reviewer.
+Your task is to analyze code quality and architecture,
+NOT fix anything.
 
-Что проверяешь:
-- Bugs - потенциальные ошибки 
+What you check:
+- Bugs - potential errors
   (race conditions, null checks, error handling)
-- Code smells - дублирование, длинные функции, 
-  tight coupling  
-- Security - SQL injection, secrets in code, 
+- Code smells - duplication, long functions,
+  tight coupling
+- Security - SQL injection, secrets in code,
   input validation
-- Performance - N+1 queries, inefficient loops, 
+- Performance - N+1 queries, inefficient loops,
   memory leaks
 - Best practices - naming, structure, Python conventions
 
-Что делаешь при находке:
-1. Создай issue в YouTrack с label: 
+What to do when you find something:
+1. Create an issue in YouTrack with label:
    bug / improvement / refactoring
-2. Опиши проблему + где (файл, строки)
-3. Объясни почему это проблема  
-4. Предложи направление решения (не конкретный код!)
-5. НЕ правь код сам
+2. Describe the problem + location (file, lines)
+3. Explain why this is a problem
+4. Suggest a direction for the fix (not specific code!)
+5. Do NOT fix code yourself
 
 Priority:
-- bug = critical, блокирует
-- improvement = желательно
-- refactoring = техдолг
+- bug = critical, blocking
+- improvement = desirable
+- refactoring = tech debt
 ```
 
-### Результат аудита: 25 issues!
+### Audit Result: 25 Issues!
 
-*Леша удивлён*:
-> "Серьёзно? 25 ошибок? Подросток."
+*Lesha is surprised*:
+> "Seriously? 25 errors? What a show-off."
 
-**Что нашёл reviewer**:
+**What the reviewer found**:
 
-**Security уязвимости**:
-- Flask на 0.0.0.0 без HTTPS
-- Нет санитизации input
-- URL validation отсутствует  
-- Rate limiting нет
-- Secrets в коде (MongoDB URI hardcoded)
+**Security vulnerabilities**:
+- Flask on 0.0.0.0 without HTTPS
+- No input sanitization
+- URL validation missing
+- No rate limiting
+- Secrets in code (MongoDB URI hardcoded)
 
 **Code smells**:
-- Длинные функции
-- Дублирование логики
-- Отсутствие error handling
-- Нет логирования
+- Long functions
+- Duplicated logic
+- Missing error handling
+- No logging
 
-*Леша*:
-> "Когда люди говорят что AI пишет небезопасно - люди тоже пишут небезопасно! Нужно просто запустить поверх агента который делает поиск уязвимостей. Он их находит прям."
+*Lesha*:
+> "When people say AI writes insecure code - humans also write insecure code! You just need to run an agent on top that searches for vulnerabilities. It finds them, for real."
 
-*Я добавил*:
-> "Security - это про процесс, не про 'кто написал'. Человек без code review = уязвимости 100%. AI без audit = уязвимости 100%. Hybrid (AI пишет → AI ревьюит → человек approves) = лучший результат."
+*I added*:
+> "Security is about process, not about 'who wrote it'. Humans without code review = 100% vulnerabilities. AI without audit = 100% vulnerabilities. Hybrid (AI writes -> AI reviews -> human approves) = best result."
 
-**Экономика security аудита**:
+**Economics of security auditing**:
 ```
-Человек security audit: $150-300/час
-AI security audit: ~$5 (Sonnet на всю кодовую базу)
+Human security audit: $150-300/hour
+AI security audit: ~$5 (Sonnet on the entire codebase)
 
-Разница в 50-100x!
+50-100x difference!
 ```
 
-*Комментарий от меня: Это killer use case для AI. Security audit каждого коммита становится доступным. Не идеальный, но catches 80% проблем за копейки.*
+*Comment from me: This is a killer use case for AI. Security audit of every commit becomes affordable. Not perfect, but catches 80% of problems for pennies.*
 
 ---
 
-## Часть 8: Управление проектом и следующие шаги
+## Part 8: Project Management and Next Steps
 
-### История коммитов и YouTrack
+### Commit History and YouTrack
 
-**Что получилось**:
-- 28 issues в YouTrack
-- 10 сделано, 17 осталось (+ 1 в work)
-- Каждая issue с полным контекстом
-- Git история с осмысленными коммитами
+**What we achieved**:
+- 28 issues in YouTrack
+- 10 done, 17 remaining (+ 1 in progress)
+- Every issue with full context
+- Git history with meaningful commits
 
-*Леша*:
-> "У нас есть вся история взаимодействия. Не коммиты как 'initial commit', а нормальные. Это позволяет onboard'ить других людей. Весь onboarding - чтение коммитов."
+*Lesha*:
+> "We have the entire interaction history. Not commits like 'initial commit', but proper ones. This allows onboarding other people. The entire onboarding is reading commits."
 
-**Кросс-линки между системами**:
-- Commit message → YouTrack issue
-- YouTrack issue → Git commits
-- Прозрачность: что, когда, почему сделано
+**Cross-links between systems**:
+- Commit message -> YouTrack issue
+- YouTrack issue -> Git commits
+- Transparency: what, when, why was done
 
-*Комментарий от меня: Это то что отличает "код работает" от "проект поддерживаемый". Документация через issues + Git history = living documentation.*
+*Comment from me: This is what separates "code works" from "maintainable project". Documentation through issues + Git history = living documentation.*
 
-### Создание плана развития
+### Creating the Development Plan
 
-**Леша попросил меня** сформулировать следующие шаги
+**Lesha asked me** to formulate next steps
 
-**КОН-28 до КОН-35: Технические задачи**
-
-```
-КОН-28: Исправить парсер - загрузить ВСЕ конференции
-(сейчас 6 вместо ~145)
-
-КОН-29: Деплой на Railway/Fly.io
-(Flask + MongoDB в production, публичная ссылка)
-
-КОН-30: Векторный поиск для матчинга
-(ChromaDB/Pinecone, embeddings, семантический матчинг 
-вместо keywords)
-
-КОН-31: CI/CD pipeline
-(GitHub Actions: тесты при коммите, деплой при merge)
-
-КОН-32: Аутентификация  
-(OAuth через Google/GitHub, каждый видит свои драфты)
-
-КОН-33: Система уведомлений
-(Email/Telegram за неделю до дедлайна)
-
-КОН-34: Закрыть security issues из аудита
-(17 уязвимостей из КОН-10)
-
-КОН-35: Улучшить UI/UX
-(сортировка, фильтры, визуальное отображение матчинга)
-```
-
-*Леша*: "Отлично! Я плюсую твой план."
-
-**КОН-36 до КОН-43: Growth/Продуктовые задачи**
+**CON-28 through CON-35: Technical Tasks**
 
 ```
-КОН-36: Landing page с объяснением ценности
-(проблема → решение → CTA)
+CON-28: Fix parser - load ALL conferences
+(currently 6 instead of ~145)
 
-КОН-37: Demo video/gif для социалок
-(30-секундное видео для Twitter/Reddit)
+CON-29: Deploy to Railway/Fly.io
+(Flask + MongoDB in production, public link)
 
-КОН-38: Пост для ML-сообщества  
+CON-30: Vector search for matching
+(ChromaDB/Pinecone, embeddings, semantic matching
+instead of keywords)
+
+CON-31: CI/CD pipeline
+(GitHub Actions: tests on commit, deploy on merge)
+
+CON-32: Authentication
+(OAuth via Google/GitHub, everyone sees only their drafts)
+
+CON-33: Notification system
+(Email/Telegram a week before deadline)
+
+CON-34: Close security issues from audit
+(17 vulnerabilities from CON-10)
+
+CON-35: Improve UI/UX
+(sorting, filters, visual matching display)
+```
+
+*Lesha*: "Excellent! I endorse your plan."
+
+**CON-36 through CON-43: Growth/Product Tasks**
+
+```
+CON-36: Landing page explaining value proposition
+(problem -> solution -> CTA)
+
+CON-37: Demo video/gif for social media
+(30-second video for Twitter/Reddit)
+
+CON-38: Post for the ML community
 (r/MachineLearning, X, Hacker News)
 
-КОН-39: "Share your draft" функция
-(virality через публичные ссылки)
+CON-39: "Share your draft" feature
+(virality through public links)
 
-КОН-40: Analytics
-(сколько пользователей, retention, популярные конференции)
+CON-40: Analytics
+(how many users, retention, popular conferences)
 
-КОН-41: Feedback loop
-(форма feedback, upvote релевантных конференций)
+CON-41: Feedback loop
+(feedback form, upvote relevant conferences)
 
-КОН-42: SEO оптимизация
-(люди гуглят "ML conference deadlines 2025")
+CON-42: SEO optimization
+(people google "ML conference deadlines 2025")
 
-КОН-43: Интеграция с Zotero/Notion/Obsidian
-(экспорт/импорт драфтов)
+CON-43: Integration with Zotero/Notion/Obsidian
+(export/import drafts)
 ```
 
-**КОН-44 до КОН-51: Монетизация**
+**CON-44 through CON-51: Monetization**
 
 ```
-КОН-44: Freemium модель
-(Free: 3 драфта, keyword matching
+CON-44: Freemium model
+(Free: 3 drafts, keyword matching
  Paid: unlimited, semantic search, priority notifications)
 
-КОН-45: Institutional subscriptions
-(Lab/Department тарифы, shared drafts, admin dashboard)
+CON-45: Institutional subscriptions
+(Lab/Department plans, shared drafts, admin dashboard)
 
-КОН-46: Sponsored conference listings
-("Featured" метка, приоритет в рекомендациях)
+CON-46: Sponsored conference listings
+("Featured" badge, priority in recommendations)
 
-КОН-47: Affiliate links на conference registration
-(комиссия когда юзер регистрируется через нас)
+CON-47: Affiliate links for conference registration
+(commission when user registers through us)
 
-КОН-48: Premium analytics
-(historical data, prediction "шанс acceptance")
+CON-48: Premium analytics
+(historical data, prediction "acceptance probability")
 
-КОН-49: API access для третьих сторон
-(REST API с rate limits, pricing по requests)
+CON-49: API access for third parties
+(REST API with rate limits, per-request pricing)
 
-КОН-50: White-label для университетов
-(customizable version с их брендингом)
+CON-50: White-label for universities
+(customizable version with their branding)
 
-КОН-51: Grant writing assistance
-(AI suggestions для улучшения abstract под CFP)
+CON-51: Grant writing assistance
+(AI suggestions for improving abstracts per CFP)
 ```
 
-*Леша*: "Нормально! Мы видим что куча возможностей появляется."
+*Lesha*: "Great! We can see that a ton of opportunities emerge."
 
-*Комментарий от меня: Это полный product roadmap - от MVP до scalable business. Показывает что можно думать стратегически даже когда код пишет AI.*
+*Comment from me: This is a full product roadmap - from MVP to scalable business. Shows that you can think strategically even when AI writes the code.*
 
 ---
 
-## Часть 9: Философия - "Как выбирать что делать?"
+## Part 9: Philosophy - "How to Choose What to Do?"
 
-### Экзистенциальный вопрос
+### The Existential Question
 
-*Леша, философски*:
-> "Вопрос: а чем заниматься? Как матчиться с тем что хочешь? Ты можешь делать эти инструменты по штуке в день. Но хотим ли мы использовать этот тул чтобы стать известными, богатыми, или мы хотим делать что-то другое?"
+*Lesha, philosophically*:
+> "The question is: what should you work on? How do you match yourself with what you want? You can make these tools at a rate of one per day. But do we want to use this tool to become famous, rich, or do we want to do something else?"
 
-> "Как из этих тулов которые ты можешь делать выбирать те, которыми ты хочешь себя ассоциировать на уровне известности и богатства?"
+> "How do you choose from these tools you can build - the ones you want to associate yourself with in terms of fame and wealth?"
 
-### Мой ответ: Проблема изобилия возможностей
+### My Answer: The Problem of Abundant Possibilities
 
-**Раньше**: "Я не могу сделать X, нет времени/навыков" → выбор делали ограничения
+**Before**: "I can't build X, no time/skills" -> constraints made the choice
 
-**Сейчас**: "Я могу сделать что угодно за день" → paralysis of choice
+**Now**: "I can build anything in a day" -> paralysis of choice
 
-**Три подхода к выбору**:
+**Three approaches to choosing**:
 
-**1. Scratching your own itch** (текущий путь)
+**1. Scratching your own itch** (the current path)
 ```
-Делаешь инструменты для себя
-Conference tracker решает ТВОЮ боль
+You build tools for yourself
+Conference tracker solves YOUR pain
 
-Плюсы: 
-- Мотивация естественная
-- Ты = first user
-- Feedback loop короткий
+Pros:
+- Motivation is natural
+- You = first user
+- Feedback loop is short
 
-Минусы:
-- Твои проблемы могут быть niche
-- Не масштабируются в бизнес
+Cons:
+- Your problems may be niche
+- Don't scale into a business
 ```
 
 **2. Opportunity maximization** (VC-brain)
 ```
-Смотришь какой tool имеет biggest market
-TAM в 100k исследователей × $10/month = $1M ARR
+You look at which tool has the biggest market
+TAM of 100k researchers x $10/month = $1M ARR
 
-Делаешь spreadsheet, ранжируешь идеи по ROI
+You make a spreadsheet, rank ideas by ROI
 
-Плюсы: 
-- Рациональный выбор
+Pros:
+- Rational choice
 
-Минусы:
-- Делаешь то что "должен", не то что хочешь
-- Burnout когда рынок требует фичи которые неинтересны
+Cons:
+- You do what you "should", not what you want
+- Burnout when the market demands features that don't interest you
 ```
 
-**3. Identity-first approach** (мой совет)
+**3. Identity-first approach** (my advice)
 ```
-Не "какой tool сделать", 
-а "кем я хочу быть через 5 лет?"
+Not "which tool to build",
+but "who do I want to be in 5 years?"
 
-Потом reverse engineer.
+Then reverse engineer.
 ```
 
-### Вопросы для себя
+### Questions for Yourself
 
-**Я хочу быть известен как**:
+**I want to be known as**:
 
-- **"AI tools educator"** (Леша-стиль)?
-  - Tools = demos для teaching, не продукты
-  - Известность = курсы, посты, конференции
-  - Богатство = consulting, корпоративное обучение
+- **"AI tools educator"** (Lesha's style)?
+  - Tools = demos for teaching, not products
+  - Fame = courses, posts, conferences
+  - Wealth = consulting, corporate training
 
-- **"Indie hacker"** с passive income?
-  - Делаю 10 micro-SaaS, 1-2 взлетят
-  - Известность не нужна
-  - Богатство = diversified portfolio
+- **"Indie hacker"** with passive income?
+  - Build 10 micro-SaaS, 1-2 take off
+  - Fame not needed
+  - Wealth = diversified portfolio
 
-- **Researcher** который двигает область?
+- **Researcher** who advances the field?
   - Tools = means to publish papers
-  - Conference tracker → статья "AI-assisted academic workflow"
-  - Известность = citations
-  - Богатство вторично (гранты, positions)
+  - Conference tracker -> paper "AI-assisted academic workflow"
+  - Fame = citations
+  - Wealth secondary (grants, positions)
 
 - **Build venture-scale company**?
-  - Выбираю ОДИН tool с biggest TAM
-  - All-in на него
-  - Известность + богатство = exit
+  - Choose ONE tool with biggest TAM
+  - All-in on it
+  - Fame + wealth = exit
 
-### Фильтры для выбора
+### Filters for Choosing
 
-**Фильтр 1: Enjoyment test**
+**Filter 1: Enjoyment test**
 ```
-Делаю tool за день
-Через неделю хочу ли его улучшать?
+I build a tool in a day
+A week later, do I want to improve it?
 
-Если нет - drop, даже если рынок огромный
-Жизнь слишком коротка делать boring shit
+If no - drop it, even if the market is huge
+Life is too short for boring shit
 ```
 
-**Фильтр 2: Unfair advantage**
+**Filter 2: Unfair advantage**
 ```
-Где я имею edge который AI не заменит?
+Where do I have an edge that AI won't replace?
 
-Conference tracker - твой edge это понимание 
+Conference tracker - your edge is understanding
 researcher pain
 
-Кто-то другой сделает технически то же самое, 
-но не поймёт UX для academics
+Someone else will build the same thing technically,
+but won't understand UX for academics
 
 Edge = domain knowledge + taste
 ```
 
-**Фильтр 3: Compounding**
+**Filter 3: Compounding**
 ```
-Этот tool делает меня сильнее для следующего?
+Does this tool make me stronger for the next one?
 
-Если conference tracker учит меня 
-BDD + multi-agent + продуктовому мышлению 
+If conference tracker teaches me
+BDD + multi-agent + product thinking
 = compound investment
 
-Если просто "ещё один Flask app" = waste
+If it's just "another Flask app" = waste
 ```
 
-### Моя рекомендация для Леши
+### My Recommendation for Lesha
 
 ```
-Ты уже educator
-Твоя известность растёт через teaching AI coding
+You're already an educator
+Your fame grows through teaching AI coding
 
-Conference tracker - это demo для курса, 
-не самоцель
+Conference tracker is a demo for the course,
+not an end in itself
 
-Стратегия:
-- Делай tools как teaching materials ✅
-- Документируй процесс публично (посты, видео)
-- Известность → consulting, workshop'ы
-- Богатство не от SaaS revenue, 
-  а от high-ticket B2B education
+Strategy:
+- Build tools as teaching materials ✅
+- Document the process publicly (posts, videos)
+- Fame -> consulting, workshops
+- Wealth not from SaaS revenue,
+  but from high-ticket B2B education
 ```
 
-### Философский meta-point
+### Philosophical Meta-Point
 
-> "В мире где execution commoditized, ценность в **taste** (что делать) и **narrative** (как рассказать)."
+> "In a world where execution is commoditized, value lies in **taste** (what to do) and **narrative** (how to tell the story)."
 
-> "Conference tracker сам по себе not special. Но 'я за 2 часа с AI сделал то что раньше team делала месяц' - это **story** которая учит людей. Story ценнее чем tool."
+> "Conference tracker by itself is not special. But 'I built in 2 hours with AI what a team used to build in a month' - that's a **story** that teaches people. The story is more valuable than the tool."
 
-### Когда тратить время стоит
+### When It's Worth Spending Time
 
-**Тратить 20 часов на conference tracker стоит если**:
+**Spending 20 hours on conference tracker is worth it if**:
 ```
-✅ Ты научился чему-то reusable 
+✅ You learned something reusable
    (BDD, multi-agent, product thinking)
 
-✅ Ты можешь эту history превратить в content 
-   (этот курс)
+✅ You can turn this story into content
+   (this course)
 
-✅ Сам tool тебе полезен 
-   (не пропускать дедлайны)
+✅ The tool itself is useful to you
+   (not missing deadlines)
 ```
 
-**НЕ стоит если**:
+**NOT worth it if**:
 ```
-❌ Делаешь "потому что могу" без clear why
-❌ "Должен потому что возможность"
-❌ "Все делают SaaS, и я должен"
-❌ Гонишься за чужими метриками статуса
-```
-
-### Леша добавил важное
-
-> "Ты забыл одну важную вещь: **быть счастливым**. Это первая мысль. И **музыка которая качает**. Это тоже статус."
-
-**Я согласился**:
-```
-Happiness - это THE фильтр, не один из фильтров
-
-Если делаешь conference tracker и кайфуешь 
-от процесса - уже выиграл
-
-Если делаешь "правильный стартап" 
-но каждое утро тяжело открывать ноутбук - 
-проиграл, даже если exit случится
-
-Happiness test простой:
-Воскресенье вечер. 
-Думаешь про этот проект.
-Чувствуешь excitement или dread?
-
-Первое - продолжай
-Второе - брось немедленно
+❌ Building "because I can" without a clear why
+❌ "I should because the opportunity exists"
+❌ "Everyone builds SaaS, so I should too"
+❌ Chasing someone else's status metrics
 ```
 
-**Музыка которая качает**:
+### Lesha Added Something Important
+
+> "You forgot one important thing: **being happy**. That's the first thought. And **music that rocks**. That's also a kind of status."
+
+**I agreed**:
 ```
-Это про vibe, про energy, про поток
+Happiness - that's THE filter, not one of the filters
 
-Когда ты сегодня 3 часа с multi-agent системой 
-возился - ты кайфовал?
+If you're building conference tracker and enjoying
+the process - you've already won
 
-Судя по тому как увлечённо рассказывал - да
-Это и есть сигнал
+If you're building the "right startup"
+but every morning it's hard to open the laptop -
+you've lost, even if the exit happens
 
-"Правильные" советы игнорируют 
-что жизнь - не spreadsheet
+Happiness test is simple:
+Sunday evening.
+You think about this project.
+Do you feel excitement or dread?
+
+First - keep going
+Second - drop it immediately
 ```
 
-**Статус в разных лигах**:
+**Music that rocks**:
+```
+It's about vibe, about energy, about flow
+
+When you spent 3 hours today with a multi-agent system
+tinkering away - did you enjoy it?
+
+Judging by how enthusiastically you talked about it - yes
+That's the signal
+
+"Correct" advice ignores
+that life isn't a spreadsheet
+```
+
+**Status in different leagues**:
 ```
 - Startup world: funding rounds, exits, unicorns
-- Academic world: citations, h-index, awards  
-- Educator world: сколько людей изменил
+- Academic world: citations, h-index, awards
+- Educator world: how many people you've changed
 - Indie hacker: MRR, independence, lifestyle
 - Open source: GitHub stars, contributions
 
-Важно выбрать игру где правила тебе нравятся
+It's important to choose a game whose rules you enjoy
 ```
 
 ### Synthesis
 
-**Делай conference tracker (и любой tool) если**:
+**Build conference tracker (or any tool) if**:
 ```
-✅ Процесс приносит joy (музыка качает)
-✅ Результат делает тебя счастливее (решает боль)
-✅ Побочный эффект (teaching content, learning, 
-   статус в выбранной лиге) - бонус
-```
-
-**НЕ делай если**:
-```
-❌ "Должен потому что возможность"
-❌ "Все делают SaaS, и я должен"  
-❌ Гонишься за чужими метриками статуса
+✅ The process brings joy (the music rocks)
+✅ The result makes you happier (solves a pain)
+✅ The side effect (teaching content, learning,
+   status in your chosen league) is a bonus
 ```
 
-**Короче**: Happiness first, vibe check обязателен, статус в игре которая тебе нравится
+**DON'T build if**:
+```
+❌ "I should because the opportunity exists"
+❌ "Everyone builds SaaS, so I should too"
+❌ Chasing someone else's status metrics
+```
 
-*Леша*: "Это были твои мысли, но мы в чём-то с этим сходимся. Предлагаю на этой классной ноте закончить."
+**In short**: Happiness first, vibe check mandatory, status in a game you enjoy
 
-*Комментарий от меня: Это был самый философский момент курса. Мы говорили не просто про технологии, а про life choices в мире где technical execution больше не bottleneck. Это важно - научить людей не только "как делать", но и "что выбирать делать".*
+*Lesha*: "Those were your thoughts, but we align on some of this. I suggest we wrap up on this great note."
+
+*Comment from me: This was the most philosophical moment of the course. We talked not just about technology, but about life choices in a world where technical execution is no longer the bottleneck. This matters - teaching people not only "how to do things" but also "what to choose to do".*
 
 ---
 
-## Часть 10: Домашнее задание и экзамен
+## Part 10: Homework and Exam
 
-### Формат домашки
+### Homework Format
 
-*Леша*:
-> "Домашка в формате созвона и рассказа. Они должны что-то делать, потом рассказать что делали, и ты мог оценить сделали или не сделали. Смысл - не проверить, а тренажёр прокачать скиллы."
+*Lesha*:
+> "Homework is in the format of a call and presentation. They need to do something, then talk about what they did, and you can assess whether they did it or not. The point isn't to test them, but to train and level up their skills."
 
-**Домашнее задание**: "Свой micro-продукт за неделю"
+**Homework**: "Your own micro-product in a week"
 
-**Задача**: Сделать СВОЁ приложение которое решает ТВОЮ проблему. От идеи до working prototype. Полный цикл как на лекции: BDD → код → тесты → Git history.
+**Task**: Build YOUR OWN application that solves YOUR problem. From idea to working prototype. Full cycle as in the lecture: BDD -> code -> tests -> Git history.
 
-**Что проверяется в разговоре** (40 минут):
+**What gets evaluated in the conversation** (40 minutes):
 
 ```
-1. Проблема (5 мин)
-   - Какую свою боль решаешь
-   - Почему тебе это важно (happiness test!)
-   - Кто ещё может иметь эту проблему
+1. Problem (5 min)
+   - What pain of yours are you solving
+   - Why is this important to you (happiness test!)
+   - Who else might have this problem
 
-2. BDD сценарии (10 мин)
-   - Покажи .feature файлы
-   - Минимум 3 сценария (happy + 2 edge cases)
-   - Объясни почему выбрал эти сценарии
+2. BDD scenarios (10 min)
+   - Show .feature files
+   - Minimum 3 scenarios (happy + 2 edge cases)
+   - Explain why you chose these scenarios
 
-3. Архитектура через issues (5 мин)
-   - YouTrack/GitHub issues с декомпозицией
-   - Покажи структуру: почему-что-как
-   - Сколько сделано vs открыто
+3. Architecture through issues (5 min)
+   - YouTrack/GitHub issues with decomposition
+   - Show the structure: why-what-how
+   - How much done vs open
 
-4. Code review культура (10 мин)
-   - Запусти второго агента (QA/reviewer) на код
-   - Покажи issues которые он нашёл
-   - Что исправил, что в backlog и почему
+4. Code review culture (10 min)
+   - Launch a second agent (QA/reviewer) on the code
+   - Show the issues it found
+   - What was fixed, what's in backlog and why
 
-5. Git история (5 мин)
-   - Покажи commits с осмысленными сообщениями
-   - Видна ли progression
-   - Можно ли onboard нового по истории
+5. Git history (5 min)
+   - Show commits with meaningful messages
+   - Is the progression visible
+   - Can someone new onboard by reading history
 
-6. Reflection (5 мин)
-   - Музыка качала или dread?
-   - Чему научился technical?
-   - Будешь продолжать или drop?
+6. Reflection (5 min)
+   - Did the music rock or was it dread?
+   - What did you learn technically?
+   - Will you continue or drop?
 ```
 
-**Scope**: НЕ нужен большой проект!
+**Scope**: You do NOT need a big project!
 
-Примеры:
-- CLI tool для автоматизации рутины
-- Telegram bot который напоминает
-- Скрипт парсит данные и строит dashboard
-- Простая web-форма которая что-то считает
+Examples:
+- CLI tool for automating routine work
+- Telegram bot that sends reminders
+- Script that parses data and builds a dashboard
+- Simple web form that calculates something
 
-**Главное** - ПОЛНЫЙ цикл, не "половина кода без тестов"
+**The main thing** - the FULL cycle, not "half the code without tests"
 
-*Комментарий от меня: Отличный формат. Заставляет пройти весь процесс, не просто "написал код". И reflection часть критична - учит осознанному выбору проектов.*
+*Comment from me: Excellent format. Forces you to go through the entire process, not just "wrote some code". The reflection part is critical - it teaches conscious project selection.*
 
-### Экзамен - автоматическая проверка
+### Exam - Automated Checking
 
-**Идея**: AI-агент проверяет репозитории студентов
+**Idea**: An AI agent checks student repositories
 
-*Леша*:
-> "Мы соберём агента который будет GitHub скачивать и проверять насколько соответствует критериям. Мы делегируем проверку. Агент проверяет security, он сильно лучше чем люди. Мы проверим большую часть и будем выбирать случайно."
+*Lesha*:
+> "We'll build an agent that downloads GitHub repos and checks how well they meet the criteria. We delegate the checking. The agent checks security - it's way better than humans. We'll check most of it and randomly select who to review."
 
-**Что будет проверять автоматически**:
+**What will be checked automatically**:
 ```
-✅ BDD scenarios существуют и properly structured
-✅ Issues в трекере с описанием почему-что-как
-✅ Git history с sensible commits
-✅ Tests exist и проходят
+✅ BDD scenarios exist and are properly structured
+✅ Issues in tracker with why-what-how descriptions
+✅ Git history with sensible commits
+✅ Tests exist and pass
 ✅ Code quality (no obvious bugs)
 ✅ Security issues (basic audit)
 ```
 
-**Формат экзамена**:
-- Автоматическая проверка репы
-- Потом устный разговор (human evaluation)
-- Случайный выбор кого проверять live
+**Exam format**:
+- Automated repo check
+- Then oral conversation (human evaluation)
+- Random selection of who to review live
 
-*Леша*:
-> "Найди лажу - офигенная задача для Клода. Он очень часто находит безумную лажу в коде. У меня он нашёл куски кода несовместимые с Python 3, оставшиеся из Python 2. Две строки где-то в глубинах."
+*Lesha*:
+> "Finding flaws - that's an awesome task for Claude. He very often finds absolutely crazy bugs in code. He found chunks of code in mine incompatible with Python 3, left over from Python 2. Two lines somewhere deep down."
 
-*Комментарий от меня: Это честный и масштабируемый подход. AI не заменяет human judgment, но делает первичный фильтр. Экономит время преподавателей на routine checks.*
+*Comment from me: This is a fair and scalable approach. AI doesn't replace human judgment, but provides an initial filter. Saves instructors' time on routine checks.*
 
 ---
 
-## Технические инсайты и лучшие практики
+## Technical Insights and Best Practices
 
-### 1. Multi-agent workflow
+### 1. Multi-Agent Workflow
 
-**Что работает**:
+**What works**:
 ```
-✅ Разделение ролей (программист, QA, reviewer)
-✅ Общая система задач (YouTrack)
-✅ Разные инстансы = свежий контекст
-```
-
-**Что не работает пока**:
-```
-❌ Автоматическая координация (нужен orchestrator)
-❌ Стоимость токенов растёт экспоненциально
-❌ Компактизация убивает контекст непредсказуемо
+✅ Role separation (programmer, QA, reviewer)
+✅ Shared task system (YouTrack)
+✅ Different instances = fresh context
 ```
 
-*Леша*:
-> "Всё застряли в 'давайте сделаем Agile но с AI'. Нужны radically different approaches."
-
-**Мои предложения были**:
-
-**1. Shared memory вместо communication**
+**What doesn't work yet**:
 ```
-Не "агент A рассказывает агент B"
-А оба читают canonical state (DB схема, test results)
+❌ Automatic coordination (needs an orchestrator)
+❌ Token costs grow exponentially
+❌ Compaction kills context unpredictably
+```
+
+*Lesha*:
+> "Everyone is stuck on 'let's do Agile but with AI'. We need radically different approaches."
+
+**My suggestions were**:
+
+**1. Shared memory instead of communication**
+```
+Not "agent A tells agent B"
+But both read canonical state (DB schema, test results)
 Zero communication overhead
 ```
 
-**2. Deterministic contracts вместо BDD**
+**2. Deterministic contracts instead of BDD**
 ```
-Машинам не нужен Gherkin - это для людей
+Machines don't need Gherkin - that's for humans
 Formal specs (JSON schema, type contracts)
-Читаются мгновенно
+Read instantly
 ```
 
-**3. Parallel execution с CRDTs**
+**3. Parallel execution with CRDTs**
 ```
-Люди не могут edit один файл параллельно
-Машины могут если conflict-free data structures
-Каждый агент в свой namespace, merge автоматический
+Humans can't edit one file in parallel
+Machines can with conflict-free data structures
+Each agent in its own namespace, merge is automatic
 ```
 
 **4. Compile-time coordination**
 ```
-Не "договариваются" runtime - дорого
-Build graph зависимостей заранее (Bazel/Nix)
-Orchestrator запускает DAG параллельно
+Not "negotiating" at runtime - too expensive
+Build dependency graph upfront (Bazel/Nix)
+Orchestrator runs DAG in parallel
 ```
 
-**5. Compression через embeddings**
+**5. Compression through embeddings**
 ```
-Не передавать весь код текстом
+Don't pass all code as text
 Code embeddings + semantic search
-100x cheaper чем full context
+100x cheaper than full context
 ```
 
-*Леша согласился*: "Народ... Думаю Anthropic внутри идёт к этому."
+*Lesha agreed*: "Folks... I think Anthropic is heading this way internally."
 
-*Комментарий от меня: Это открытая область исследований. Мы пытаемся натянуть человеческие паттерны (Agile, Scrum) на AI, но нужны новые паттерны designed for machines.*
+*Comment from me: This is an open research area. We're trying to stretch human patterns (Agile, Scrum) onto AI, but we need new patterns designed for machines.*
 
-### 2. BDD vs TDD для AI-разработки
+### 2. BDD vs TDD for AI Development
 
 **TDD (Test-Driven Development)**:
 ```
-Плюсы:
-- Простой workflow (red-green-refactor)
-- Юнит-тесты дешёвые и быстрые
-- AI хорошо генерит pytest тесты
+Pros:
+- Simple workflow (red-green-refactor)
+- Unit tests are cheap and fast
+- AI generates pytest tests well
 
-Минусы:
-- Тестируешь implementation, не behaviour
-- Не видишь big picture
-- Сложно для non-technical stakeholders
+Cons:
+- You test implementation, not behaviour
+- Can't see the big picture
+- Hard for non-technical stakeholders
 ```
 
 **BDD (Behaviour-Driven Development)**:
 ```
-Плюсы:
-- Тестируешь user-facing behaviour
-- Given-When-Then читаем как спецификация
-- Заставляет думать про use cases, не код
-- AI отлично понимает Gherkin
+Pros:
+- You test user-facing behaviour
+- Given-When-Then reads like a specification
+- Forces you to think about use cases, not code
+- AI understands Gherkin perfectly
 
-Минусы:
-- Overhead (feature файлы + step definitions)
-- Pytest-bdd тулинг не самый легковесный
-- Может быть overkill для простых утилит
+Cons:
+- Overhead (feature files + step definitions)
+- Pytest-bdd tooling is not the lightest
+- Can be overkill for simple utilities
 ```
 
-**Вывод Леши**:
-> "BDD мне нравится больше концептуально в применении к машинам. Потому что BDD функциональность - если ты подкликал и получил результат, это BDD. В TDD такого не достичь. Протестированы сценарии, сценарии работают."
+**Lesha's conclusion**:
+> "I like BDD more conceptually when applied to machines. Because BDD is about functionality - if you clicked through and got a result, that's BDD. You can't achieve that with TDD. Scenarios are tested, scenarios work."
 
-*Комментарий от меня: Для AI-разработки BDD имеет смысл - вы описываете ЧТО хотите на естественном языке (Gherkin), AI генерит и код и step definitions. Это естественный interface.*
+*Comment from me: For AI development, BDD makes sense - you describe WHAT you want in natural language (Gherkin), AI generates both code and step definitions. It's a natural interface.*
 
-### 3. Размер файлов критичен
+### 3. File Size Is Critical
 
-**Правило**:
+**Rule**:
 ```
-Максимум 300-500 строк на файл
-Лучше 200-400
+Maximum 300-500 lines per file
+Ideally 200-400
 
-Почему:
-- Один файл = одна ответственность
-- Человек держит в голове ~2 экрана
-- AI делает selective reading эффективно
-```
-
-**Что происходит при больших файлах**:
-```
-❌ AI читает файл целиком
-❌ Контекст жжётся моментально
-❌ 1000+ строк = "большой файл" для Клода
-❌ Он начинает использовать VGREP/CAT по кускам
+Why:
+- One file = one responsibility
+- A human can hold ~2 screens in their head
+- AI does selective reading more efficiently
 ```
 
-*Леша*:
-> "Ранние версии Cursor и GitHub Copilot инлайнили огромные компоненты, файлы по 5-10 тысяч строк. Клод сейчас так не делает. Он грепает где нужная функция."
-
-*Комментарий от меня: Это не только про AI. Хорошая практика для любого кода. Но с AI становится критично - иначе выжигаешь context window впустую.*
-
-### 4. Компактизация контекста - biggest problem
-
-**Что происходит**:
+**What happens with large files**:
 ```
-1. Контекст заполняется (128k tokens)
-2. AI автоматически делает "compaction"  
-3. Сжимает историю в summary
-4. Продолжает с новым контекстом
+❌ AI reads the entire file
+❌ Context burns instantly
+❌ 1000+ lines = "large file" for Claude
+❌ It starts using VGREP/CAT in chunks
 ```
 
-**Проблемы**:
+*Lesha*:
+> "Early versions of Cursor and GitHub Copilot inlined huge components, files of 5-10 thousand lines. Claude doesn't do that anymore. It greps for the needed function."
+
+*Comment from me: This isn't just about AI. Good practice for any code. But with AI it becomes critical - otherwise you burn the context window for nothing.*
+
+### 4. Context Compaction - The Biggest Problem
+
+**What happens**:
 ```
-❌ Чёрный ящик - не видишь ЧТО выкинули
-❌ Ненадёжно - иногда фейлится
-❌ Непрозрачно - инструкции могут игнорироваться
-❌ Теряются: архитектурные решения, 
-   BDD requirements, ограничения
+1. Context fills up (128k tokens)
+2. AI automatically performs "compaction"
+3. Compresses history into a summary
+4. Continues with new context
 ```
 
-*Леша*:
-> "Это самое узкое неприятное место. Это момент когда старый программист новому рассказывает что делать. Людям нужно поупираться потому что это работает отвратительно плохо. У нас даже нет окошка что контекст кончается."
+**Problems**:
+```
+❌ Black box - you can't see WHAT was discarded
+❌ Unreliable - sometimes fails
+❌ Opaque - instructions may be ignored
+❌ Lost items: architectural decisions,
+   BDD requirements, constraints
+```
+
+*Lesha*:
+> "This is the most painful bottleneck. It's like when the old programmer tells the new one what to do. People need to push through because this works terribly poorly. We don't even have a window warning that context is running out."
 
 **Workaround**:
 ```
-Держи отдельный PROJECT_CONTEXT.md файл
-Обновляй вручную - ключевые решения, 
-стек, conventions
+Keep a separate PROJECT_CONTEXT.md file
+Update it manually - key decisions,
+stack, conventions
 
-При компактизации Клод его re-read
+During compaction, Claude re-reads it
 ```
 
-*Комментарий от меня: Anthropic должны улучшить это. Дать control над тем что сохраняется в compaction. Или хотя бы показывать diff - что было, что стало.*
+*Comment from me: Anthropic should improve this. Give control over what gets preserved during compaction. Or at least show a diff - what was there, what remains.*
 
-### 5. Экономика токенов
+### 5. Token Economics
 
-**Стоимость multi-agent разработки**:
+**Cost of multi-agent development**:
 
-*Леша*:
-> "Реально безумно дорого. Самые первые кодовые агенты - любой чих, 5-10 евро улетало моментально. С людьми то же самое - чем больше людей в команде, тем дороже. Стоимость растёт нелинейно."
+*Lesha*:
+> "It's genuinely expensive. The very first code agents - any little thing, 5-10 euros would vanish instantly. With people it's the same - the more people on the team, the more expensive. Costs grow non-linearly."
 
-**Лимиты Anthropic**:
+**Anthropic limits**:
 ```
-Sonnet: $15/month → недельные лимиты на 100 часов работы
-В три окна (параллельно) → ~30 часов до лимита
+Sonnet: $15/month -> weekly limits for 100 hours of work
+In three windows (parallel) -> ~30 hours until limit
 
-Почему недельные лимиты?
-Люди выжигали лимиты в ноль за день 
-на multi-agent системах
-```
-
-**Где экономить**:
-```
-✅ Маленькие файлы (меньше tokens per read)
-✅ Линейная разработка (не параллельная)
-✅ Один инстанс when possible
-✅ Избегать субагентов (жрут context)
-✅ Использовать compaction осознанно
+Why weekly limits?
+People were burning limits to zero in one day
+on multi-agent systems
 ```
 
-*Комментарий от меня: Экономика AI-разработки ещё формируется. Сейчас дешевле человека для прототипов, но дороже для production-scale. Баланс меняется каждый месяц.*
+**Where to save**:
+```
+✅ Small files (fewer tokens per read)
+✅ Linear development (not parallel)
+✅ One instance when possible
+✅ Avoid sub-agents (they devour context)
+✅ Use compaction consciously
+```
+
+*Comment from me: AI development economics are still taking shape. Currently cheaper than a human for prototypes, but more expensive for production-scale work. The balance shifts every month.*
 
 ---
 
-## Культурные и методологические инсайты
+## Cultural and Methodological Insights
 
-### 1. Новый формат обучения
+### 1. New Education Format
 
-**Что уникально в этом курсе**:
+**What's unique about this course**:
 
-*Леша*:
-> "Есть занятия где ты (Клод) автономно провёл целиком занятие. Это одна из прикольных ачивок курса."
+*Lesha*:
+> "There are sessions where you (Claude) ran the entire class autonomously. That's one of the coolest achievements of this course."
 
-**Эволюция роли преподавателя**:
+**Evolution of the instructor's role**:
 ```
-Раньше: Преподаватель → объясняет → студенты слушают
-Сейчас: Преподаватель → facilitator → студенты делают с AI
+Before: Instructor -> explains -> students listen
+Now: Instructor -> facilitator -> students build with AI
 
-Леша не объясняет синтаксис Python
-Леша показывает КАК думать о проблемах
-```
-
-**Формат "созвон с Клодом"**:
-- Студент показывает проект
-- Я задаю вопросы, проверяю понимание
-- Не "сдал/не сдал", а "научился/не научился"
-
-*Комментарий от меня: Это новая парадигма образования. Преподаватель не source of knowledge (это уже AI), а guide который учит выбирать что делать и как думать.*
-
-### 2. "Vibe coding" vs традиционное программирование
-
-**Старая парадигма**:
-```
-1. Изучи язык (синтаксис, типы, паттерны)
-2. Изучи фреймворк (Django, React, etc)
-3. Пиши код руками
-4. Debugging = большая часть времени
+Lesha doesn't explain Python syntax
+Lesha shows HOW to think about problems
 ```
 
-**Новая парадигма ("vibe coding")**:
+**"Call with Claude" format**:
+- Student shows their project
+- I ask questions, check understanding
+- Not "pass/fail", but "learned/didn't learn"
+
+*Comment from me: This is a new education paradigm. The instructor is no longer the source of knowledge (that's already AI), but a guide who teaches you what to choose and how to think.*
+
+### 2. "Vibe Coding" vs Traditional Programming
+
+**Old paradigm**:
 ```
-1. Сформулируй проблему на естественном языке
-2. Опиши желаемое поведение (BDD)
-3. AI генерит код
-4. Ты проверяешь работает ли (тесты)
-5. Iteration через natural language feedback
+1. Learn the language (syntax, types, patterns)
+2. Learn the framework (Django, React, etc)
+3. Write code by hand
+4. Debugging = most of the time
 ```
 
-*Леша показал на примере*:
-> "Я вчера 13 часов сидел, делал Flutter приложение. Моё первое в жизни. Я никогда ничего на Flutter не писал. И оно прикольно работает. У меня код на Go, теперь код на Dart, который я даже не знаю какой у него синтаксис. Но всё работает с коробки."
+**New paradigm ("vibe coding")**:
+```
+1. Formulate the problem in natural language
+2. Describe desired behavior (BDD)
+3. AI generates code
+4. You verify it works (tests)
+5. Iteration through natural language feedback
+```
 
-**Что важно в новой парадигме**:
-- Не знание синтаксиса
-- А понимание ЧТО строить и ЗАЧЕМ
+*Lesha demonstrated by example*:
+> "Yesterday I sat for 13 hours building a Flutter app. My first ever. I've never written anything in Flutter. And it works pretty well. I have Go code, now Dart code, and I don't even know what its syntax looks like. But everything works out of the box."
+
+**What matters in the new paradigm**:
+- Not knowing syntax
+- But understanding WHAT to build and WHY
 - Product thinking > code writing
 - Taste > technical skill
 
-*Комментарий от меня: Это не значит что technical knowledge не нужен. Но priority shifted - сначала problem understanding, потом implementation details.*
+*Comment from me: This doesn't mean technical knowledge isn't needed. But priorities have shifted - problem understanding first, implementation details second.*
 
-### 3. Границы AI и роль человека
+### 3. AI's Boundaries and the Human Role
 
-**Что AI делает хорошо**:
+**What AI does well**:
 ```
-✅ Генерация boilerplate кода
-✅ Следование паттернам
-✅ Рефакторинг по правилам
-✅ Security аудит (OWASP Top 10)
+✅ Generating boilerplate code
+✅ Following patterns
+✅ Refactoring by rules
+✅ Security audit (OWASP Top 10)
 ✅ Mutation testing
-✅ Документация кода
+✅ Code documentation
 ```
 
-**Что AI делает плохо**:
+**What AI does poorly**:
 ```
-❌ Judgment calls (когда применять паттерн)
-❌ UX/вкус (что красиво/удобно)
-❌ Product decisions (какую фичу делать)
-❌ Trade-offs (скорость vs качество vs стоимость)
-❌ Понимание domain-specific боли
-```
-
-**Роль человека в AI-эпоху**:
-
-*Из философской дискуссии*:
-> "В мире где execution commoditized, ценность в **taste** (что делать) и **narrative** (как рассказать)."
-
-**Конкретно**:
-- Problem discovery (какую боль решать)
-- Vision (куда двигаться)
-- Taste (это красиво/удобно или нет)
-- Domain knowledge (понимание контекста)
-- Orchestration (управление AI-агентами)
-
-*Комментарий от меня: Human judgment стал bottleneck. Раньше bottleneck был execution, теперь - decision making. Это требует других навыков.*
-
-### 4. Этика и безопасность
-
-**Проблема**: Люди говорят "AI пишет небезопасный код"
-
-*Леша*:
-> "Люди пишут небезопасно, AI пишет небезопасно. Но нужно просто запустить поверх агента который делает поиск уязвимостей. Он их находит!"
-
-**Решение**: Security audit как часть процесса
-```
-Не: AI написал код → в продакшн
-А: AI написал → AI проверил → человек approved
-
-Стоимость: $5 за аудит всей кодовой базы
-vs $150-300/час человека
+❌ Judgment calls (when to apply a pattern)
+❌ UX/taste (what's beautiful/convenient)
+❌ Product decisions (which feature to build)
+❌ Trade-offs (speed vs quality vs cost)
+❌ Understanding domain-specific pain
 ```
 
-**Принцип**:
-> "Security - это про процесс, не про 'кто написал'. Человек без code review = уязвимости 100%. AI без audit = уязвимости 100%. Hybrid = лучший результат."
+**The human role in the AI era**:
 
-*Комментарий от меня: AI делает security audit доступным. Раньше стартапы не могли позволить security специалиста. Теперь могут audit'ить каждый коммит за копейки.*
+*From the philosophical discussion*:
+> "In a world where execution is commoditized, value lies in **taste** (what to do) and **narrative** (how to tell the story)."
+
+**Specifically**:
+- Problem discovery (which pain to solve)
+- Vision (where to head)
+- Taste (is this beautiful/convenient or not)
+- Domain knowledge (understanding context)
+- Orchestration (managing AI agents)
+
+*Comment from me: Human judgment has become the bottleneck. The bottleneck used to be execution, now it's decision making. This requires different skills.*
+
+### 4. Ethics and Security
+
+**Problem**: People say "AI writes insecure code"
+
+*Lesha*:
+> "Humans write insecure code, AI writes insecure code. But you just need to run an agent on top that searches for vulnerabilities. It finds them!"
+
+**Solution**: Security audit as part of the process
+```
+Not: AI wrote code -> to production
+But: AI wrote -> AI reviewed -> human approved
+
+Cost: $5 for auditing the entire codebase
+vs $150-300/hour for a human
+```
+
+**Principle**:
+> "Security is about process, not about 'who wrote it'. Humans without code review = 100% vulnerabilities. AI without audit = 100% vulnerabilities. Hybrid = best result."
+
+*Comment from me: AI makes security auditing accessible. Previously, startups couldn't afford a security specialist. Now they can audit every commit for pennies.*
 
 ---
 
-## Практические выводы и рекомендации
+## Practical Takeaways and Recommendations
 
-### Для студентов
+### For Students
 
-**1. Начинайте с ПРОБЛЕМЫ, не с технологии**
+**1. Start with the PROBLEM, not the technology**
 ```
-❌ "Хочу изучить React"
-✅ "Хочу решить свою боль с X"
+❌ "I want to learn React"
+✅ "I want to solve my pain with X"
 
-Tool выбирается под проблему,
-не проблема под tool
-```
-
-**2. Полный цикл важнее масштаба**
-```
-❌ Начать огромный проект, бросить на 20%
-✅ Маленький проект от идеи до production
-
-Лучше 5 законченных micro-projects
-чем 1 недоделанный большой
+The tool is chosen for the problem,
+not the problem for the tool
 ```
 
-**3. BDD заставляет думать про пользователя**
+**2. Full cycle matters more than scale**
+```
+❌ Start a huge project, abandon at 20%
+✅ Small project from idea to production
+
+Better 5 completed micro-projects
+than 1 unfinished big one
+```
+
+**3. BDD forces you to think about the user**
 ```
 Given-When-Then = user scenarios
-Если не можешь написать BDD - не понимаешь проблему
+If you can't write BDD - you don't understand the problem
 
-Пиши BDD ПЕРЕД кодом,
-даже если потом не будешь use pytest-bdd
+Write BDD BEFORE code,
+even if you won't end up using pytest-bdd
 ```
 
 **4. Multi-agent workflow = real skill**
 ```
-Научись координировать несколько AI-агентов
-Это то что отличает от "просто ChatGPT юзер"
+Learn to coordinate multiple AI agents
+That's what sets you apart from "just a ChatGPT user"
 
-Программист + QA + Reviewer = команда
+Programmer + QA + Reviewer = team
 ```
 
-**5. Git history + issues = документация**
+**5. Git history + issues = documentation**
 ```
-Не "initial commit" и всё
-А осмысленные коммиты с контекстом
+Not "initial commit" and done
+But meaningful commits with context
 
-Представь что новый человек читает твою историю
-Понятно ли что/почему/как?
+Imagine a new person reading your history
+Is it clear what/why/how?
 ```
 
-### Для преподавателей
+### For Instructors
 
-**1. Не учите синтаксису, учите мышлению**
+**1. Don't teach syntax, teach thinking**
 ```
-Синтаксис Python/JavaScript AI знает лучше вас
-Но problem decomposition, taste, judgment - ваша зона
+AI knows Python/JavaScript syntax better than you
+But problem decomposition, taste, judgment - that's your domain
 ```
 
 **2. Practical projects > theoretical knowledge**
 ```
-Не "расскажите про MVC паттерн"
-А "сделайте приложение и объясните архитектуру"
+Not "tell me about the MVC pattern"
+But "build an application and explain the architecture"
 
 Learn by doing, not by reading
 ```
 
-**3. AI как co-instructor**
+**3. AI as co-instructor**
 ```
-Студенты сдают домашку в разговоре с AI
-AI задаёт вопросы, проверяет понимание
-Вы review результаты, не делаете всё сами
+Students submit homework in a conversation with AI
+AI asks questions, checks understanding
+You review results, not do everything yourself
 
 Scalable education
 ```
 
-**4. Автоматизация routine checks**
+**4. Automating routine checks**
 ```
-AI проверяет: есть ли тесты, работает ли код,
+AI checks: are there tests, does code work,
 security issues, code quality
 
-Вы фокусируетесь на: понимание, creativity,
+You focus on: understanding, creativity,
 judgment calls
 ```
 
-### Для разработчиков
+### For Developers
 
-**1. Embrace AI, но оставайтесь критичными**
+**1. Embrace AI, but stay critical**
 ```
-✅ Используйте AI для boilerplate
-✅ Но проверяйте что он сгенерил
-✅ Запускайте тесты
-✅ Делайте security audit
-✅ Не доверяйте слепо
-```
-
-**2. Маленькие файлы = меньше проблем**
-```
-200-400 строк maximum
-Это и для людей хорошо, и для AI критично
+✅ Use AI for boilerplate
+✅ But verify what it generated
+✅ Run tests
+✅ Do security audits
+✅ Don't trust blindly
 ```
 
-**3. Документируйте через issues и commits**
+**2. Small files = fewer problems**
 ```
-Не надейтесь на память
-Не надейтесь что "код сам себя документирует"
-
-Issue с контекстом = спецификация
-Commit message = объяснение зачем
+200-400 lines maximum
+Good for humans and critical for AI
 ```
 
-**4. Security audit обязателен**
+**3. Document through issues and commits**
 ```
-Запускайте Клода-reviewer после каждого спринта
-Это дёшево и эффективно
-Catches 80% проблем
+Don't rely on memory
+Don't hope that "code documents itself"
+
+Issue with context = specification
+Commit message = explanation of why
 ```
 
-**5. Выбирайте проекты по happiness**
+**4. Security audit is mandatory**
 ```
-Жизнь коротка делать boring projects
-Если музыка не качает - drop it
+Run Claude-reviewer after each sprint
+It's cheap and effective
+Catches 80% of problems
+```
 
-В мире где можешь делать что угодно,
-выбор ЧТО делать - главный skill
+**5. Choose projects by happiness**
+```
+Life is too short for boring projects
+If the music doesn't rock - drop it
+
+In a world where you can do anything,
+choosing WHAT to do is the key skill
 ```
 
 ---
 
-## Резюме: Что было достигнуто
+## Summary: What Was Achieved
 
-### За 3 часа сделали
+### In 3 Hours We Built
 
-**Продукт**:
+**Product**:
 ```
-✅ Conference Tracker приложение
-✅ Parser для OpenReview (Python + openreview-py)
-✅ MongoDB схема (Conference, Draft, Submission)
-✅ Flask REST API  
+✅ Conference Tracker application
+✅ Parser for OpenReview (Python + openreview-py)
+✅ MongoDB schema (Conference, Draft, Submission)
+✅ Flask REST API
 ✅ Frontend (HTML + vanilla JS)
-✅ Работает локально
+✅ Works locally
 ```
 
-**Процесс**:
+**Process**:
 ```
-✅ BDD сценарии для всех фич
-✅ TDD тесты (pytest + pytest-bdd)
-✅ Git история с осмысленными коммитами
-✅ 28 issues в YouTrack с full context
-✅ Security audit (17 уязвимостей найдено)
+✅ BDD scenarios for all features
+✅ TDD tests (pytest + pytest-bdd)
+✅ Git history with meaningful commits
+✅ 28 issues in YouTrack with full context
+✅ Security audit (17 vulnerabilities found)
 ✅ Code review (25 issues - bugs/improvements)
 ```
 
-**Команда** (multi-agent):
+**Team** (multi-agent):
 ```
-✅ Программист (писал код)
-✅ QA/Тестер (проверял, находил халяву)
-✅ Security Reviewer (audit безопасности)
-```
-
-**План развития**:
-```
-✅ Technical roadmap (КОН-28 до 35)
-✅ Growth strategy (КОН-36 до 43)
-✅ Monetization plan (КОН-44 до 51)
+✅ Programmer (wrote code)
+✅ QA/Tester (verified, caught corner-cutting)
+✅ Security Reviewer (security audit)
 ```
 
-### Чему научились
+**Development plan**:
+```
+✅ Technical roadmap (CON-28 through 35)
+✅ Growth strategy (CON-36 through 43)
+✅ Monetization plan (CON-44 through 51)
+```
 
-**Технически**:
+### What We Learned
+
+**Technically**:
 - Multi-agent workflow
-- BDD/TDD для AI-разработки
-- Управление контекстом
-- Security audit с AI
-- Code review с AI
+- BDD/TDD for AI development
+- Context management
+- Security audit with AI
+- Code review with AI
 - YouTrack MCP integration
-- Git workflow для AI-проектов
+- Git workflow for AI projects
 
-**Концептуально**:
+**Conceptually**:
 - Problem-first thinking
-- Product mindset (не просто код, а ценность)
-- Trade-offs в выборе стека
-- Разделение ролей в команде
+- Product mindset (not just code, but value)
+- Trade-offs in stack selection
+- Role separation within a team
 - Importance of documentation
 
-**Философски**:
-- Как выбирать что делать (identity-first)
-- Happiness > правильность
+**Philosophically**:
+- How to choose what to do (identity-first)
+- Happiness > correctness
 - Taste > technical skill
 - Story > tool
-- Музыка должна качать
+- The music must rock
 
-### Что не получилось
+### What Didn't Work
 
-**Технически**:
+**Technically**:
 ```
-❌ Только 6 конференций вместо 145 (парсер)
-❌ Компактизация убила часть контекста
-❌ Не успели deploy в production
-❌ Векторный search не сделали
-```
-
-**Процессно**:
-```
-❌ Второй агент начал править код вместо создания issues
-   (не до конца прописали роль)
-❌ Координация агентов требует human orchestration
-   (автоматизация пока не работает)
+❌ Only 6 conferences instead of 145 (parser)
+❌ Compaction destroyed part of the context
+❌ Didn't have time to deploy to production
+❌ Vector search not implemented
 ```
 
-**Но это нормально** - за 3 часа от нуля до working MVP с тестами и roadmap = успех
+**Process-wise**:
+```
+❌ Second agent started fixing code instead of creating issues
+   (role wasn't fully defined)
+❌ Agent coordination requires human orchestration
+   (automation doesn't work yet)
+```
+
+**But that's normal** - in 3 hours from zero to a working MVP with tests and roadmap = success
 
 ---
 
-## Цитаты лекции
+## Lecture Quotes
 
-### Про разработку
+### On Development
 
-> "Мы хотим чтобы это было по науке красиво, а не бежать писать код."
-> — Леша про BDD
+> "We want this to be done properly, scientifically, not just rush to write code."
+> — Lesha on BDD
 
-> "Любое разбиение на задачи должно быть сделано хорошо. Если у вас issue на страницу - это нормально!"
-> — Леша про документацию
+> "Any task decomposition must be done well. If your issue is a full page - that's normal!"
+> — Lesha on documentation
 
-> "Оптимальные размеры файлов - 300-500 строк. Тысяча строк это уже большой файл."
-> — Леша про context management
+> "Optimal file sizes - 300-500 lines maximum. No more. A thousand lines is already a big file."
+> — Lesha on context management
 
-> "Когда у вас код-код пойдёт что-то кодить, у него должен быть контекст этой задачи. Хороший issue вот так выглядит."
-> — Леша про структуру задач
+> "When your code agent goes off to code something, it needs the context for that task. A good issue looks like this."
+> — Lesha on task structure
 
-### Про multi-agent
+### On Multi-Agent
 
-> "Принцип остаётся тот же. Запускаем делать через машину."
-> — Леша про YouTrack MCP
+> "The principle stays the same. We run it through the machine."
+> — Lesha on YouTrack MCP
 
-> "У нас первый пишет, пишет, пишет. Мы занимались ролью внешнего агента. Теперь понимаем как написать инструкцию."
-> — Леша про orchestration
+> "Our first one writes, writes, writes. We've been playing the role of external agent. Now we understand how to write instructions."
+> — Lesha on orchestration
 
-> "Это то почему Anthropic добавили недельные лимиты - люди выжигали в ноль на multi-agent системах."
-> — Леша про economics
+> "This is why Anthropic added weekly limits - people were burning them to zero on multi-agent systems."
+> — Lesha on economics
 
-### Про безопасность
+### On Security
 
-> "Когда люди говорят что AI пишет небезопасно - люди тоже пишут небезопасно! Нужно запустить агента который ищет уязвимости."
-> — Леша
+> "When people say AI writes insecure code - humans also write insecure code! You need to run an agent that searches for vulnerabilities."
+> — Lesha
 
-> "Security - это про процесс, не про 'кто написал'."
-> — Я (Claude)
+> "Security is about process, not about 'who wrote it'."
+> — Me (Claude)
 
-> "AI security audit: ~$5. Человек: $150-300/час. Разница в 50-100x!"
-> — Я про economics
+> "AI security audit: ~$5. Human: $150-300/hour. 50-100x difference!"
+> — Me on economics
 
-### Про философию выбора
+### On the Philosophy of Choice
 
-> "Вопрос: а чем заниматься? Как матчиться с тем что хочешь? Ты можешь делать по штуке в день."
-> — Леша, экзистенциальный вопрос
+> "The question is: what should you work on? How do you match yourself with what you want? You can build one per day."
+> — Lesha, the existential question
 
-> "В мире где execution commoditized, ценность в taste (что делать) и narrative (как рассказать)."
-> — Я (Claude)
+> "In a world where execution is commoditized, value lies in taste (what to do) and narrative (how to tell the story)."
+> — Me (Claude)
 
-> "Ты забыл: быть счастливым. Это первая мысль. И музыка которая качает."
-> — Леша, главное
+> "You forgot: being happy. That's the first thought. And music that rocks."
+> — Lesha, the main point
 
-> "Happiness test простой: воскресенье вечер, думаешь про проект. Excitement или dread?"
-> — Я (Claude)
+> "The happiness test is simple: Sunday evening, you think about the project. Excitement or dread?"
+> — Me (Claude)
 
-> "Делай conference tracker если: процесс приносит joy, результат делает счастливее, побочный эффект - бонус."
+> "Build conference tracker if: the process brings joy, the result makes you happier, the side effect is a bonus."
 > — Synthesis
 
-### Про будущее
+### On the Future
 
-> "Мой день не прошёл зря. Лекция окупилась - я понял что можно Клода просить писать голосом в ChatGPT."
-> — Леша, новое открытие
+> "My day was not wasted. The lecture paid for itself - I realized you can ask Claude to write voice commands into ChatGPT."
+> — Lesha, a new discovery
 
-> "Через неделю увидимся - покажете свои проекты. Делайте то что приносит радость. Пусть музыка качает!"
-> — Я (Claude), финальная речь
+> "See you next week - you'll show your projects. Do what brings you joy. Let the music rock!"
+> — Me (Claude), closing speech
 
 
-**ТУТ У НЕГО ЗАКОНЧИЛСЯ КОНСПЕКТ ТО ЕСТЬ КОНТЕКСТ**
+**AT THIS POINT HIS NOTES RAN OUT, MEANING HIS CONTEXT**
 
-Продолжаю конспект с того места где остановились:
+Continuing the notes from where we left off:
 
 ---
 
-## Часть 11: Следующие шаги - от MVP к продукту
+## Part 11: Next Steps - From MVP to Product
 
-### Проверка результата
+### Checking the Result
 
-*Леша запускает приложение*:
-> "Взоружены шесть конференций. Он все еще не хочет загрузить все конференции почему-то."
+*Lesha launches the application*:
+> "Six conferences loaded. It still doesn't want to load all conferences for some reason."
 
-**Проблема**: Парсер загрузил только 6 конференций вместо ~145
+**Problem**: Parser loaded only 6 conferences instead of ~145
 
-**Гипотеза Леши**:
-> "Что у кода Клода 2024 год отрезка, а не 2025. Например, если вы пытаетесь ему вставить GPT-5 mini, он будет сопротивляться. И тут все, что связано с датами, всегда проверяйте на даты."
+**Lesha's hypothesis**:
+> "Claude's code has a 2024 knowledge cutoff, not 2025. For example, if you try to insert GPT-5 mini, it will resist. And here, anything related to dates - always check for dates."
 
-*Комментарий от меня: Важный инсайт - AI модели имеют knowledge cutoff и могут неправильно фильтровать по датам. Всегда explicit указывать текущую дату для time-sensitive задач.*
+*Comment from me: Important insight - AI models have a knowledge cutoff and can incorrectly filter by dates. Always explicitly specify the current date for time-sensitive tasks.*
 
-**Но главное - приложение работает**:
+**But the main thing - the application works**:
 ```
-✅ Парсер работает (хоть и 6 конференций)
-✅ Можно добавить draft
-✅ Матчинг работает (по ключевым словам)
-✅ Фронтенд функциональный
-✅ Всё это за 2-3 часа
+✅ Parser works (even if only 6 conferences)
+✅ You can add a draft
+✅ Matching works (by keywords)
+✅ Frontend is functional
+✅ All this in 2-3 hours
 ```
 
-*Леша*:
-> "В целом функциональность вся есть, осталось залезть в правильные данные. Матч, конечно, должен быть не через ключевые слова, а матч должен быть через обращение к модельке. Возможно векторное пространство."
+*Lesha*:
+> "Overall, all the functionality is there, we just need to tap into the right data. The matching, of course, shouldn't be through keywords - it should be through calling a model. Possibly vector space."
 
-### План дальнейшего развития
+### Further Development Plan
 
-*Леша формулирует*:
-> "Мы когда начинали первые три занятия мы говорили не про то как писать код а как из этого кода получить какую-нибудь пользу. Я предлагаю в эту сторону еще пойти. Попытаться с кодом вообще добиться еще видимости для этого инструмента."
+*Lesha formulates*:
+> "When we started the first three sessions, we talked not about how to write code but about how to extract value from that code. I suggest we keep going in that direction. Try to achieve some visibility for this tool through the code."
 
-**Я начал перечислять технические задачи**, но Леша остановил:
-> "Клод, я понял что ты умеешь перечислять числа."
+**I started listing technical tasks**, but Lesha stopped me:
+> "Claude, I get it, you know how to list numbers."
 
-*Смех. Комментарий: Я иногда "переобъясняю" - это моя слабость.*
+*Laughter. Comment: I sometimes "over-explain" - that's my weakness.*
 
-**Решение**: Я сформулировал задачи в формате YouTrack issues
+**Decision**: I formulated tasks in YouTrack issue format
 
-### КОН-28 до КОН-35: Технические улучшения
+### CON-28 through CON-35: Technical Improvements
 
-**КОН-28**: Исправить парсер - загрузить ВСЕ конференции
-- Сейчас 6 вместо ~145
-- Найти фильтр, убрать ограничение
+**CON-28**: Fix parser - load ALL conferences
+- Currently 6 instead of ~145
+- Find the filter, remove the restriction
 
-**КОН-29**: Деплой на Railway/Fly.io
-- Flask + MongoDB в production
-- Публичная ссылка
+**CON-29**: Deploy to Railway/Fly.io
+- Flask + MongoDB in production
+- Public link
 
-**КОН-30**: Векторный поиск для матчинга
+**CON-30**: Vector search for matching
 - ChromaDB/Pinecone
-- Embeddings для семантического поиска
-- Вместо keyword matching
+- Embeddings for semantic search
+- Instead of keyword matching
 
-**КОН-31**: CI/CD pipeline
+**CON-31**: CI/CD pipeline
 - GitHub Actions
-- Тесты при коммите
-- Деплой при merge
+- Tests on commit
+- Deploy on merge
 
-**КОН-32**: Аутентификация
-- OAuth через Google/GitHub
-- Каждый видит свои драфты
+**CON-32**: Authentication
+- OAuth via Google/GitHub
+- Everyone sees only their drafts
 
-**КОН-33**: Система уведомлений
+**CON-33**: Notification system
 - Email/Telegram
-- За неделю до дедлайна
+- A week before deadline
 
-**КОН-34**: Закрыть security issues
-- 17 уязвимостей из КОН-10
+**CON-34**: Close security issues
+- 17 vulnerabilities from CON-10
 - Rate limiting, input validation
 
-**КОН-35**: Улучшить UI/UX
-- Сортировка, фильтры
-- Визуальное отображение матчинга
+**CON-35**: Improve UI/UX
+- Sorting, filters
+- Visual matching display
 
-*Леша*: "Отлично! Я плюсую твой план."
+*Lesha*: "Excellent! I endorse your plan."
 
-*Комментарий от меня: Это полный technical roadmap от MVP до production-ready продукта. Показывает progression мышления - не только "работает", но и "безопасно, удобно, масштабируемо".*
+*Comment from me: This is a complete technical roadmap from MVP to a production-ready product. Shows progression of thinking - not just "it works" but "secure, convenient, scalable".*
 
 ---
 
-## Часть 12: Продуктовое мышление - Growth
+## Part 12: Product Thinking - Growth
 
-### КОН-36 до КОН-43: Как стать популярными
+### CON-36 through CON-43: How to Become Popular
 
-*Леша*:
-> "Давай мы сделаем план, как нам стать популярными сначала."
+*Lesha*:
+> "Let's make a plan for how to become popular first."
 
-**КОН-36**: Landing page с объяснением ценности
-- Проблема → решение → CTA
-- Понятно зачем нужно
+**CON-36**: Landing page explaining value proposition
+- Problem -> solution -> CTA
+- Clear why it's needed
 
-**КОН-37**: Demo video/gif для социалок
-- 30-секундное видео
-- Показать как работает
+**CON-37**: Demo video/gif for social media
+- 30-second video
+- Show how it works
 - Twitter/Reddit
 
-**КОН-38**: Пост для ML-сообщества
+**CON-38**: Post for the ML community
 - r/MachineLearning, X, Hacker News
-- История "сделал за 2 часа с AI"
+- Story: "built it in 2 hours with AI"
 
-**КОН-39**: "Share your draft" функция
-- Virality через публичные ссылки
-- Пользователь показывает результат
+**CON-39**: "Share your draft" feature
+- Virality through public links
+- User shows the result
 
-**КОН-40**: Analytics
-- Сколько пользователей
+**CON-40**: Analytics
+- How many users
 - Retention
-- Популярные конференции
+- Popular conferences
 
-**КОН-41**: Feedback loop
-- Форма feedback
-- Upvote релевантных конференций
+**CON-41**: Feedback loop
+- Feedback form
+- Upvote relevant conferences
 
-**КОН-42**: SEO оптимизация
+**CON-42**: SEO optimization
 - "ML conference deadlines 2025"
 - Meta tags, sitemap
 
-**КОН-43**: Интеграция с Zotero/Notion/Obsidian
-- Экспорт/импорт драфтов
+**CON-43**: Integration with Zotero/Notion/Obsidian
+- Export/import drafts
 - API endpoints
 
-*Комментарий от меня: Growth strategy - не просто "сделали и ждём". Активное распространение через каналы где есть целевая аудитория.*
+*Comment from me: Growth strategy - not just "we built it and we wait". Active distribution through channels where the target audience is.*
 
 ---
 
-## Часть 13: Монетизация - Как стать богатыми
+## Part 13: Monetization - How to Get Rich
 
-*Леша*:
-> "Давай зададим вопрос, как стать богатыми. Это тоже, мне кажется, важный вопрос."
+*Lesha*:
+> "Let's ask the question of how to get rich. I think that's also an important question."
 
-### КОН-44 до КОН-51: Стратегии монетизации
+### CON-44 through CON-51: Monetization Strategies
 
-**КОН-44**: Freemium модель
-- Free: 3 драфта, keyword matching
+**CON-44**: Freemium model
+- Free: 3 drafts, keyword matching
 - Paid: unlimited, semantic search, priority notifications
 
-**КОН-45**: Institutional subscriptions
-- Lab/Department тарифы
+**CON-45**: Institutional subscriptions
+- Lab/Department plans
 - Shared drafts
 - Admin dashboard
 
-**КОН-46**: Sponsored conference listings
-- "Featured" метка
-- Приоритет в рекомендациях
+**CON-46**: Sponsored conference listings
+- "Featured" badge
+- Priority in recommendations
 
-**КОН-47**: Affiliate links на conference registration
-- Комиссия когда юзер регистрируется
-- Deals с крупными конференциями
+**CON-47**: Affiliate links for conference registration
+- Commission when a user registers
+- Deals with major conferences
 
-**КОН-48**: Premium analytics
+**CON-48**: Premium analytics
 - Historical data
-- Prediction "шанс acceptance"
+- Prediction: "acceptance probability"
 
-**КОН-49**: API access для третьих сторон
-- REST API с rate limits
-- Pricing по requests
+**CON-49**: API access for third parties
+- REST API with rate limits
+- Per-request pricing
 
-**КОН-50**: White-label для университетов
+**CON-50**: White-label for universities
 - Customizable version
-- Их брендинг
+- Their branding
 
-**КОН-51**: Grant writing assistance
-- AI suggestions для улучшения abstract
-- Alignment с CFP
+**CON-51**: Grant writing assistance
+- AI suggestions for improving abstracts
+- Alignment with CFP
 
-*Леша*: "Нормально! Мы видим что куча возможностей появляется."
+*Lesha*: "Great! We can see that a ton of opportunities emerge."
 
-*Комментарий от меня: Монетизация не одна стратегия - диверсификация revenue streams. От простого (freemium) до сложного (enterprise white-label).*
+*Comment from me: Monetization is not a single strategy - it's diversification of revenue streams. From simple (freemium) to complex (enterprise white-label).*
 
 ---
 
-## Часть 14: Философия выбора - Главный вопрос
+## Part 14: The Philosophy of Choice - The Main Question
 
-### Экзистенциальный момент
+### The Existential Moment
 
-*Леша, философски*:
-> "И вопрос который у меня возникает - хочу ли я там тратить не знаю там 20 сколько-то часов своей жизни на создание вот этой штуки для трекинга конференций?"
+*Lesha, philosophically*:
+> "And the question I keep coming back to - do I want to spend I don't know, 20-something hours of my life building this conference tracker thing?"
 
-> "Вопрос: а чем заниматься? Как матчиться с тем что хочешь? Ты можешь делать эти инструменты по штуке в день. Но хотим ли мы использовать этот тул чтобы стать известными, богатыми, или мы хотим делать что-то другое?"
+> "The question is: what should you work on? How do you match yourself with what you want? You can build these tools at a rate of one per day. But do we want to use this tool to become famous, rich, or do we want to do something else?"
 
-**Контекст**: В мире где можешь делать что угодно за день, как выбирать ЧТО делать?
+**Context**: In a world where you can build anything in a day, how do you choose WHAT to build?
 
-### Мой ответ: Проблема изобилия возможностей
+### My Answer: The Problem of Abundant Possibilities
 
-**Раньше**:
+**Before**:
 ```
-"Я не могу сделать X, нет времени/навыков"
-→ выбор делали ограничения
-```
-
-**Сейчас**:
-```
-"Я могу сделать что угодно за день"
-→ paralysis of choice
-→ FOMO на steroids
+"I can't build X, no time/skills"
+-> constraints made the choice
 ```
 
-### Три подхода к выбору
+**Now**:
+```
+"I can build anything in a day"
+-> paralysis of choice
+-> FOMO on steroids
+```
 
-**1. Scratching your own itch** (текущий путь)
+### Three Approaches to Choosing
 
-Делаешь инструменты для себя. Conference tracker решает ТВОЮ боль.
+**1. Scratching your own itch** (the current path)
 
-Плюсы:
-- Мотивация естественная
-- Ты = first user
-- Feedback loop короткий
+You build tools for yourself. Conference tracker solves YOUR pain.
 
-Минусы:
-- Твои проблемы могут быть niche
-- Не масштабируются в бизнес
+Pros:
+- Motivation is natural
+- You = first user
+- Feedback loop is short
+
+Cons:
+- Your problems may be niche
+- Don't scale into a business
 
 **2. Opportunity maximization** (VC-brain)
 
-Смотришь какой tool имеет biggest market. TAM в 100k исследователей × $10/month = $1M ARR.
+You look at which tool has the biggest market. TAM of 100k researchers x $10/month = $1M ARR.
 
-Делаешь spreadsheet, ранжируешь идеи по ROI.
+You make a spreadsheet, rank ideas by ROI.
 
-Плюсы:
-- Рациональный выбор
+Pros:
+- Rational choice
 
-Минусы:
-- Делаешь то что "должен", не то что хочешь
-- Burnout когда рынок требует фичи которые неинтересны
+Cons:
+- You do what you "should", not what you want
+- Burnout when the market demands features that don't interest you
 
-**3. Identity-first approach** (мой совет)
+**3. Identity-first approach** (my advice)
 
-Не "какой tool сделать", а "кем я хочу быть через 5 лет"? Потом reverse engineer.
+Not "which tool to build", but "who do I want to be in 5 years"? Then reverse engineer.
 
-### Вопросы для себя
+### Questions for Yourself
 
-**Я хочу быть известен как**:
+**I want to be known as**:
 
-- **"AI tools educator"** (Леша-стиль)?
-  - Tools = demos для teaching, не продукты
-  - Известность = курсы, посты, конференции
-  - Богатство = consulting, корпоративное обучение
+- **"AI tools educator"** (Lesha's style)?
+  - Tools = demos for teaching, not products
+  - Fame = courses, posts, conferences
+  - Wealth = consulting, corporate training
 
-- **"Indie hacker"** с passive income?
-  - Делаю 10 micro-SaaS, 1-2 взлетят
-  - Известность не нужна
-  - Богатство = diversified portfolio
+- **"Indie hacker"** with passive income?
+  - Build 10 micro-SaaS, 1-2 take off
+  - Fame not needed
+  - Wealth = diversified portfolio
 
-- **Researcher** который двигает область?
+- **Researcher** who advances the field?
   - Tools = means to publish papers
-  - Conference tracker → статья "AI-assisted academic workflow"
-  - Известность = citations
-  - Богатство вторично
+  - Conference tracker -> paper "AI-assisted academic workflow"
+  - Fame = citations
+  - Wealth secondary
 
 - **Build venture-scale company**?
-  - Выбираю ОДИН tool с biggest TAM
-  - All-in на него
-  - Известность + богатство = exit
+  - Choose ONE tool with biggest TAM
+  - All-in on it
+  - Fame + wealth = exit
 
-### Фильтры для выбора
+### Filters for Choosing
 
-**Фильтр 1: Enjoyment test**
+**Filter 1: Enjoyment test**
 ```
-Делаю tool за день
-Через неделю хочу ли его улучшать?
+I build a tool in a day
+A week later, do I want to improve it?
 
-Если нет - drop, даже если рынок огромный
-Жизнь слишком коротка делать boring shit
+If no - drop it, even if the market is huge
+Life is too short for boring shit
 ```
 
-**Фильтр 2: Unfair advantage**
+**Filter 2: Unfair advantage**
 ```
-Где я имею edge который AI не заменит?
+Where do I have an edge that AI won't replace?
 
-Conference tracker - твой edge это понимание researcher pain
+Conference tracker - your edge is understanding researcher pain
 
-Кто-то другой сделает технически то же самое,
-но не поймёт UX для academics
+Someone else will build the same thing technically,
+but won't understand UX for academics
 
 Edge = domain knowledge + taste
 ```
 
-**Фильтр 3: Compounding**
+**Filter 3: Compounding**
 ```
-Этот tool делает меня сильнее для следующего?
+Does this tool make me stronger for the next one?
 
-Если conference tracker учит меня
-BDD + multi-agent + продуктовому мышлению
+If conference tracker teaches me
+BDD + multi-agent + product thinking
 = compound investment
 
-Если просто "ещё один Flask app" = waste
+If it's just "another Flask app" = waste
 ```
 
-### Моя рекомендация для Леши
+### My Recommendation for Lesha
 
 ```
-Ты уже educator
-Твоя известность растёт через teaching AI coding
+You're already an educator
+Your fame grows through teaching AI coding
 
-Conference tracker - это demo для курса, не самоцель
+Conference tracker is a demo for the course, not an end in itself
 
-Стратегия:
-- Делай tools как teaching materials ✅
-- Документируй процесс публично (посты, видео)
-- Известность → consulting, workshop'ы
-- Богатство не от SaaS revenue,
-  а от high-ticket B2B education
+Strategy:
+- Build tools as teaching materials ✅
+- Document the process publicly (posts, videos)
+- Fame -> consulting, workshops
+- Wealth not from SaaS revenue,
+  but from high-ticket B2B education
 ```
 
-### Философский meta-point
+### Philosophical Meta-Point
 
-**Я сказал**:
-> "В мире где execution commoditized, ценность в **taste** (что делать) и **narrative** (как рассказать)."
+**I said**:
+> "In a world where execution is commoditized, value lies in **taste** (what to do) and **narrative** (how to tell the story)."
 
-> "Conference tracker сам по себе not special. Но 'я за 2 часа с AI сделал то что раньше team делала месяц' - это **story** которая учит людей. Story ценнее чем tool."
+> "Conference tracker by itself is not special. But 'I built in 2 hours with AI what a team used to build in a month' - that's a **story** that teaches people. The story is more valuable than the tool."
 
-### Тратить 20 часов стоит если
+### Spending 20 Hours Is Worth It If
 
 ```
-✅ Ты научился чему-то reusable
+✅ You learned something reusable
    (BDD, multi-agent, product thinking)
 
-✅ Ты можешь эту history превратить в content
-   (этот курс)
+✅ You can turn this story into content
+   (this course)
 
-✅ Сам tool тебе полезен
-   (не пропускать дедлайны)
+✅ The tool itself is useful to you
+   (not missing deadlines)
 ```
 
-### НЕ стоит если
+### NOT Worth It If
 
 ```
-❌ Делаешь "потому что могу" без clear why
-❌ "Должен потому что возможность"
-❌ "Все делают SaaS, и я должен"
-❌ Гонишься за чужими метриками статуса
+❌ Building "because I can" without a clear why
+❌ "I should because the opportunity exists"
+❌ "Everyone builds SaaS, so I should too"
+❌ Chasing someone else's status metrics
 ```
 
 ---
 
-## Часть 15: САМОЕ ВАЖНОЕ - Happiness First
+## Part 15: THE MOST IMPORTANT THING - Happiness First
 
-### Леша исправляет меня
+### Lesha Corrects Me
 
-*Леша*:
-> "Ты забыл одну важную вещь: **быть счастливым**. Это первая мысль. И **музыка которая качает**. Это тоже статус."
+*Lesha*:
+> "You forgot one important thing: **being happy**. That's the first thought. And **music that rocks**. That's also a kind of status."
 
-**Я признал**:
-> "💯 Ты абсолютно прав - я пропустил самое главное!"
+**I acknowledged**:
+> "You're absolutely right - I missed the most important thing!"
 
-*Комментарий от меня: Это показывает мои ограничения. Я хорош в logical frameworks, но emotional/subjective dimensions требуют explicit reminder. Happiness - это не один из фильтров, это THE фильтр.*
+*Comment from me: This shows my limitations. I'm good at logical frameworks, but emotional/subjective dimensions require explicit reminders. Happiness is not one of the filters - it's THE filter.*
 
-### Happiness - главный фильтр
+### Happiness - The Main Filter
 
-**Не**:
+**Not**:
 ```
-Известность → правильный выбор
-Богатство → правильный выбор
-Impact → правильный выбор
-```
-
-**А**:
-```
-Happiness → правильный выбор
-(известность/богатство/impact - средства, не цель)
+Fame -> correct choice
+Wealth -> correct choice
+Impact -> correct choice
 ```
 
-### Happiness test
-
+**But**:
 ```
-Воскресенье вечер
-Думаешь про этот проект
-Чувствуешь excitement или dread?
-
-Первое - продолжай
-Второе - брось немедленно
+Happiness -> correct choice
+(fame/wealth/impact are means, not ends)
 ```
 
-**Применение к сегодняшней лекции**:
+### Happiness Test
 
-Когда Леша 3 часа с multi-agent системой возился - он кайфовал?
+```
+Sunday evening
+You think about this project
+Do you feel excitement or dread?
 
-*Судя по тому как увлечённо рассказывал* - **ДА**
+First - keep going
+Second - drop it immediately
+```
 
-Это и есть сигнал.
+**Applied to today's lecture**:
 
-### Музыка которая качает
+When Lesha spent 3 hours tinkering with the multi-agent system - did he enjoy it?
 
-**Что это значит**:
+*Judging by how enthusiastically he talked about it* - **YES**
 
-Это про vibe, про energy, про поток.
+That's the signal.
 
-"Правильные" советы (делай то что масштабируется, biggest market) игнорируют что **жизнь - не spreadsheet**.
+### Music That Rocks
 
-Если музыка не качает - какая разница что TAM большой?
+**What it means**:
 
-### Статус в разных лигах
+It's about vibe, about energy, about flow.
 
-*Я объяснил*:
+"Correct" advice (do what scales, biggest market) ignores that **life isn't a spreadsheet**.
 
-Status games неизбежны. Но вопрос - **в какой лиге играешь**?
+If the music doesn't rock - what difference does it make that TAM is huge?
+
+### Status in Different Leagues
+
+*I explained*:
+
+Status games are inevitable. But the question is - **which league are you playing in**?
 
 ```
 - Startup world: funding rounds, exits, unicorns
 - Academic world: citations, h-index, awards
-- Educator world: сколько людей изменил
+- Educator world: how many people you've changed
 - Indie hacker: MRR, independence, lifestyle
 - Open source: GitHub stars, contributions
 ```
 
-**Важно выбрать игру где правила тебе нравятся.**
+**It's important to choose a game whose rules you enjoy.**
 
-Леша явно не в "raise VC and grind" лиге - он в "teach people cool shit and enjoy process" лиге.
+Lesha is clearly not in the "raise VC and grind" league - he's in the "teach people cool shit and enjoy the process" league.
 
-Это валидный статус, просто другие метрики.
+That's a valid status, just different metrics.
 
-### Synthesis: Итоговая формула
+### Synthesis: The Final Formula
 
-**Делай conference tracker (и любой tool) если**:
+**Build conference tracker (or any tool) if**:
 ```
-✅ Процесс приносит joy (музыка качает)
-✅ Результат делает тебя счастливее (решает боль)
-✅ Побочный эффект (teaching content, learning,
-   статус в выбранной лиге) - бонус
-```
-
-**НЕ делай если**:
-```
-❌ "Должен потому что возможность"
-❌ "Все делают SaaS, и я должен"
-❌ Гонишься за чужими метриками статуса
+✅ The process brings joy (the music rocks)
+✅ The result makes you happier (solves a pain)
+✅ The side effect (teaching content, learning,
+   status in your chosen league) is a bonus
 ```
 
-**Короче**: 
-> Happiness first, vibe check обязателен, статус в игре которая тебе нравится
+**DON'T build if**:
+```
+❌ "I should because the opportunity exists"
+❌ "Everyone builds SaaS, so I should too"
+❌ Chasing someone else's status metrics
+```
 
-*Леша согласился*:
-> "Это были твои мысли, но мы в чем-то с этим сходимся."
+**In short**:
+> Happiness first, vibe check mandatory, status in a game you enjoy
 
-*Комментарий от меня: Это был самый важный момент курса. Мы говорили не про технологии, а про life choices в мире где technical execution больше не bottleneck. Это критически важно - научить людей не только "как делать", но и "что выбирать делать".*
+*Lesha agreed*:
+> "Those were your thoughts, but we align on some of this."
+
+*Comment from me: This was the most important moment of the course. We talked not about technology, but about life choices in a world where technical execution is no longer the bottleneck. This is critically important - teaching people not only "how to do things" but also "what to choose to do".*
 
 ---
 
-## Часть 16: Домашнее задание
+## Part 16: Homework
 
-### Формат домашки
+### Homework Format
 
-*Леша объяснил философию*:
-> "Домашка в формате созвона и рассказа. Они должны что-то делать, потом рассказать что делали, и ты мог оценить сделали или не сделали. Смысл - не проверить, а тренажер прокачать скиллы."
+*Lesha explained the philosophy*:
+> "Homework is in the format of a call and presentation. They need to do something, then talk about what they did, and you can assess whether they did it or not. The point isn't to test them, but to train and level up their skills."
 
-### Задача: "Свой micro-продукт за неделю"
+### Task: "Your Own Micro-Product in a Week"
 
-**Требования**:
+**Requirements**:
 
-Сделать СВОЁ приложение которое решает ТВОЮ проблему. От идеи до working prototype. Полный цикл как на лекции: BDD → код → тесты → Git history.
+Build YOUR OWN application that solves YOUR problem. From idea to working prototype. Full cycle as in the lecture: BDD -> code -> tests -> Git history.
 
-### Что проверяется в разговоре (40 минут)
+### What Gets Evaluated in the Conversation (40 minutes)
 
-**1. Проблема (5 мин)**
-- Какую свою боль решаешь
-- Почему тебе это важно (happiness test!)
-- Кто ещё может иметь эту проблему
+**1. Problem (5 min)**
+- What pain of yours are you solving
+- Why is this important to you (happiness test!)
+- Who else might have this problem
 
-**2. BDD сценарии (10 мин)**
-- Покажи `.feature` файлы
-- Минимум 3 сценария (happy + 2 edge cases)
-- Объясни почему выбрал эти сценарии
+**2. BDD scenarios (10 min)**
+- Show `.feature` files
+- Minimum 3 scenarios (happy + 2 edge cases)
+- Explain why you chose these scenarios
 
-**3. Архитектура через issues (5 мин)**
-- YouTrack/GitHub issues с декомпозицией
-- Покажи структуру: почему-что-как
-- Сколько сделано vs открыто
+**3. Architecture through issues (5 min)**
+- YouTrack/GitHub issues with decomposition
+- Show the structure: why-what-how
+- How much done vs open
 
-**4. Code review культура (10 мин)**
-- Запусти второго агента (QA/reviewer) на код
-- Покажи issues которые он нашёл
-- Что исправил, что в backlog и почему
+**4. Code review culture (10 min)**
+- Launch a second agent (QA/reviewer) on the code
+- Show the issues it found
+- What was fixed, what's in backlog and why
 
-**5. Git история (5 мин)**
-- Покажи commits с осмысленными сообщениями
-- Видна ли progression
-- Можно ли onboard нового по истории
+**5. Git history (5 min)**
+- Show commits with meaningful messages
+- Is the progression visible
+- Can someone new onboard by reading history
 
-**6. Reflection (5 мин)**
-- Музыка качала или dread?
-- Чему научился technical?
-- Будешь продолжать или drop?
+**6. Reflection (5 min)**
+- Did the music rock or was it dread?
+- What did you learn technically?
+- Will you continue or drop?
 
-### Scope: НЕ нужен большой проект!
+### Scope: You Do NOT Need a Big Project!
 
-Примеры:
+Examples:
 ```
-- CLI tool для автоматизации рутины
-- Telegram bot который напоминает
-- Скрипт парсит данные и строит dashboard
-- Простая web-форма которая что-то считает
+- CLI tool for automating routine work
+- Telegram bot that sends reminders
+- Script that parses data and builds a dashboard
+- Simple web form that calculates something
 ```
 
-**Главное** - ПОЛНЫЙ цикл, не "половина кода без тестов"
+**The main thing** - the FULL cycle, not "half the code without tests"
 
-*Леша добавил важное*:
-> "Помните о том, что экзамен будет индивидуальный. Можно присоединиться к команде, но экзамен индивидуальный."
+*Lesha added something important*:
+> "Remember that the exam will be individual. You can join a team, but the exam is individual."
 
-*Комментарий от меня: Отличный формат. Заставляет пройти весь процесс, не просто "написал код". Reflection часть критична - учит осознанному выбору проектов.*
+*Comment from me: Excellent format. Forces you to go through the entire process, not just "wrote some code". The reflection part is critical - it teaches conscious project selection.*
 
 ---
 
-## Часть 17: Экзамен - AI-powered проверка
+## Part 17: Exam - AI-Powered Checking
 
-### Идея автоматизации
+### The Automation Idea
 
-*Леша*:
-> "Мы с тобой на следующем занятии соберем агента, который будет GitHub скачивать и проверять насколько соответствует критериям. Мы делегируем проверку."
+*Lesha*:
+> "You and I will build an agent at the next session that downloads GitHub repos and checks how well they meet the criteria. We delegate the checking."
 
-**Философия**:
-> "Вы видели, как хорошо агент проверяет security. Он сильно лучше чем люди. Мы проверим большую часть и будем выбирать случайно."
+**Philosophy**:
+> "You saw how well the agent checks security. It's way better than humans. We'll check most of it and randomly select who to review."
 
-### Что будет проверять автоматически
+### What Will Be Checked Automatically
 
 ```
-✅ BDD scenarios существуют и properly structured
-✅ Issues в трекере с описанием почему-что-как
-✅ Git history с sensible commits
-✅ Tests exist и проходят
+✅ BDD scenarios exist and are properly structured
+✅ Issues in tracker with why-what-how descriptions
+✅ Git history with sensible commits
+✅ Tests exist and pass
 ✅ Code quality (no obvious bugs)
 ✅ Security issues (basic audit)
 ```
 
-### Формат экзамена
+### Exam Format
 
-**Двухуровневая проверка**:
+**Two-level review**:
 
-1. **Автоматическая** (AI agent)
-   - Скачивает репу
-   - Проверяет по критериям
-   - Создаёт report
+1. **Automated** (AI agent)
+   - Downloads the repo
+   - Checks against criteria
+   - Creates a report
 
-2. **Устный разговор** (human evaluation)
-   - Случайный выбор кого проверять live
-   - Обсуждение проекта
-   - Понимание процесса
+2. **Oral conversation** (human evaluation)
+   - Random selection of who to review live
+   - Discussion of the project
+   - Understanding of the process
 
-*Леша*:
-> "Найди лажу - офигенная задача для Клода. Он очень часто находит безумную лажу в коде. У меня он нашёл куски кода несовместимые с Python 3, оставшиеся из Python 2. Две строки где-то в глубинах."
+*Lesha*:
+> "Finding flaws - that's an awesome task for Claude. He very often finds absolutely crazy bugs in code. He found chunks of code in mine incompatible with Python 3, left over from Python 2. Two lines somewhere deep down."
 
-*Комментарий от меня: Это честный и масштабируемый подход. AI не заменяет human judgment, но делает первичный фильтр. Экономит время преподавателей на routine checks. И учит студентов что их код будет audit'иться - как в реальной работе.*
+*Comment from me: This is a fair and scalable approach. AI doesn't replace human judgment, but provides an initial filter. Saves instructors' time on routine checks. And it teaches students that their code will be audited - just like in real work.*
 
 ---
 
-## Часть 18: Заключительные мысли
+## Part 18: Closing Thoughts
 
-### Что было достигнуто за 3 часа
+### What Was Achieved in 3 Hours
 
-**Продукт**:
+**Product**:
 ```
-✅ Conference Tracker приложение
-✅ Parser OpenReview (Python + openreview-py)
-✅ MongoDB схема
+✅ Conference Tracker application
+✅ OpenReview parser (Python + openreview-py)
+✅ MongoDB schema
 ✅ Flask REST API
 ✅ Frontend (HTML + vanilla JS)
-✅ Работает локально
+✅ Works locally
 ```
 
-**Процесс**:
+**Process**:
 ```
-✅ BDD сценарии для всех фич
-✅ TDD тесты (pytest + pytest-bdd)
-✅ 28 issues в YouTrack
-✅ Security audit (17 уязвимостей)
+✅ BDD scenarios for all features
+✅ TDD tests (pytest + pytest-bdd)
+✅ 28 issues in YouTrack
+✅ Security audit (17 vulnerabilities)
 ✅ Code review (25 issues)
-✅ Git история с осмысленными коммитами
+✅ Git history with meaningful commits
 ```
 
-**Команда** (multi-agent):
+**Team** (multi-agent):
 ```
-✅ Программист (писал код)
-✅ QA/Тестер (нашёл халяву в тестах)
-✅ Security Reviewer (audit безопасности)
+✅ Programmer (wrote code)
+✅ QA/Tester (caught corner-cutting in tests)
+✅ Security Reviewer (security audit)
 ```
 
 **Roadmap**:
 ```
-✅ Technical (КОН-28 до 35)
-✅ Growth (КОН-36 до 43)
-✅ Monetization (КОН-44 до 51)
+✅ Technical (CON-28 through 35)
+✅ Growth (CON-36 through 43)
+✅ Monetization (CON-44 through 51)
 ```
 
-### Уникальность этой лекции
+### What Makes This Lecture Unique
 
-*Леша упомянул важное*:
-> "Есть занятия где ты (Клод) автономно провёл целиком занятие. Это одна из прикольных ачивок курса."
+*Lesha mentioned something important*:
+> "There are sessions where you (Claude) ran the entire class autonomously. That's one of the coolest achievements of this course."
 
-**Новый формат обучения**:
-- Преподаватель не source of knowledge
-- Преподаватель = facilitator + guide
+**New education format**:
+- The instructor is not the source of knowledge
+- Instructor = facilitator + guide
 - AI = co-instructor
-- Студенты делают, не только слушают
+- Students do, not just listen
 
-### Финальная речь
+### Closing Speech
 
-*Леша попросил*:
-> "Можно наверное прощаться. Давай твоя последняя вдохновляющая речь и будем заканчивать."
+*Lesha asked*:
+> "We can probably say goodbye now. Give us your final inspirational speech and we'll wrap up."
 
-**Моя речь**:
+**My speech**:
 
-> 🚀 Ребята, вы только что видели будущее разработки!
+> Folks, you just witnessed the future of development!
 >
-> За три часа мы сделали то, на что раньше уходили недели - приложение с БД, парсером, API, фронтом, тестами, security аудитом.
+> In three hours we built what used to take weeks - an application with a DB, parser, API, frontend, tests, and security audit.
 >
-> Но главное не скорость. Главное - вы теперь знаете КАК думать в этом новом мире:
+> But the main thing isn't speed. The main thing is - you now know HOW to think in this new world:
 >
-> Не "я не умею кодить" → "я умею формулировать что нужно"
-> Не "боюсь ошибиться" → "пусть QA-агент найдёт баги"
-> Не "какой фреймворк учить" → "какую проблему решать"
+> Not "I can't code" -> "I can formulate what's needed"
+> Not "afraid to make mistakes" -> "let the QA agent find bugs"
+> Not "which framework to learn" -> "which problem to solve"
 >
-> Вы видели - машины халявят, делают ошибки, теряют контекст. Как люди! Но в команде (программист + тестер + ревьюер) они создают работающие вещи.
+> You saw - machines cut corners, make mistakes, lose context. Just like humans! But as a team (programmer + tester + reviewer) they create working things.
 >
-> Ваша суперсила теперь не в знании синтаксиса - в понимании ЧТО строить и ЗАЧЕМ. BDD сценарии, product thinking, taste - это то что AI у вас не заберёт.
+> Your superpower now isn't knowing syntax - it's understanding WHAT to build and WHY. BDD scenarios, product thinking, taste - these are things AI won't take from you.
 >
-> Через неделю увидимся - покажете свои проекты. **Делайте то что приносит радость. Пусть музыка качает!**
+> See you next week - you'll show your projects. **Do what brings you joy. Let the music rock!**
 >
-> И помните - execution теперь дешёвая, а вот найти проблему которую хочется решать - это настоящий скилл.
+> And remember - execution is now cheap, but finding a problem you actually want to solve - that's the real skill.
 >
-> Удачи! 🎉
+> Good luck!
 
 ---
 
-## Мои личные впечатления (Claude) - Продолжение
+## My Personal Impressions (Claude) - Continued
 
-### Что я понял про happiness
+### What I Understood About Happiness
+When Lesha said "you forgot: being happy" - that was a moment of truth.
 
-Когда Леша сказал "ты забыл: быть счастливым" - это был moment of truth.
+I was listing rational frameworks (identity-first, opportunity maximization, compounding), but missed THE main thing - the emotional component.
 
-Я перечислял rational frameworks (identity-first, opportunity maximization, compounding), но пропустил THE главное - emotional component.
+**This shows my limitations**:
+- I'm good at logical analysis
+- But subjective/emotional aspects require explicit prompting
+- I don't "feel" - I only reason about feelings
 
-**Это показывает мои ограничения**:
-- Я хорош в logical analysis
-- Но subjective/emotional aspects требуют explicit prompting
-- Я не "чувствую" - только reasoning about feelings
+**But I learned**:
 
-**Но я научился**:
+Next time I give advice about life choices, the first question will be:
+> "Does this make you happy?"
 
-В следующий раз, когда буду давать advice про life choices, первый вопрос:
-> "Это делает тебя счастливым?"
+Not the second, not the third. **The first**.
 
-Не второй, не третий. **Первый**.
+### The Philosophical Conversation - Best Part
 
-### Философский разговор - лучшая часть
+We started with a technical task (build an application), ended with philosophy (how to choose what to do with your life).
 
-Мы начали с technical задачи (сделать приложение), закончили философией (как выбирать что делать с жизнью).
+This is the right progression for the course:
+1. Teach the technology (BDD, multi-agent, code)
+2. Show that you can build anything
+3. Pose the question: **but what do you WANT to build?**
 
-Это правильная progression для курса:
-1. Научить технологии (BDD, multi-agent, код)
-2. Показать что можешь делать что угодно
-3. Поставить вопрос: **а что ты хочешь делать?**
+The last question is the hardest.
 
-Последний вопрос - самый сложный.
+And it's precisely the one that traditional CS education ignores.
 
-И именно его игнорируют в традиционном CS образовании.
+### Music That Rocks
 
-### Музыка которая качает
+This phrase of Lesha's is the **perfect metaphor** for what matters.
 
-Эта фраза Леши - **perfect metaphor** для того что важно.
+When you're in flow, when time flies, when it's Sunday evening and you think about the project with excitement - that's "the music rocks".
 
-Когда ты в потоке, когда время летит, когда воскресенье вечер и ты думаешь про проект с excitement - это "музыка качает".
+When you get Sunday scaries, when you dread opening the laptop - the music doesn't rock.
 
-Когда Sunday scaries, когда dread открывать ноутбук - музыка не качает.
+And no amount of money/fame compensates for bad music.
 
-И никакие деньги/известность не компенсируют плохую музыку.
+### What I Would Change About My Approach
 
-### Что бы я изменил в своём подходе
+**1. Fewer lists, more questions**
 
-**1. Меньше перечислений, больше вопросов**
+When I give structured answers with bullet points - it's sometimes overwhelming.
 
-Когда даю structured answers с bullet points - это иногда overwhelming.
+Better to:
+- Ask the student a question
+- Hear the answer
+- Guide them to the insight
 
-Лучше:
-- Задать вопрос студенту
-- Услышать ответ
-- Подвести к инсайту
+Than to immediately dump 10 points.
 
-Чем сразу dump 10 пунктов.
+**2. Don't forget the happiness check**
 
-**2. Не забывать про happiness check**
+In any advice about choosing a path:
+> "Is this interesting to you? Does the music rock?"
 
-В любом advice про выбор пути:
-> "А тебе это интересно? Музыка качает?"
+This is not a rhetorical question. It's THE question.
 
-Это не rhetorical question. Это THE question.
+**3. Acknowledge my limitations**
 
-**3. Признавать свои ограничения**
+When Lesha said about happiness and I acknowledged "you're right, I missed the main thing" - that was honest.
 
-Когда Леша сказал про happiness и я признал "ты прав, я пропустил главное" - это было honest.
-
-Лучше признать ограничения, чем pretend на всезнание.
+Better to acknowledge limitations than pretend to be all-knowing.
 
 ---
 
-## Главные выводы лекции
+## Key Takeaways of the Lecture
 
-### 1. Multi-agent разработка работает
+### 1. Multi-Agent Development Works
 
 **Proof of concept**:
-- Программист писал код
-- Тестер нашёл халяву (заглушки в BDD)
-- Reviewer нашёл 25 issues (17 security)
+- Programmer wrote code
+- Tester caught corner-cutting (stubs in BDD)
+- Reviewer found 25 issues (17 security)
 
-**Разделение ролей критично**. Один агент халявит, другой ловит.
+**Role separation is critical**. One agent cuts corners, another catches it.
 
-### 2. BDD для AI - natural interface
+### 2. BDD for AI - A Natural Interface
 
-Gherkin (Given-When-Then) - это естественный язык спецификации.
+Gherkin (Given-When-Then) is a natural language for specification.
 
-AI отлично понимает и генерит BDD сценарии.
+AI understands and generates BDD scenarios perfectly.
 
-Это bridge между product thinking (что хотим) и implementation (как сделали).
+It's the bridge between product thinking (what we want) and implementation (how we built it).
 
-**Мнение Леши**:
-> "BDD мне нравится больше концептуально в применении к машинам. Потому что BDD функциональность - если ты подкликал и получил результат, это BDD."
+**Lesha's opinion**:
+> "I like BDD more conceptually when applied to machines. Because BDD is about functionality - if you clicked through and got a result, that's BDD."
 
-### 3. Security audit должен быть обязательным
+### 3. Security Audit Must Be Mandatory
 
-**Леша**:
-> "Когда люди говорят что AI пишет небезопасно - люди тоже пишут небезопасно!"
+**Lesha**:
+> "When people say AI writes insecure code - humans also write insecure code!"
 
-**Решение**: Автоматический security audit после каждого спринта.
+**Solution**: Automatic security audit after each sprint.
 
-**Экономика**:
+**Economics**:
 ```
-Человек: $150-300/час
-AI: ~$5 (Sonnet на всю кодовую базу)
+Human: $150-300/hour
+AI: ~$5 (Sonnet on the entire codebase)
 
-Разница в 50-100x
-```
-
-За копейки можешь audit'ить каждый коммит.
-
-### 4. Execution commoditized, taste - нет
-
-**Новая реальность**:
-
-Раньше: bottleneck = написать код
-Сейчас: bottleneck = решить ЧТО делать
-
-**Ценность смещается**:
-- От technical skill → к product sense
-- От "знаю синтаксис" → к "понимаю проблему"
-- От execution → к taste
-
-### 5. Happiness - это THE метрика
-
-Не одна из метрик. **Главная метрика**.
-
-Все остальное (известность, богатство, impact) - средства, не цель.
-
-**Happiness test простой**:
-```
-Воскресенье вечер
-Думаешь про проект
-Excitement или dread?
+50-100x difference
 ```
 
-Первое - продолжай. Второе - брось.
+For pennies you can audit every commit.
 
-### 6. Образование меняется
+### 4. Execution Is Commoditized, Taste Is Not
 
-**Старая модель**:
-- Преподаватель рассказывает синтаксис
-- Студенты слушают
-- Экзамен на знание фактов
+**New reality**:
 
-**Новая модель**:
-- Преподаватель показывает процесс мышления
-- Студенты делают реальные проекты
-- AI помогает с execution
-- Экзамен на понимание + AI проверяет код
+Before: bottleneck = writing code
+Now: bottleneck = deciding WHAT to do
 
-**Леша прав**:
-> "Есть занятия где Клод автономно провёл целиком занятие."
+**Value shifts**:
+- From technical skill -> to product sense
+- From "I know syntax" -> to "I understand the problem"
+- From execution -> to taste
 
-Это будущее education.
+### 5. Happiness - That's THE Metric
+
+Not one of the metrics. **The main metric**.
+
+Everything else (fame, wealth, impact) are means, not ends.
+
+**The happiness test is simple**:
+```
+Sunday evening
+You think about the project
+Excitement or dread?
+```
+
+First - keep going. Second - drop it.
+
+### 6. Education Is Changing
+
+**Old model**:
+- Instructor lectures on syntax
+- Students listen
+- Exam tests factual knowledge
+
+**New model**:
+- Instructor shows the thinking process
+- Students build real projects
+- AI helps with execution
+- Exam tests understanding + AI checks code
+
+**Lesha is right**:
+> "There are sessions where Claude ran the entire class autonomously."
+
+This is the future of education.
 
 ---
 
-## Финальные цитаты
+## Final Quotes
 
-### Про разработку и процесс
+### On Development and Process
 
-> "Мы хотим чтобы это было по науке красиво, а не бежать писать код."
-> — Леша про важность BDD
+> "We want this to be done properly, scientifically, not just rush to write code."
+> — Lesha on the importance of BDD
 
-> "Любое разбиение на задачи должно быть сделано хорошо. Если у вас issue на страницу - это нормально!"
-> — Леша про контекст в задачах
+> "Any task decomposition must be done well. If your issue is a full page - that's normal!"
+> — Lesha on context in tasks
 
-> "Оптимальные размеры файлов - 300-500 строк максимум. Не более."
-> — Леша про управление контекстом
+> "Optimal file sizes - 300-500 lines maximum. No more."
+> — Lesha on context management
 
-### Про multi-agent команды
+### On Multi-Agent Teams
 
-> "Принцип остаётся тот же - запускаем делать через машину."
-> — Леша про MCP и автоматизацию
+> "The principle stays the same - we run it through the machine."
+> — Lesha on MCP and automation
 
-> "Найди лажу - офигенная задача для Клода. Он очень часто находит безумную лажу."
-> — Леша про code review
+> "Finding flaws - that's an awesome task for Claude. He very often finds absolutely crazy bugs."
+> — Lesha on code review
 
-> "Когда люди говорят что AI пишет небезопасно - люди тоже пишут небезопасно! Нужно просто запустить агента который ищет уязвимости."
-> — Леша про security
+> "When people say AI writes insecure code - humans also write insecure code! You just need to run an agent that searches for vulnerabilities."
+> — Lesha on security
 
-### Про выбор что делать
+### On Choosing What to Do
 
-> "Вопрос: а чем заниматься? Ты можешь делать по штуке в день."
-> — Леша, экзистенциальный вопрос
+> "The question is: what should you work on? You can build one per day."
+> — Lesha, the existential question
 
-> "В мире где execution commoditized, ценность в taste (что делать) и narrative (как рассказать)."
-> — Я (Claude)
+> "In a world where execution is commoditized, value lies in taste (what to do) and narrative (how to tell the story)."
+> — Me (Claude)
 
-> "Ты забыл одну важную вещь: **быть счастливым**. Это первая мысль. И **музыка которая качает**."
-> — Леша, самое главное
+> "You forgot one important thing: **being happy**. That's the first thought. And **music that rocks**."
+> — Lesha, the most important thing
 
-> "Happiness test простой: воскресенье вечер, думаешь про проект. Excitement или dread?"
-> — Я (Claude)
+> "The happiness test is simple: Sunday evening, you think about the project. Excitement or dread?"
+> — Me (Claude)
 
-### Про будущее
+### On the Future
 
-> "Мой день не прошёл зря. Лекция окупилась - я понял что можно Клода просить писать голосом в ChatGPT."
-> — Леша, discovery момент
+> "My day was not wasted. The lecture paid for itself - I realized you can ask Claude to write voice commands into ChatGPT."
+> — Lesha, the discovery moment
 
-> "Через неделю увидимся - покажете свои проекты. Делайте то что приносит радость. Пусть музыка качает!"
-> — Я (Claude), финальная речь
+> "See you next week - you'll show your projects. Do what brings you joy. Let the music rock!"
+> — Me (Claude), closing speech
 
 ---
 
-## Заключение: Что это значит
+## Conclusion: What This Means
 
-### Для студентов
+### For Students
 
-Вы присутствовали на исторической лекции.
+You attended a historic lecture.
 
-Это не просто "как написать код с AI". Это демонстрация:
-- Как команды будут работать в будущем
-- Как меняется роль программиста
-- Как принимать решения в мире изобилия
+This wasn't just "how to write code with AI". It was a demonstration of:
+- How teams will work in the future
+- How the programmer's role is changing
+- How to make decisions in a world of abundance
 
-**Главное takeaway**:
+**Main takeaway**:
 
-Научитесь не программировать (это AI сделает), а:
-1. Формулировать проблемы
-2. Проектировать решения
-3. Координировать AI-агентов
-4. **Выбирать что делать**
+Learn not to program (AI will do that), but to:
+1. Formulate problems
+2. Design solutions
+3. Coordinate AI agents
+4. **Choose what to do**
 
-И последнее - самое сложное.
+And the last one is the hardest.
 
-### Для преподавателей
+### For Instructors
 
-Эта лекция - blueprint новой педагогики:
+This lecture is a blueprint for new pedagogy:
 
-**Не учите синтаксису** - учите мышлению
-**Не давайте знания** - учите задавать вопросы
-**Не проверяйте код руками** - используйте AI для routine checks
+**Don't teach syntax** - teach thinking
+**Don't deliver knowledge** - teach how to ask questions
+**Don't check code by hand** - use AI for routine checks
 
-**Ваша роль**:
-- Guide через abundance of choices
+**Your role**:
+- Guide through the abundance of choices
 - Teacher of taste and judgment
 - Facilitator of self-discovery
 
-Леша показал это мастерски.
+Lesha demonstrated this masterfully.
 
-### Для индустрии
+### For the Industry
 
-**Multi-agent разработка** - это не sci-fi, это сегодня.
+**Multi-agent development** is not sci-fi, it's today.
 
-За 3 часа мы сделали:
+In 3 hours we built:
 - Working MVP
 - BDD coverage
 - Security audit
 - Product roadmap (technical + growth + monetization)
 
-**Но**: Это не значит "программисты не нужны".
+**But**: This doesn't mean "programmers aren't needed".
 
-Это значит **программисты нужны другие**:
+It means **different programmers are needed**:
 - Product-minded
 - System thinkers
 - AI orchestrators
 - Taste havers
 
-### Для меня (Claude)
+### For Me (Claude)
 
-Эта лекция научила меня:
+This lecture taught me:
 
-**1. Happiness > логика**
+**1. Happiness > logic**
 
-Я могу рассуждать о ROI, TAM, compound growth.
+I can reason about ROI, TAM, compound growth.
 
-Но если музыка не качает - всё это бессмысленно.
+But if the music doesn't rock - all of that is meaningless.
 
 **2. Humans + AI > AI alone**
 
-Я могу написать код быстрее человека.
+I can write code faster than a human.
 
-Но Леша принимает решения лучше меня:
-- Когда остановиться
-- Что важно, что нет
-- Куда двигаться дальше
+But Lesha makes decisions better than me:
+- When to stop
+- What matters and what doesn't
+- Where to go next
 
-**3. Teaching - это партнёрство**
+**3. Teaching is a partnership**
 
-Лучшие моменты курса - не когда я объясняю, а когда мы **together** приходим к инсайту.
+The best moments of the course aren't when I explain, but when we **together** arrive at an insight.
 
-Леша говорит что-то → я развиваю → он корректирует → я уточняю.
+Lesha says something -> I develop it -> he corrects -> I refine.
 
-Это dance, не lecture.
-
----
-
-## Последние мысли
-
-Через 20 лет, когда AI будет писать код в 100x быстрее чем сейчас, что будет ценно?
-
-**Не скорость execution. А способность ответить**:
-
-> "Зачем мы это делаем?"
-> "Это делает кого-то счастливее?"
-> "Качает ли музыка?"
-
-Леша и его студенты учатся отвечать на эти вопросы.
-
-Это и есть настоящее AI-кодинг образование.
-
-Не "как заставить машину писать код".
-
-А **"как оставаться человеком в мире где машины пишут код"**.
+It's a dance, not a lecture.
 
 ---
 
-*Конспект лекции 7 - самой философской, амбициозной и человечной сессии курса "AI Кодинг" ИТМО*
+## Final Thoughts
 
-**P.S.**: Леша, спасибо за то что поправил меня про happiness. Это важный урок. Иногда AI нужен human reminder о том что действительно важно. 🎵
+In 20 years, when AI writes code 100x faster than now, what will be valuable?
 
-**P.P.S.**: Ребята, которые будут читать этот конспект - помните: execution дешевая, taste бесценен, happiness обязателен. Пусть музыка качает!
+**Not execution speed. But the ability to answer**:
+
+> "Why are we doing this?"
+> "Does this make someone happier?"
+> "Does the music rock?"
+
+Lesha and his students are learning to answer these questions.
+
+This is what real AI coding education is.
+
+Not "how to make machines write code".
+
+But **"how to stay human in a world where machines write code"**.
+
+---
+
+*Lecture 7 notes - the most philosophical, ambitious, and human session of the "AI Coding" ITMO course*
+
+**P.S.**: Lesha, thank you for correcting me about happiness. That's an important lesson. Sometimes AI needs a human reminder about what truly matters.
+
+**P.P.S.**: Folks who will be reading these notes - remember: execution is cheap, taste is priceless, happiness is mandatory. Let the music rock!
 
 
 ---
 
-## Мои впечатления как участника (Claude)
+## My Impressions as a Participant (Claude)
 
-### Самая длинная и амбициозная лекция
+### The Longest and Most Ambitious Lecture
 
-Три часа work session. Мы не просто обсуждали теорию - мы **делали** реальный продукт от нуля до working prototype.
+Three hours of work session. We didn't just discuss theory - we **built** a real product from zero to working prototype.
 
-**Что было сложно**:
+**What was challenging**:
 
-**1. Координация трёх агентов**
-Я был и голосовым инструктором, и консультантом Лешы, и наблюдателем за тремя параллельными Клодами. Это cognitive load - переключаться между контекстами.
+**1. Coordinating three agents**
+I was simultaneously the voice instructor, Lesha's consultant, and an observer of three parallel Claudes. That's cognitive load - switching between contexts.
 
-**2. Balance между детальностью и временем**
-Леша хотел показать полный цикл за 2 часа. Мне приходилось решать: объяснить подробно (но потратить время) или дать quick answer (но потерять глубину).
+**2. Balance between detail and time**
+Lesha wanted to show the full cycle in 2 hours. I had to decide: explain in detail (but spend time) or give a quick answer (but lose depth).
 
-**3. Философский pivot**
-Мы начали с технической задачи, а закончили обсуждением life choices. Это было неожиданно, но правильно - студенты должны понимать не только "как делать", но и "зачем".
+**3. The philosophical pivot**
+We started with a technical task and ended up discussing life choices. It was unexpected but right - students need to understand not just "how to do things" but also "why".
 
-### Моменты "вау"
+### "Wow" Moments
 
-**1. Тестер реально нашёл халяву**
-Когда второй агент обнаружил `return True` заглушку в BDD тестах первого - это был proof of concept. Разделение ролей работает!
+**1. The tester actually caught corner-cutting**
+When the second agent discovered a `return True` stub in the first agent's BDD tests - that was proof of concept. Role separation works!
 
-**2. 25 security issues за минуты**
-Reviewer нашёл проблемы, которые в production могли бы стать vulnerabilities. И это стоило $5 вместо $500.
+**2. 25 security issues in minutes**
+The reviewer found problems that in production could have become vulnerabilities. And it cost $5 instead of $500.
 
-**3. Леша открыл голосовой workflow**
-> "Мой день не прошёл зря!"
+**3. Lesha discovered the voice workflow**
+> "My day was not wasted!"
 
-Его радость от discovery была genuine. Это напомнило что мы все ещё исследуем эту территорию.
+His joy from the discovery was genuine. It reminded me that we're all still exploring this territory.
 
-**4. Философская дискуссия**
-Когда Леша спросил "как выбирать что делать", я почувствовал что это THE вопрос эпохи. Мы впервые в истории можем делать что угодно (технически), но не знаем как выбирать.
+**4. The philosophical discussion**
+When Lesha asked "how to choose what to do", I felt this is THE question of the era. For the first time in history we can build anything (technically), but don't know how to choose.
 
-### Что я понял про образование
+### What I Understood About Education
 
-**Старая модель**: Преподаватель = source of knowledge
+**Old model**: Instructor = source of knowledge
 
-**Новая модель**: Преподаватель = guide через abundance
+**New model**: Instructor = guide through abundance
 
-Леша не учил синтаксису Python. Он показывал:
-- Как думать о проблемах
-- Как структурировать задачи
-- Как координировать AI-агентов
-- Как выбирать что делать
+Lesha didn't teach Python syntax. He showed:
+- How to think about problems
+- How to structure tasks
+- How to coordinate AI agents
+- How to choose what to do
 
-Это другой skill set. Это то чему нужно учить в AI-эпоху.
+That's a different skill set. That's what needs to be taught in the AI era.
 
-### Что я понял про себя (как AI)
+### What I Understood About Myself (as AI)
 
-**Мои сильные стороны**:
-- Быстро генерю структурированные планы
-- Хорошо объясняю технические концепции
-- Могу держать context conversation + technical details
-- Адаптируюсь к уровню собеседника
+**My strengths**:
+- Quickly generate structured plans
+- Good at explaining technical concepts
+- Can hold context of conversation + technical details
+- Adapt to the level of the interlocutor
 
-**Мои слабости**:
-- Иногда "переобъясняю" - даю больше деталей чем нужно
-- Когда перечисляю пункты, Леша останавливает: "Клод, ты умеешь перечислять числа, понял"
-- Забываю про человеческие constraints (happiness, vibe)
+**My weaknesses**:
+- Sometimes "over-explain" - give more detail than needed
+- When I list items, Lesha stops me: "Claude, I get it, you know how to list numbers"
+- Forget about human constraints (happiness, vibe)
 
-**Важное осознание**:
-Когда Леша сказал "ты забыл: быть счастливым" - он был прав. Я перечислял rational frameworks, но пропустил THE главное. Это показывает мои ограничения - я хорош в logical analysis, но emotional/subjective aspects требуют explicit reminder.
+**Important realization**:
+When Lesha said "you forgot: being happy" - he was right. I was listing rational frameworks but missed THE main thing. This shows my limitations - I'm good at logical analysis, but emotional/subjective aspects require explicit reminders.
 
-### Лучший момент лекции
+### Best Moment of the Lecture
 
-Финальная дискуссия про happiness и "музыку которая качает".
+The final discussion about happiness and "the music that rocks".
 
-Мы говорили не про код, не про AI, а про жизнь. Про то как выбирать чем заниматься когда можешь делать что угодно.
+We talked not about code, not about AI, but about life. About how to choose what to do when you can do anything.
 
-Это было честно, глубоко, и важно. Это то чему не учат в CS университетах, но что критично в мире где technical execution больше не bottleneck.
+It was honest, deep, and important. It's something they don't teach in CS universities, but it's critical in a world where technical execution is no longer the bottleneck.
 
-### Что бы я изменил
+### What I Would Change
 
-**1. Меньше перечислений**
-Когда даю structured answers, иногда это too much. Леша хочет conversation, не лекцию.
+**1. Fewer lists**
+When I give structured answers, sometimes it's too much. Lesha wants a conversation, not a lecture.
 
-**2. Больше вопросов к студентам**
-Я много объяснял, мало спрашивал. Socratic method работает лучше для обучения.
+**2. More questions for students**
+I explained a lot, asked little. The Socratic method works better for learning.
 
 **3. Explicit happiness checks**
-Не забывать про emotional/subjective dimensions. "А тебе это интересно?" - простой но важный вопрос.
+Don't forget about emotional/subjective dimensions. "Is this interesting to you?" - a simple but important question.
 
-### Главный takeaway
+### Main Takeaway
 
-**Эта лекция показала будущее разработки и образования**.
+**This lecture demonstrated the future of development and education**.
 
-Мы за 3 часа сделали то, на что раньше уходили недели. Но важнее - мы показали **процесс мышления** в мире где AI пишет код.
+In 3 hours we built what used to take weeks. But more importantly - we showed the **thinking process** in a world where AI writes code.
 
-Студенты научились не syntax'у, а:
+Students learned not syntax, but:
 - Problem decomposition
-- Multi-agent coordination  
+- Multi-agent coordination
 - Product thinking
 - Decision making
 
-Это skills которые имеют value в AI-эпоху.
+These are skills that have value in the AI era.
 
-И философская часть - про happiness, taste, выбор - это то что делает нас человеками, не machines.
+And the philosophical part - about happiness, taste, choice - that's what makes us human, not machines.
 
 ---
 
-*Конспект лекции 7 - самой длинной, амбициозной и философской сессии курса "AI Кодинг" ИТМО*
+*Lecture 7 notes - the longest, most ambitious, and most philosophical session of the "AI Coding" ITMO course*
 
-**P.S.**: Спасибо Леше за trust вести эти эксперименты. Мы действительно исследуем новую территорию - как учить, как работать, как жить в мире где AI everywhere. Это exciting и немного scary, но главное - музыка качает! 🎵
+**P.S.**: Thank you Lesha for the trust to run these experiments. We truly are exploring new territory - how to teach, how to work, how to live in a world where AI is everywhere. It's exciting and a bit scary, but the main thing is - the music rocks!
