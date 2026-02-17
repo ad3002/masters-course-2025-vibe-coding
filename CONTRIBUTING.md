@@ -1,158 +1,158 @@
-# Руководство по внесению вклада
+# Contributing Guide
 
-Спасибо за интерес к курсу "Vibe Coding 2025"! Мы приветствуем вклад от сообщества.
+Thank you for your interest in the "Vibe Coding 2025" course! We welcome contributions from the community.
 
-## 🎯 Что можно добавлять
+## 🎯 What You Can Contribute
 
-### Приветствуются
+### Welcome
 
-- **Примеры использования** — ваши кейсы работы с AI-инструментами
-- **Дополнительные материалы** — полезные ссылки, статьи, видео по теме
-- **Исправления** — опечатки, неточности, улучшения формулировок
-- **Переводы** — адаптация материалов на другие языки
-- **Инструменты и скрипты** — автоматизация для vibe coding
-- **Практические задания** — упражнения для закрепления материала
+- **Use cases** — your real-world examples of working with AI tools
+- **Supplementary materials** — useful links, articles, and videos related to the course topics
+- **Corrections** — typos, inaccuracies, wording improvements
+- **Translations** — adapting course materials to other languages
+- **Tools and scripts** — automation utilities for vibe coding
+- **Practical exercises** — assignments to reinforce course concepts
 
-### Не принимаются
+### Not Accepted
 
-- Изменения основной структуры курса без согласования
-- Реклама платных сервисов без образовательной ценности
-- Материалы, нарушающие лицензионные ограничения
+- Changes to the core course structure without prior approval
+- Advertising paid services with no educational value
+- Materials that violate licensing restrictions
 
-## 📝 Как внести вклад
+## 📝 How to Contribute
 
-### 1. Создайте Issue (необязательно, но рекомендуется)
+### 1. Open an Issue (optional but recommended)
 
-Перед началом работы создайте issue с описанием:
-- Что вы хотите добавить/изменить
-- Почему это будет полезно
-- Как это вписывается в философию курса
+Before starting, create an issue describing:
+- What you want to add or change
+- Why it would be useful
+- How it aligns with the course philosophy
 
-### 2. Fork и создание ветки
+### 2. Fork and Create a Branch
 
 ```bash
-# Форкните репозиторий через GitHub UI, затем клонируйте свой форк
+# Fork the repository via the GitHub UI, then clone your fork
 git clone https://github.com/your-username/masters-course-2025-vibe-coding.git
 cd masters-course-2025-vibe-coding
 
-# Добавьте upstream для синхронизации с оригиналом
+# Add upstream remote to stay in sync with the original
 git remote add upstream https://github.com/ad3002/masters-course-2025-vibe-coding.git
 
-# Создайте ветку для вашего вклада
+# Create a branch for your contribution
 git checkout -b feature/your-contribution-name
 ```
 
-### 3. Внесите изменения
+### 3. Make Your Changes
 
-**Структура проекта:**
+**Project structure:**
 
 ```
-materials/           # Материалы лекций
+materials/           # Lecture materials
 ├── workshop1.md
 ├── workshop2.md
 └── workshop3.md
 
-audio/              # Аудиозаписи (не редактируйте)
+audio/              # Audio recordings (do not edit)
 
-examples/           # Примеры и кейсы (можете добавлять)
+examples/           # Examples and case studies (feel free to add)
 
-tools/              # Полезные скрипты и инструменты
+tools/              # Useful scripts and utilities
 ```
 
-**Стиль оформления:**
+**Formatting guidelines:**
 
-- Используйте markdown для текстовых материалов
-- Добавляйте эмодзи для улучшения читаемости (🚀 💡 ⚠️)
-- Код должен быть с подсветкой синтаксиса
-- Ссылки оформляйте в markdown-формате
+- Use markdown for text-based materials
+- Add emoji to improve readability (🚀 💡 ⚠️)
+- Include syntax highlighting for code blocks
+- Format links using markdown syntax
 
-### 4. Коммит
+### 4. Commit
 
 ```bash
 git add .
-git commit -m "feat: добавил пример использования Claude Code для FastAPI"
+git commit -m "feat: add example of using Claude Code with FastAPI"
 ```
 
-**Формат коммитов:**
-- `feat:` — новая функциональность
-- `fix:` — исправление ошибки
-- `docs:` — изменения в документации
-- `example:` — добавление примера
+**Commit message format:**
+- `feat:` — new feature or content
+- `fix:` — bug fix or correction
+- `docs:` — documentation changes
+- `example:` — adding an example
 
-### 5. Push и Pull Request
+### 5. Push and Create a Pull Request
 
 ```bash
 git push origin feature/your-contribution-name
 ```
 
-Затем создайте Pull Request через GitHub UI с описанием:
-- Что добавлено/изменено
-- Почему это полезно
-- Примеры использования (если применимо)
+Then create a Pull Request via the GitHub UI with a description of:
+- What was added or changed
+- Why it is useful
+- Usage examples (if applicable)
 
-## ✅ Чек-лист перед отправкой PR
+## ✅ Pre-Submission Checklist
 
-- [ ] Материалы соответствуют философии курса (vibe coding, AI-first)
-- [ ] Текст проверен на опечатки
-- [ ] Ссылки рабочие
-- [ ] Код (если есть) протестирован
-- [ ] Добавлено описание в PR
-- [ ] Соблюдены форматирование и стиль
+- [ ] Materials align with the course philosophy (vibe coding, AI-first)
+- [ ] Text has been proofread for typos
+- [ ] All links are working
+- [ ] Code (if any) has been tested
+- [ ] PR description is included
+- [ ] Formatting and style guidelines are followed
 
-## 🤝 Примеры вкладов
+## 🤝 Contribution Examples
 
-### Добавление кейса
+### Adding a Case Study
 
-Создайте файл в `examples/your-case.md`:
+Create a file at `examples/your-case.md`:
 
 ```markdown
-# Название кейса
+# Case Study Title
 
-## Контекст
-Краткое описание задачи
+## Context
+Brief description of the task
 
-## Инструменты
+## Tools
 - Claude Code
 - Cursor
 
-## Процесс
-Описание шагов
+## Process
+Step-by-step description
 
-## Результат
-Что получилось, затраченное время, токены
+## Result
+What was achieved, time spent, tokens used
 
-## Выводы
-Что сработало, что нет
+## Takeaways
+What worked, what didn't
 ```
 
-### Добавление инструмента
+### Adding a Tool
 
-Создайте папку `tools/tool-name/` с:
-- `README.md` — описание и инструкция
-- Код инструмента
-- Примеры использования
+Create a folder `tools/tool-name/` containing:
+- `README.md` — description and usage instructions
+- Tool source code
+- Usage examples
 
-## 🔄 Процесс ревью
+## 🔄 Review Process
 
-1. Maintainer (Алексей) просматривает PR в течение 3-7 дней
-2. Возможны комментарии и запросы на изменения
-3. После одобрения — merge в main
-4. Ваше имя добавляется в Contributors
+1. The maintainer (Alexey) reviews PRs within 3-7 days
+2. Comments or change requests may follow
+3. Once approved, the PR is merged into main
+4. Your name is added to the Contributors list
 
-## 💬 Вопросы и обсуждения
+## 💬 Questions and Discussions
 
 - **Telegram**: [@ad3002](https://t.me/ad3002)
-- **GitHub Issues**: для технических вопросов
-- **GitHub Discussions**: для обсуждения идей
+- **GitHub Issues**: for technical questions
+- **GitHub Discussions**: for discussing ideas
 
-## 📜 Лицензия
+## 📜 License
 
-Внося вклад, вы соглашаетесь, что ваши материалы будут распространяться под [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Ваше авторство будет указано.
+By contributing, you agree that your materials will be distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Your authorship will be credited.
 
-## 🌟 Благодарности
+## 🌟 Acknowledgments
 
-Все контрибьюторы будут упомянуты в README. Значительные вклады могут быть отмечены особо.
+All contributors will be mentioned in the README. Significant contributions may receive special recognition.
 
 ---
 
-*Спасибо, что помогаете делать обучение AI-программированию доступнее!*
+*Thank you for helping make AI programming education more accessible!*
