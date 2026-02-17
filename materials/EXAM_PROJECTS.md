@@ -1,773 +1,773 @@
-# 🎯 Экзамен: 20 проектов на выбор
+# 🎯 Exam: 20 Projects to Choose From
 
-> **Vibe Coding 2025** | ИТМО | Магистратура
+> **Vibe Coding 2025** | ITMO | Master's Program
 >
-> **Время**: 3 часа | **Инструмент**: Claude | **Результат**: GitHub репозиторий
-
----
-
-## Критерии оценки
-
-| Критерий | Баллы | Как получить максимум |
-|----------|:-----:|----------------------|
-| **Работоспособность MVP** | 2-5 | Запускается и решает заявленную проблему |
-| **Эволюция (коммиты)** | 2-5 | 10+ осмысленных коммитов, видно развитие |
-| **Тесты** | 2-5 | pytest-bdd с .feature файлами, тесты ДО кода |
-| **Документация** | 2-5 | README + CLAUDE.md + инструкция по запуску |
-| **Vibe Coding подход** | 2-5 | BDD как спецификация, AI как соавтор |
-
-### ✅ Чеклист на 25/25
-
-- [ ] Репозиторий на GitHub
-- [ ] README с описанием и инструкцией запуска
-- [ ] CLAUDE.md с описанием работы с AI
-- [ ] BDD .feature файлы (pytest-bdd)
-- [ ] Тесты запускаются и проходят
-- [ ] 10+ коммитов с понятными сообщениями
-- [ ] MVP работает и решает проблему заказчика
+> **Time**: 3 hours | **Tool**: Claude | **Result**: GitHub repository
 
 ---
 
-## 🎪 Проекты
+## Grading Criteria
+
+| Criterion | Points | How to get the max |
+|-----------|:------:|-------------------|
+| **Working MVP** | 2-5 | It launches and solves the stated problem |
+| **Evolution (commits)** | 2-5 | 10+ meaningful commits showing clear progression |
+| **Tests** | 2-5 | pytest-bdd with .feature files, tests BEFORE code |
+| **Documentation** | 2-5 | README + CLAUDE.md + launch instructions |
+| **Vibe Coding approach** | 2-5 | BDD as specification, AI as co-author |
+
+### ✅ Checklist for 25/25
+
+- [ ] Repository on GitHub
+- [ ] README with description and launch instructions
+- [ ] CLAUDE.md describing how you worked with AI
+- [ ] BDD .feature files (pytest-bdd)
+- [ ] Tests run and pass
+- [ ] 10+ commits with clear messages
+- [ ] MVP works and solves the client's problem
 
 ---
 
-### 1. 😤 ПЕРЕГОВОРКИ (или как я провёл 2 часа жизни в коридоре)
-
-> Слушай, я работаю в офисе где 8 переговорок. ВОСЕМЬ! Казалось бы — бери любую. Ага, щас.
->
-> Понедельник, 10:55. Через 5 минут созвон с клиентом. Иду в "Марс" — занято, хотя в Outlook свободно. Стучу — там какие-то чуваки едят борщ из контейнеров. БОРЩ! В ПЕРЕГОВОРКЕ!
->
-> Бегу в "Венеру" — заперто изнутри, слышно как кто-то орёт в телефон.
->
-> "Юпитер" — сидят трое, смотрят YouTube на проекторе.
->
-> "Сатурн" — ремонт.
->
-> "Нептун" — бронь Иванова с 9:00 до 18:00 каждый день на год вперёд (он давно уволился).
->
-> В итоге созваниваюсь с клиентом сидя на подоконнике в коридоре. Профессионально? Очень.
->
-> Outlook календарь — это ФИКЦИЯ. Там никто не отмечает когда освободил раньше. Никто не удаляет бронь когда митинг отменился. А HR продолжает слать письма "коллеги, пожалуйста, освобождайте переговорки вовремя 🙏". Угу, работает отлично.
->
-> **Сделай бота в телегу:**
-> - Пишу "свободна?" — показывает какие переговорки свободны РЕАЛЬНО, прямо сейчас
-> - "Бронь Марс 15:00-16:00" — бронирует
-> - "Освободил Марс" — снимает бронь раньше времени
-> - "Кто в Венере?" — показывает кто забронировал и до скольки
->
-> Не надо интеграций с Outlook (это невозможно), просто своя честная база. Где люди сами отмечают.
-
-**Стек**: `Python` `aiogram` `SQLite`
+## 🎪 Projects
 
 ---
 
-### 2. 🍕 СКОЛЬКО Я ДОЛЖЕН ВАСЕ (или пятничная драма)
+### 1. 😤 MEETING ROOMS (or how I spent 2 hours of my life in a hallway)
 
-> Пятница. 18:00. Мы остались в офисе вшестером — дедлайн.
+> So look, I work in an office with 8 meeting rooms. EIGHT! You'd think — just grab any one. Yeah, right.
 >
-> Вася (святой человек): "Заказываю пиццу, скинетесь?"
-> Все: "Даааа!"
+> Monday, 10:55. Call with the client in 5 minutes. I head to "Mars" — occupied, even though Outlook says it's free. I knock — some dudes in there eating borscht out of containers. BORSCHT! IN A MEETING ROOM!
 >
-> Пицца приехала. 4200 рублей.
+> I sprint to "Venus" — locked from inside, I can hear someone screaming into a phone.
 >
-> Вася: "Так, это 700 рублей с человека"
-> Петя: "Я только два куска съел!"
-> Маша: "А я вообще одну пепперони!"
-> Коля: "Зато ты, Петя, колу всю выпил!"
-> Петя: "Не всю! Пол-литра!"
-> Оля: "Я на диете, я только салат ела"
-> Все: "КАКОЙ САЛАТ ОЛЯ, МЫ ПИЦЦУ ЗАКАЗЫВАЛИ"
+> "Jupiter" — three people watching YouTube on the projector.
 >
-> Вася: *тихо плачет*
+> "Saturn" — under renovation.
 >
-> Через неделю:
-> "Кто мне должен за прошлую пиццу?"
-> "Я скидывал!"
-> "Когда?"
-> "На прошлой неделе!"
-> "Это было две недели назад, а на прошлой ты не скидывал"
-> "Скидывал!!!"
+> "Neptune" — booked by Ivanov from 9:00 to 18:00 every day for a year in advance (he quit ages ago).
 >
-> Я начал вести таблицу в Excel. Забыл обновить. Вася завёл тетрадку. Потерял. Маша сделала чат "Долги за еду". Там 500 сообщений и полный хаос.
+> End result: I take my client call sitting on a windowsill in the hallway. Professional? Extremely.
 >
-> **Сделай бота:**
-> - Вася пишет: "пицца 4200 @Петя @Маша @Коля @Оля @Дима"
-> - Бот: "Записал! По 700р с каждого. Общий долг Васе: 3500р"
-> - Петя: "скинул Васе 700"
-> - Бот: "Принял! Петя больше не должен. Остались: Маша, Коля, Оля, Дима"
-> - Кто угодно: "долги"
-> - Бот: "Маша должна Васе 700р (2 недели). Коля должен Васе 1400р (просрочено!)..."
+> The Outlook calendar is a FICTION. Nobody marks when they leave early. Nobody cancels the booking when a meeting falls through. And HR keeps sending emails "colleagues, please vacate meeting rooms on time 🙏". Uh huh, works great.
 >
-> МИР. ДРУЖБА. ПИЦЦА.
+> **Build a Telegram bot:**
+> - I type "any free?" — shows which rooms are ACTUALLY free right now
+> - "Book Mars 15:00-16:00" — books it
+> - "Freed up Mars" — releases the booking early
+> - "Who's in Venus?" — shows who booked it and until when
+>
+> No Outlook integrations needed (that's impossible anyway), just its own honest database. Where people actually mark things themselves.
 
-**Стек**: `Python` `aiogram` `SQLite`
+**Stack**: `Python` `aiogram` `SQLite`
 
 ---
 
-### 3. 📚 ГДЕ МОЯ КНИГА (детектив длиною в 3 года)
+### 2. 🍕 HOW MUCH DO I OWE VASYA (or the Friday night drama)
 
-> 2022 год. Друг Серёга: "О, Пелевин! Дашь почитать?" — "Да, конечно, держи"
+> Friday. 6:00 PM. Six of us are still at the office — deadline.
 >
-> 2023 год. Я: "Хочу перечитать Generation П... где она? Ладно, куплю новую"
+> Vasya (a saint): "Ordering pizza, wanna chip in?"
+> Everyone: "Yeeeees!"
 >
-> 2024 год. Серёга в гостях. На полке стоит МОЙ Пелевин. С МОЕЙ загнутой страницей.
-> "Серёг... это моя книга"
-> "Неее, я её покупал"
-> "Серёг, у меня там на 47й странице кофе пролито"
+> Pizza arrives. 4,200 rubles.
+>
+> Vasya: "Okay, that's 700 per person"
+> Petya: "I only had two slices!"
+> Masha: "I literally only had one pepperoni!"
+> Kolya: "But you, Petya, drank all the Coke!"
+> Petya: "Not all of it! Half a liter!"
+> Olya: "I'm on a diet, I only had the salad"
+> Everyone: "WHAT SALAD OLYA, WE ORDERED PIZZA"
+>
+> Vasya: *quietly weeping*
+>
+> A week later:
+> "Who still owes me for last week's pizza?"
+> "I already paid!"
+> "When?"
+> "Last week!"
+> "That was two weeks ago, you didn't pay last week"
+> "I DID!!!"
+>
+> I started tracking it in Excel. Forgot to update it. Vasya started a notebook. Lost it. Masha created a chat called "Food Debts." 500 messages and total chaos.
+>
+> **Build a bot:**
+> - Vasya types: "pizza 4200 @Petya @Masha @Kolya @Olya @Dima"
+> - Bot: "Got it! 700 each. Total owed to Vasya: 3,500"
+> - Petya: "paid Vasya 700"
+> - Bot: "Noted! Petya is all clear. Remaining: Masha, Kolya, Olya, Dima"
+> - Anyone: "debts"
+> - Bot: "Masha owes Vasya 700 (2 weeks). Kolya owes Vasya 1,400 (overdue!)..."
+>
+> PEACE. FRIENDSHIP. PIZZA.
+
+**Stack**: `Python` `aiogram` `SQLite`
+
+---
+
+### 3. 📚 WHERE'S MY BOOK (a detective story spanning 3 years)
+
+> 2022. My buddy Seryoga: "Oh, Pelevin! Can I borrow it?" — "Sure, go ahead"
+>
+> 2023. Me: "I wanna re-read Generation P... where is it? Screw it, I'll buy a new one"
+>
+> 2024. Seryoga is at my place. On his shelf sits MY Pelevin. With MY dog-eared page.
+> "Seryoga... that's my book"
+> "Nah man, I bought it"
+> "Seryoga, I spilled coffee on page 47"
 > "..."
 > "..."
-> "Ну... может ты мне подарил?"
+> "Well... maybe you gave it to me as a gift?"
 >
-> У меня пропали:
-> - "Мастер и Маргарита" (подозреваемых: 4 человека)
-> - "1984" Оруэлла (вообще не помню кому давал)
-> - "Гарри Поттер и философский камень" (мама говорит у неё, мама врёт)
-> - Сборник рассказов Чехова (может сам потерял при переезде?)
+> I'm missing:
+> - "The Master and Margarita" (suspects: 4 people)
+> - "1984" by Orwell (I have zero memory of who I lent it to)
+> - "Harry Potter and the Philosopher's Stone" (mom says she has it, mom is lying)
+> - A collection of Chekhov short stories (maybe I lost it during the move?)
 >
-> Дома ~200 книг. Периодически даю почитать. Никогда не записываю. СТРАДАЮ.
+> I have ~200 books at home. I occasionally lend them out. I never write it down. I SUFFER.
 >
-> **Сделай CLI или бота:**
-> - `book add "Мастер и Маргарита" "Булгаков"` — добавил в каталог
-> - `book lend "Мастер и Маргарита" "Серёга" 15.01.2025` — записал кому дал
-> - `book list --lent` — "У кого мои книги: Серёга (Булгаков, 2 месяца!), Мама (Гарри Поттер, 1 год!!!)"
-> - `book remind` — "Пора напомнить: Мама держит книгу уже ГОД"
-> - `book return "Мастер и Маргарита"` — вернули, ура!
+> **Build a CLI or bot:**
+> - `book add "The Master and Margarita" "Bulgakov"` — added to the catalog
+> - `book lend "The Master and Margarita" "Seryoga" 01.15.2025` — recorded who I gave it to
+> - `book list --lent` — "Who has my books: Seryoga (Bulgakov, 2 months!), Mom (Harry Potter, 1 YEAR!!!)"
+> - `book remind` — "Time to nudge: Mom has had the book for a YEAR"
+> - `book return "The Master and Margarita"` — returned, hooray!
 >
-> Бонус: можно фотку обложки добавлять чтобы точно знать какое издание.
+> Bonus: option to add a photo of the cover so you know exactly which edition.
 
-**Стек**: `Python` `click` или `aiogram`
+**Stack**: `Python` `click` or `aiogram`
 
 ---
 
-### 4. ⏰ КОГДА ВСТАВАТЬ (математика в 3 часа ночи)
+### 4. ⏰ WHEN TO WAKE UP (math at 3 AM)
 
-> 2:47 ночи. Рейс в Дубай в 7:20. Не сплю — смотрю сериал. Внезапно вспоминаю про самолёт.
+> 2:47 AM. Flight to Dubai at 7:20. Not sleeping — watching a show. Suddenly remember the plane.
 >
-> Окей, значит... в аэропорту надо быть за 2 часа... это 5:20. Шереметьево. Ночью пробок нет, но ехать час точно... значит выехать в 4:20. Блин, найс. Такси заказать за 15 минут до... 4:05. Собраться надо... минут 40? Нет, быстро, минут 30. Значит встать в 3:35.
+> Okay so... I need to be at the airport 2 hours before... that's 5:20. Sheremetyevo. No traffic at night, but an hour's drive for sure... so leave at 4:20. Nice. Call a taxi 15 minutes before... 4:05. Getting ready takes... 40 minutes? No, quick, 30 minutes. So wake up at 3:35.
 >
-> Это через 48 минут.
+> That's in 48 minutes.
 >
-> Может не спать?..
+> Maybe just don't sleep?..
 >
-> *засыпает*
+> *falls asleep*
 >
-> *просыпается в 6:15*
+> *wakes up at 6:15*
 >
-> *пропускает самолёт*
+> *misses the flight*
 >
-> А ещё когда летишь куда-то с пересадкой и часовыми поясами — вообще мозг плавится.
+> And when you're flying somewhere with a layover across time zones — your brain just melts.
 >
-> "Вылет из Москвы 19:00, прилёт в Стамбул 22:00 местного, пересадка 3 часа, вылет в 01:00, прилёт в Бали в 18:00 местного... ТАК ВО СКОЛЬКО МНЕ ВСТАВАТЬ В МОСКВЕ?!"
+> "Departure from Moscow 19:00, arrive Istanbul 22:00 local, 3-hour layover, depart at 01:00, arrive Bali 18:00 local... SO WHAT TIME DO I NEED TO WAKE UP IN MOSCOW?!"
 >
-> **Сделай CLI:**
-> - `flight plan --depart "Москва" 07:20 --to "Дубай"`
-> - Вывод:
+> **Build a CLI:**
+> - `flight plan --depart "Moscow" 07:20 --to "Dubai"`
+> - Output:
 >   ```
->   🛫 План на рейс Москва → Дубай
+>   🛫 Flight plan: Moscow → Dubai
 >
->   Тебе нужно:
->   03:50 — Проснуться
->   04:30 — Выехать (такси вызвать в 04:15)
->   05:20 — Быть в аэропорту
->   07:20 — Вылет
->   11:20 — Прилёт (местное время Дубая)
+>   You need to:
+>   03:50 — Wake up
+>   04:30 — Leave (call taxi at 04:15)
+>   05:20 — Be at the airport
+>   07:20 — Departure
+>   11:20 — Arrival (Dubai local time)
 >
->   💤 У тебя осталось 4.5 часа на сон. Сладких снов!
+>   💤 You have 4.5 hours left to sleep. Sweet dreams!
 >   ```
-> - Настройки: сколько собираешься, сколько ехать до аэропорта, буфер
+> - Settings: how long to get ready, travel time to airport, buffer
 
-**Стек**: `Python` `click` `datetime/pytz`
-
----
-
-### 5. 🏃 БЕГОВОЙ ДНЕВНИК (или как я готовлюсь к марафону в заметках)
-
-> Решил пробежать марафон. 42 км. Серьёзное дело.
->
-> Начал тренироваться и записывать:
->
-> *Заметки телефона, январь:*
-> - "пробежка 5км норм"
-> - "бег. устал. 4 с чем-то км"
-> - "сегодня отлично!!! быстро бежал"
-> - "не бегал болит колено"
-> - "5.3км 27мин или 28 не помню"
->
-> *Февраль:*
-> - "длинная 10км"
-> - "бег 6км темп хороший"
-> - "пробежка"
->
-> Тренер: "Какой у тебя километраж за месяц?"
-> Я: "Ну... много... где-то... *листаю заметки* ...не знаю"
-> Тренер: "А прогресс на 5км за последние 2 месяца?"
-> Я: "Эм... стал быстрее... наверное..."
-> Тренер: *смотрит с сочувствием*
->
-> **Сделай CLI:**
-> - `run add 5.2km 27:30` — записал пробежку
-> - `run add 10km 58:45 --note "последние 2км умирал"` — с комментарием
-> - `run week` — "На этой неделе: 3 пробежки, 21.4км, средний темп 5:32/км"
-> - `run month` — статистика за месяц
-> - `run best 5km` — "Рекорд на 5км: 24:15 (был 15.02.2025)"
-> - `run progress` — график по неделям
-> - `run compare --weeks 4` — сравнить последние 4 недели
-
-**Стек**: `Python` `click` `SQLite`
+**Stack**: `Python` `click` `datetime/pytz`
 
 ---
 
-### 6. 🎬 ЧТО ПОСМОТРЕТЬ (пятничный квест)
+### 5. 🏃 RUNNING LOG (or how I'm training for a marathon in random notes)
 
-> Пятница, 22:00. Дети спят. Мы с женой на диване. Впереди — 2 часа свободного времени. Редкость. Праздник!
+> Decided to run a marathon. 42 km. Serious business.
 >
-> "Что смотрим?"
-> "Не знаю, выбирай"
-> "Давай ты"
-> "Мне всё равно"
-> "Мне тоже"
-> *открываем Netflix*
-> "Это видели"
-> "Это не хочу"
-> "Это 3 часа, не успеем"
-> "Это с субтитрами, лень читать"
-> "О, это интересное! Хотя нет, про маньяка, на ночь не хочу"
-> *листаем*
-> *листаем*
-> *30 минут спустя*
-> "Может сериал?"
-> *открываем сериалы*
-> *ещё 20 минут*
-> "Ладно, давай просто старое что-нибудь пересмотрим"
-> "Давай... что?"
-> *ещё 15 минут*
-> "Знаешь, уже поздно, давай спать"
+> Started training and keeping notes:
 >
-> КАЖДУЮ. ПЯТНИЦУ.
+> *Phone notes, January:*
+> - "ran 5km fine"
+> - "ran. tired. 4 something km"
+> - "today was amazing!!! ran fast"
+> - "didn't run knee hurts"
+> - "5.3km 27min or 28 can't remember"
 >
-> **Сделай бота:**
-> - В течение недели я кидаю фильмы: "хочу посмотреть Оппенгеймер"
-> - Жена кидает свои: "хочу Барби"
-> - В пятницу: "что смотрим?"
-> - Бот: берёт случайный фильм из пересечения (то что хотим оба), или если пересечения нет — из общего списка
-> - "Посмотрели Оппенгеймер, 8/10" — уходит в архив с оценкой
-> - "История" — что смотрели за последний год
+> *February:*
+> - "long run 10km"
+> - "ran 6km good pace"
+> - "ran"
+>
+> Coach: "What's your monthly mileage?"
+> Me: "Well... a lot... somewhere around... *scrolling notes* ...I dunno"
+> Coach: "And your 5K progress over the last 2 months?"
+> Me: "Um... got faster... probably..."
+> Coach: *looks at me with pity*
+>
+> **Build a CLI:**
+> - `run add 5.2km 27:30` — logged a run
+> - `run add 10km 58:45 --note "dying for the last 2km"` — with a comment
+> - `run week` — "This week: 3 runs, 21.4km, avg pace 5:32/km"
+> - `run month` — monthly stats
+> - `run best 5km` — "5K PR: 24:15 (set on Feb 15, 2025)"
+> - `run progress` — weekly chart
+> - `run compare --weeks 4` — compare last 4 weeks
 
-**Стек**: `Python` `aiogram` `SQLite`
+**Stack**: `Python` `click` `SQLite`
 
 ---
 
-### 7. 💊 МАМИНЫ ТАБЛЕТКИ (или как я поседел в 30)
+### 6. 🎬 WHAT TO WATCH (the Friday night quest)
 
-> Маме 68. Давление. Диабет. Щитовидка. Сердце. Куча всего.
+> Friday, 10:00 PM. Kids are asleep. Wife and I on the couch. Two hours of free time ahead. A rare occurrence. A celebration!
 >
-> Таблетки:
-> - Эналаприл — утром натощак
-> - Метформин — после завтрака
-> - L-тироксин — в обед
-> - Кардиомагнил — вечером
-> - Ещё какие-то витамины
+> "What are we watching?"
+> "I dunno, you pick"
+> "No, you pick"
+> "I don't care"
+> "Me neither"
+> *open Netflix*
+> "Seen it"
+> "Don't want that"
+> "That's 3 hours, we won't make it"
+> "That one has subtitles, too lazy to read"
+> "Oh, this looks interesting! Actually no, it's about a serial killer, not before bed"
+> *scroll*
+> *scroll*
+> *30 minutes later*
+> "Maybe a series?"
+> *open series*
+> *20 more minutes*
+> "Fine, let's just rewatch something old"
+> "Sure... what?"
+> *15 more minutes*
+> "You know what, it's late, let's just go to sleep"
 >
-> Я: "Мам, таблетки выпила?"
-> Мама: "Да-да, выпила"
-> Я: "Какие?"
-> Мама: "Ну... эти... беленькие"
-> Я: "Какие беленькие? Их три вида беленьких!"
-> Мама: "Ну которые утром"
-> Я: "А вечерние?"
-> Мама: "Ой, забыла!"
+> EVERY. SINGLE. FRIDAY.
 >
-> Или наоборот:
-> Мама: "Что-то мне нехорошо..."
-> Я: "Таблетки пила?"
-> Мама: "Да, все"
-> Я: "И утренние?"
-> Мама: "Да... или нет? Не помню. Выпью ещё раз на всякий случай"
-> Я: "МАМА НЕТ НЕЛЬЗЯ ДВА РАЗА"
->
-> Я на работе. Не могу каждые 4 часа звонить!
->
-> **Сделай бота для мамы:**
-> - 8:00 — "Доброе утро! ☀️ Пора выпить эналаприл (белая, маленькая)"
-> - Мама нажимает "Выпила ✅" или отвечает что угодно
-> - Если за час не ответила — МНЕ сообщение: "⚠️ Мама не подтвердила эналаприл!"
-> - Я могу посмотреть: "статистика мамы" — сколько раз за неделю пропустила
-> - Вечером маме: "Все таблетки на сегодня приняты! 💪 Спокойной ночи!"
+> **Build a bot:**
+> - During the week, I add movies: "wanna watch Oppenheimer"
+> - Wife adds hers: "wanna watch Barbie"
+> - On Friday: "what are we watching?"
+> - Bot: picks a random movie from the overlap (stuff we both want), or if no overlap — from the combined list
+> - "Watched Oppenheimer, 8/10" — goes to archive with a rating
+> - "History" — what we've watched over the past year
 
-**Стек**: `Python` `aiogram` `APScheduler`
-
----
-
-### 8. 🧾 КУДА ДЕЛИСЬ ДЕНЬГИ (финансовый детектив)
-
-> 1 число. Зарплата 150к. Я богат. Я красив. Жизнь прекрасна.
->
-> 15 число. На карте 40к. Странно.
->
-> 25 число. На карте 8к. Паника.
->
-> 28 число. Занимаю до зарплаты. Позор.
->
-> "Куда делось 150 тысяч за месяц?!"
->
-> Начинаю вспоминать:
-> - Кофе каждое утро... 300р × 22 дня = 6 600
-> - Обеды... 500р × 22 = 11 000
-> - Такси когда проспал... раз 8... × 600 = 4 800
-> - Подписки... Spotify, Netflix, YouTube Premium, iCloud, ещё что-то... 3 000?
-> - Бары в пятницу... ну 5к за вечер... 4 пятницы... 20 000
-> - А, ещё курсы какие-то оплатил... 15 000
-> - И кроссовки... 12 000
-> - И подарок маме на др... 8 000
->
-> Итого: 80 400. А ГДЕ ЕЩЁ 70 ТЫСЯЧ?!
->
-> Скачиваю приложение для бюджета. Два дня записываю. На третий день забываю. Удаляю приложение.
->
-> **Сделай бота максимально простого:**
-> - Пишу: "кофе 300" — записал в категорию "Еда"
-> - "такси 600" — категория "Транспорт" (определяет сам по слову)
-> - "бар 5000" — "Развлечения"
-> - "спортзал 4000" — "Здоровье"
-> - Конец месяца: "расходы" — красивая табличка по категориям
-> - "кофе за месяц" — "Ты потратил на кофе 7 200₽ 😱"
-> - "топ расходов" — "1. Развлечения: 25к, 2. Еда: 18к..."
-
-**Стек**: `Python` `aiogram` или `click`
+**Stack**: `Python` `aiogram` `SQLite`
 
 ---
 
-### 9. 🎂 ДНИ РОЖДЕНИЯ (история одного провала)
+### 7. 💊 MOM'S PILLS (or how I went grey at 30)
 
-> 15 марта 2024 года. Обычный день. Сижу на работе.
+> Mom's 68. Blood pressure. Diabetes. Thyroid. Heart. The whole works.
 >
-> Звонок от жены:
-> "Ты маме моей позвонил?"
-> "Какой маме? Зачем?"
-> "У неё день рождения сегодня"
+> Pills:
+> - Enalapril — morning, on an empty stomach
+> - Metformin — after breakfast
+> - L-thyroxine — at lunch
+> - Cardiomagnil — evening
+> - Plus some vitamins
+>
+> Me: "Mom, did you take your pills?"
+> Mom: "Yes yes, I took them"
+> Me: "Which ones?"
+> Mom: "Well... those... the little white ones"
+> Me: "Which white ones? There are three kinds of white ones!"
+> Mom: "The morning ones"
+> Me: "And the evening ones?"
+> Mom: "Oh, I forgot!"
+>
+> Or the other way around:
+> Mom: "I'm not feeling well..."
+> Me: "Did you take your pills?"
+> Mom: "Yes, all of them"
+> Me: "The morning ones too?"
+> Mom: "Yes... or no? I don't remember. I'll take them again just in case"
+> Me: "MOM NO YOU CAN'T TAKE THEM TWICE"
+>
+> I'm at work. I can't call every 4 hours!
+>
+> **Build a bot for mom:**
+> - 8:00 AM — "Good morning! ☀️ Time to take enalapril (small white one)"
+> - Mom taps "Took it ✅" or responds with anything
+> - If no response within an hour — I get a message: "⚠️ Mom hasn't confirmed enalapril!"
+> - I can check: "mom's stats" — how many times she missed this week
+> - Evening message to mom: "All pills for today taken! 💪 Good night!"
+
+**Stack**: `Python` `aiogram` `APScheduler`
+
+---
+
+### 8. 🧾 WHERE DID THE MONEY GO (a financial mystery)
+
+> 1st of the month. Paycheck: 150K. I'm rich. I'm handsome. Life is beautiful.
+>
+> 15th. 40K left on the card. Strange.
+>
+> 25th. 8K left. Panic.
+>
+> 28th. Borrowing money until payday. Shameful.
+>
+> "Where did 150 thousand go in one month?!"
+>
+> I try to recall:
+> - Morning coffee... 300 × 22 days = 6,600
+> - Lunches... 500 × 22 = 11,000
+> - Taxis on days I overslept... about 8 times... × 600 = 4,800
+> - Subscriptions... Spotify, Netflix, YouTube Premium, iCloud, something else... 3,000?
+> - Bars on Fridays... 5K a night... 4 Fridays... 20,000
+> - Oh, and some courses I paid for... 15,000
+> - And sneakers... 12,000
+> - And mom's birthday gift... 8,000
+>
+> Total: 80,400. BUT WHERE'S THE OTHER 70 THOUSAND?!
+>
+> I download a budget app. Track expenses for two days. On day three I forget. Delete the app.
+>
+> **Build the simplest possible bot:**
+> - I type: "coffee 300" — logged under "Food"
+> - "taxi 600" — category "Transport" (auto-detects from the keyword)
+> - "bar 5000" — "Entertainment"
+> - "gym 4000" — "Health"
+> - End of month: "expenses" — a nice breakdown by category
+> - "coffee this month" — "You spent 7,200 on coffee 😱"
+> - "top expenses" — "1. Entertainment: 25K, 2. Food: 18K..."
+
+**Stack**: `Python` `aiogram` or `click`
+
+---
+
+### 9. 🎂 BIRTHDAYS (the story of one epic fail)
+
+> March 15, 2024. An ordinary day. Sitting at work.
+>
+> Phone call from wife:
+> "Did you call my mom?"
+> "Which mom? Why?"
+> "It's her birthday today"
 > "..."
 > "..."
-> "Я перезвоню"
+> "I'll call back"
 >
-> Звоню тёще:
-> "Ирина Павловна! Поздравляю с днём рождения! Всего самого лучшего!"
-> "Спасибо, Дима. Приятно что вспомнил... в 6 вечера"
-> "Я... работа... много дел..."
-> "Конечно-конечно. Ты занятой человек. Я понимаю."
+> I call my mother-in-law:
+> "Irina Pavlovna! Happy birthday! All the best!"
+> "Thank you, Dima. How nice that you remembered... at 6 PM"
+> "I... work... so much going on..."
+> "Of course. You're a busy man. I understand."
 >
-> До сих пор при каждой встрече: "Ну ничего-ничего, я же понимаю, ты ЗАНЯТОЙ ЧЕЛОВЕК" *ледяной взгляд*
+> To this day, every time we meet: "Oh it's fine, I understand, you're a BUSY MAN" *icy stare*
 >
-> У меня в контактах 300+ человек. У всех дни рождения. У некоторых — важные (жена, мама, тёща, босс). У некоторых — просто приятно поздравить. Я НЕ МОГУ помнить 300 дат!
+> I have 300+ contacts. They all have birthdays. Some are critical (wife, mom, mother-in-law, boss). Some would just be nice to acknowledge. I CANNOT remember 300 dates!
 >
-> **Сделай бота:**
-> - "Добавить: Тёща Ирина Павловна 15.03" — с приоритетом "критично"
-> - "Добавить: Коллега Вася 22.07" — приоритет "обычный"
-> - За 3 дня до: "⚠️ Через 3 дня ДР: Тёща Ирина Павловна! ЗАКАЖИ ЦВЕТЫ!"
-> - В сам день: "🎂 СЕГОДНЯ ДР: Тёща! Позвони ПРЯМО СЕЙЧАС!"
-> - "Ближайшие" — кто в этом месяце
-> - "Сегодня" — кого поздравить сегодня
+> **Build a bot:**
+> - "Add: Mother-in-law Irina Pavlovna 03.15" — priority "critical"
+> - "Add: Colleague Vasya 07.22" — priority "normal"
+> - 3 days before: "⚠️ Birthday in 3 days: Mother-in-law Irina Pavlovna! ORDER FLOWERS!"
+> - On the day: "🎂 TODAY IS: Mother-in-law's birthday! Call RIGHT NOW!"
+> - "Upcoming" — who's celebrating this month
+> - "Today" — who to congratulate today
 
-**Стек**: `Python` `aiogram` `APScheduler`
-
----
-
-### 10. 📝 РЕЦЕПТЫ (охота за шарлоткой)
-
-> Мама в WhatsApp: "Сынок, вот рецепт шарлотки как бабушка делала" + фото + голосовое на 4 минуты + ещё фото + "ой, не то отправила" + правильное фото.
->
-> Жена в нашем чате: ссылка на Instagram рилс с пастой.
->
-> Друг в Telegram: "Бро, делал вчера, огонь" + ссылка на YouTube на 40 минут.
->
-> Я в Pinterest: сохранил 150 рецептов в доску "Готовить", открывал её 0 раз.
->
-> Через месяц:
->
-> Жена: "Сделай ту пасту"
-> Я: "Какую?"
-> Жена: "Ну ту, я тебе скидывала"
-> Я: "Когда?"
-> Жена: "Месяц назад"
-> *20 минут скроллю чат*
-> *не нахожу*
-> "Не могу найти, скинь ещё раз"
-> Жена: "Сам ищи" 😤
->
-> **Сделай бота:**
-> - Скидываю текст/фото/ссылку — сохраняет
-> - Добавляю теги: #десерт #мамино #быстро #паста
-> - "найди шарлотку" — находит
-> - "рандом #ужин" — случайный рецепт с тегом ужин
-> - "все #мамины" — все мамины рецепты
-> - "быстрое с курицей" — фильтрует
-
-**Стек**: `Python` `aiogram` `SQLite`
+**Stack**: `Python` `aiogram` `APScheduler`
 
 ---
 
-### 11. 🚗 МАШИНА (техническое обслуживание хаоса)
+### 10. 📝 RECIPES (the hunt for the perfect apple cake)
 
-> Звонок из сервиса: "Вы записывались на ТО"
-> "Да? Когда?"
-> "Сегодня в 10:00"
-> "Сегодня?! Я на работе!"
-> "Вы записывались 3 месяца назад..."
-> "А... да... точно..."
+> Mom on WhatsApp: "Honey, here's grandma's apple cake recipe" + photo + 4-minute voice message + another photo + "oops, wrong one" + the correct photo.
 >
-> Я записываю обслуживание машины на бумажках. Бумажки в бардачке. В бардачке — кладбище бумажек, чеков, салфеток и одного древнего леденца.
+> Wife in our chat: link to an Instagram reel with a pasta recipe.
 >
-> Что я должен помнить:
-> - Масло менять каждые 10 000 км (менял в октябре на 85к, сейчас... надо выйти посмотреть)
-> - Колодки — каждые 30 000 км (когда менял? не помню)
-> - Ремень ГРМ — каждые 90 000 км (КРИТИЧНО, если порвётся — двигатель труп)
-> - Резина: зимняя ↔ летняя (обычно опаздываю на месяц)
-> - ОСАГО — каждый год
-> - Техосмотр — каждый год
+> Friend on Telegram: "Bro, made this yesterday, absolute banger" + link to a 40-minute YouTube video.
 >
-> **Сделай CLI или бота:**
-> - `car add "Замена масла" 15.10.2024 85000km --next +10000km`
-> - `car add "ОСАГО" 01.03.2025 --remind 30d`
-> - `car mileage 93500` — обновил пробег
+> Me on Pinterest: saved 150 recipes to a board called "To Cook," opened it 0 times.
+>
+> A month later:
+>
+> Wife: "Make that pasta"
+> Me: "Which one?"
+> Wife: "The one I sent you"
+> Me: "When?"
+> Wife: "A month ago"
+> *scrolling the chat for 20 minutes*
+> *can't find it*
+> "Can't find it, send it again"
+> Wife: "Find it yourself" 😤
+>
+> **Build a bot:**
+> - I send text/photo/link — it saves it
+> - Add tags: #dessert #moms #quick #pasta
+> - "find apple cake" — found
+> - "random #dinner" — random recipe tagged dinner
+> - "all #moms" — all of mom's recipes
+> - "quick chicken" — filtered results
+
+**Stack**: `Python` `aiogram` `SQLite`
+
+---
+
+### 11. 🚗 CAR (maintaining the chaos)
+
+> Call from the service center: "You have a scheduled maintenance appointment"
+> "I do? When?"
+> "Today at 10:00"
+> "Today?! I'm at work!"
+> "You made the appointment 3 months ago..."
+> "Oh... yeah... right..."
+>
+> I keep car maintenance notes on scraps of paper. The scraps live in the glove compartment. The glove compartment is a graveyard of paper scraps, receipts, napkins, and one ancient candy.
+>
+> What I'm supposed to remember:
+> - Oil change every 10,000 km (last changed in October at 85K, right now... gotta go check)
+> - Brake pads — every 30,000 km (when did I last change them? no idea)
+> - Timing belt — every 90,000 km (CRITICAL — if it snaps, the engine is toast)
+> - Tires: winter ↔ summer (usually a month late on the swap)
+> - Insurance — every year
+> - Vehicle inspection — every year
+>
+> **Build a CLI or bot:**
+> - `car add "Oil change" 10.15.2024 85000km --next +10000km`
+> - `car add "Insurance" 03.01.2025 --remind 30d`
+> - `car mileage 93500` — updated the odometer
 > - `car status`:
 >   ```
->   ⚠️ Замена масла: через 1500 км!
->   ✅ ОСАГО: ещё 45 дней
->   ⚠️ Резина: пора менять на летнюю (уже +5 на улице)
+>   ⚠️ Oil change: in 1,500 km!
+>   ✅ Insurance: 45 days left
+>   ⚠️ Tires: time to switch to summer (already +5°C outside)
 >   ```
 
-**Стек**: `Python` `click` или `aiogram`
+**Stack**: `Python` `click` or `aiogram`
 
 ---
 
-### 12. 🏠 УБОРКА (война за чистоту)
+### 12. 🏠 CLEANING (the war for hygiene)
 
-> Квартира. Четыре взрослых человека. Один унитаз.
+> Apartment. Four adults. One toilet.
 >
-> Понедельник вечер:
-> "Кто мыл ванную последний раз?"
-> "Я мыла на прошлой неделе!"
-> "Нет, на прошлой я мыл!"
-> "Ты мыл ДВЕ недели назад!"
-> "А ты вообще не мыла, ты только раковину протёрла!"
-> "РАКОВИНА — ЧАСТЬ ВАННОЙ!"
-> "НЕТ!"
+> Monday evening:
+> "Who cleaned the bathroom last?"
+> "I did it last week!"
+> "No, I did it last week!"
+> "You did it TWO weeks ago!"
+> "And you didn't even clean it, you just wiped the sink!"
+> "THE SINK IS PART OF THE BATHROOM!"
+> "NO IT'S NOT!"
 >
-> Среда:
-> "Чья посуда в раковине?"
-> "Не моя"
-> "И не моя"
-> "И не моя"
-> "ТАМ ЧЕТЫРЕ ТАРЕЛКИ, НАС ЧЕТВЕРО"
+> Wednesday:
+> "Whose dishes are in the sink?"
+> "Not mine"
+> "Not mine"
+> "Not mine"
+> "THERE ARE FOUR PLATES, THERE ARE FOUR OF US"
 >
-> Пятница:
-> "Мусор кто вынесет?"
-> *тишина*
-> *все делают вид что не слышали*
-> *мусорка переполнена*
-> *война*
+> Friday:
+> "Who's taking out the trash?"
+> *silence*
+> *everyone pretends they didn't hear*
+> *trash overflowing*
+> *war*
 >
-> **Сделай бота для общего чата:**
-> - "Помыл ванную" — бот: "Записал! Вася, ванная, 15.01 19:30"
-> - "Вынес мусор" — записал
-> - "Статистика" — кто сколько за месяц:
+> **Build a bot for the group chat:**
+> - "Cleaned the bathroom" — bot: "Noted! Vasya, bathroom, Jan 15, 7:30 PM"
+> - "Took out the trash" — noted
+> - "Stats" — who did what this month:
 >   ```
->   Вася: ванная (2), кухня (1), мусор (4)
->   Маша: ванная (3), кухня (3), мусор (0) ← 🤔
+>   Vasya: bathroom (2), kitchen (1), trash (4)
+>   Masha: bathroom (3), kitchen (3), trash (0) ← 🤔
 >   ```
-> - "Чья очередь мусор" — "Маша, ты не выносила мусор 3 недели. Твоя очередь."
+> - "Whose turn for trash" — "Masha, you haven't taken out the trash in 3 weeks. Your turn."
 
-**Стек**: `Python` `aiogram` `SQLite`
-
----
-
-### 13. 💪 КАЧАЛКА (дневник страданий)
-
-> Тренер: "Какой у тебя рабочий вес на жиме?"
-> Я: "Ну... 70... или 80... где-то так"
-> Тренер: "А максимум?"
-> Я: "Делал как-то 90... или 85... не помню когда"
-> Тренер: *вздыхает*
->
-> У меня был блокнот для тренировок. Три блокнота, если честно. Все потеряны.
->
-> Записи в блокноте выглядели так:
-> - "жим 70×8, 75×6, 80×4" (нормально)
-> - "присед много" (???)
-> - "руки устал" (какие упражнения?!)
-> - *неразборчиво* (мой почерк)
->
-> **Сделай CLI:**
-> - `gym add "жим лёжа" 80kg 8reps 3sets`
-> - `gym add "присед" 100kg 5x4 --note "колено ныло"`
-> - `gym today` — что сегодня делал
-> - `gym max "жим лёжа"` — мой максимум: 95кг (был 15.12.2024)
-> - `gym progress "присед"` — график за 3 месяца
-> - `gym last "становая"` — когда последний раз делал
-
-**Стек**: `Python` `click` `SQLite`
+**Stack**: `Python` `aiogram` `SQLite`
 
 ---
 
-### 14. 🎵 МУЗЫКА (потерянный трек)
+### 13. 💪 GYM (the diary of suffering)
 
-> Бар. Пятница. 23:00. Третий бокал.
+> Trainer: "What's your working weight on bench?"
+> Me: "Well... 70... or 80... somewhere around there"
+> Trainer: "And your max?"
+> Me: "Did 90 once... or 85... can't remember when"
+> Trainer: *sighs*
 >
-> Играет ИДЕАЛЬНАЯ песня. Бит качает. Голос волшебный. Слова цепляют прям в душу.
+> I had a training log. Three logs, actually. All lost.
 >
-> Достаю Shazam. Не распознаёт (громко, эхо, люди орут).
-> Подхожу к бармену: "Что это играет?"
-> "Плейлист хозяина, я не знаю"
+> The entries looked like this:
+> - "bench 70×8, 75×6, 80×4" (okay, that's fine)
+> - "squat lots" (???)
+> - "arms tired" (which exercises?!)
+> - *illegible scribble* (my handwriting)
 >
-> Пытаюсь запомнить слова: "что-то про... love? и fire? и dancing in the... что-то?"
->
-> Записываю в заметки: "бар пятницкая пятница электронная женский голос что-то про любовь и огонь офигенная!!!"
->
-> Через 2 месяца:
-> "Была песня... в каком-то баре... классная... женский голос... про что-то..."
-> *смотрю заметки*
-> *там 40 похожих записей*
-> *не помню какая именно та*
->
-> **Сделай бота:**
-> - Записываю: место "бар Маяк", время "пт 23:00", жанр "электроника", голос "женский", слова "love, fire, dancing", настроение "качает но грустно"
-> - Теги: #бар #пятница #электроника
-> - Потом: "найди бар Маяк январь" — все записи оттуда
-> - "грустная электроника" — фильтр по настроению и жанру
-> - Может когда-нибудь найду по этим заметкам...
+> **Build a CLI:**
+> - `gym add "bench press" 80kg 8reps 3sets`
+> - `gym add "squat" 100kg 5x4 --note "knee was aching"`
+> - `gym today` — what I did today
+> - `gym max "bench press"` — my max: 95kg (set Dec 15, 2024)
+> - `gym progress "squat"` — chart over 3 months
+> - `gym last "deadlift"` — when I last did it
 
-**Стек**: `Python` `aiogram` `SQLite`
+**Stack**: `Python` `click` `SQLite`
 
 ---
 
-### 15. 📦 ПОСЫЛКИ (где мой кабель)
+### 14. 🎵 MUSIC (the lost track)
 
-> Жена: "Опять с AliExpress пришло"
-> Я: "Что пришло?"
-> "Не знаю, тебе"
-> *открываю*
-> "О, кабель!"
-> "Какой кабель?"
-> "USB-C на... что-то. Я заказывал!"
-> "Когда?"
-> "Два... или три месяца назад?"
-> "Зачем тебе кабель?"
-> "Уже не помню"
+> Bar. Friday. 11:00 PM. Third drink in.
 >
-> Прямо сейчас ко мне едет:
-> - Что-то с Ozon (не помню что)
-> - Наушники с Wildberries (или подушка?)
-> - Три посылки с AliExpress (понятия не имею)
-> - Книга из Лабиринта (кажется)
+> The PERFECT song is playing. The beat slaps. The voice is angelic. The lyrics hit right in the soul.
 >
-> Трек-номера где? В почте. В пяти разных письмах. Половина на китайском.
+> I pull out Shazam. Can't identify it (too loud, echo, people shouting).
+> I go up to the bartender: "What's playing?"
+> "It's the owner's playlist, I don't know"
 >
-> **Сделай CLI или бота:**
-> - `parcel add "Наушники Sony" wildberries` — даже без трека
-> - `parcel add "USB кабель" ali --track LP123456789CN`
+> I try to remember the lyrics: "something about... love? and fire? and dancing in the... something?"
+>
+> I type in my notes: "bar on pyatnitskaya friday electronic female voice something about love and fire incredible!!!"
+>
+> Two months later:
+> "There was this song... in some bar... it was great... female voice... about something..."
+> *check notes*
+> *40 similar entries*
+> *no idea which one was THE one*
+>
+> **Build a bot:**
+> - I log: location "Mayak bar," time "Fri 11PM," genre "electronic," voice "female," lyrics "love, fire, dancing," mood "groovy but sad"
+> - Tags: #bar #friday #electronic
+> - Later: "find Mayak bar January" — all entries from there
+> - "sad electronic" — filter by mood and genre
+> - Maybe someday I'll find it from these notes...
+
+**Stack**: `Python` `aiogram` `SQLite`
+
+---
+
+### 15. 📦 PACKAGES (where's my cable)
+
+> Wife: "Another AliExpress delivery"
+> Me: "What arrived?"
+> "No idea, it's for you"
+> *I open it*
+> "Oh, a cable!"
+> "What cable?"
+> "USB-C to... something. I ordered it!"
+> "When?"
+> "Two... or three months ago?"
+> "Why do you need a cable?"
+> "Can't remember anymore"
+>
+> Right now I have incoming:
+> - Something from Ozon (no clue what)
+> - Headphones from Wildberries (or was it a pillow?)
+> - Three packages from AliExpress (absolutely no idea)
+> - A book from Labirint (I think)
+>
+> Tracking numbers? In my email. In five different messages. Half of them in Chinese.
+>
+> **Build a CLI or bot:**
+> - `parcel add "Sony headphones" wildberries` — even without tracking
+> - `parcel add "USB cable" ali --track LP123456789CN`
 > - `parcel list`:
 >   ```
->   📦 В пути:
->   • Наушники Sony (WB) — добавлено 12.01
->   • USB кабель (Ali) — добавлено 15.12 (МЕСЯЦ!)
->   • Книга «Thinking Fast and Slow» (Лабиринт)
+>   📦 In transit:
+>   • Sony headphones (WB) — added Jan 12
+>   • USB cable (Ali) — added Dec 15 (A MONTH!)
+>   • Book "Thinking Fast and Slow" (Labirint)
 >   ```
-> - `parcel received "наушники"` — получил, в архив
-> - `parcel lost` — что едет больше месяца (пора искать)
+> - `parcel received "headphones"` — got it, archived
+> - `parcel lost` — what's been in transit for over a month (time to investigate)
 
-**Стек**: `Python` `click` или `aiogram`
+**Stack**: `Python` `click` or `aiogram`
 
 ---
 
-### 16. 🐱 КОТ (медицинская карта Барсика)
+### 16. 🐱 CAT (Barsik's medical record)
 
-> Ветеринар: "Когда последний раз глистогонку давали?"
-> Я: "Эмм... осенью? Или летом?"
-> "А прививка когда была?"
-> "В прошлом году точно... или позапрошлом?"
-> "Какая вакцина?"
-> "Ну... такая... в баночке..."
-> *ветеринар смотрит с осуждением*
+> Vet: "When did you last give him a dewormer?"
+> Me: "Umm... fall? Or summer?"
+> "And the vaccination?"
+> "Last year for sure... or the year before?"
+> "Which vaccine?"
+> "Well... you know... the one in the little bottle..."
+> *vet stares disapprovingly*
 >
-> Кот Барсик. 5 лет. Мой друг и компаньон.
-> Его медицинская история — в моей голове (и её там нет).
+> Barsik the cat. 5 years old. My friend and companion.
+> His medical history lives in my head (and it's not really there).
 >
-> Что надо помнить:
-> - Прививка — раз в год
-> - Глистогонка — раз в квартал (за 10 дней до прививки обязательно!)
-> - Вес — ветеринар всегда спрашивает
-> - Осмотр — раз в год
-> - Когда что делали — понятия не имею
+> What I need to remember:
+> - Vaccination — once a year
+> - Dewormer — every quarter (must be 10 days before vaccination!)
+> - Weight — the vet always asks
+> - Checkup — once a year
+> - When anything was last done — absolutely no idea
 >
-> **Сделай бота:**
-> - "Прививка комплекс 15.01.2025" — записал
-> - "Вес 5.2кг" — записал
-> - "Глистогонка дронтал 05.01.2025" — записал
-> - "Напомни прививка 15.01.2026 за 14 дней" — и за 14 дней напомнит ещё и про глистогонку!
-> - "История" — все записи по Барсику
-> - "Когда прививка" — следующая: 15.01.2026 (через 347 дней)
+> **Build a bot:**
+> - "Vaccination combo Jan 15 2025" — logged
+> - "Weight 5.2kg" — logged
+> - "Dewormer drontal Jan 5 2025" — logged
+> - "Remind vaccination Jan 15 2026 14 days ahead" — and 14 days before, it'll also remind about the dewormer!
+> - "History" — all records for Barsik
+> - "When is the vaccination" — next one: Jan 15, 2026 (in 347 days)
 
-**Стек**: `Python` `aiogram` `APScheduler`
+**Stack**: `Python` `aiogram` `APScheduler`
 
 ---
 
-### 17. 🌱 ЦВЕТЫ (серийный убийца фикусов)
+### 17. 🌱 PLANTS (confessions of a serial ficus killer)
 
-> Фикус #1 (2021): засох. "Забыл полить пару раз"
-> Фикус #2 (2022): сгнил. "Поливал каждый день, а что?"
-> Монстера (2023): пожелтела и умерла. Причина неизвестна.
-> Алоэ (2023): выжило! (их невозможно убить)
-> Орхидея (2024): ... *молчание*
+> Ficus #1 (2021): dried out. "Forgot to water it a couple times"
+> Ficus #2 (2022): rotted. "I watered it every day, what's the problem?"
+> Monstera (2023): turned yellow and died. Cause of death unknown.
+> Aloe (2023): survived! (it's impossible to kill those)
+> Orchid (2024): ... *silence*
 >
-> Девушка: "Давай цветок купим"
-> Я: "Я убийца растений"
-> "Да ладно, это же просто — поливай раз в неделю"
-> "Какой раз в неделю?! Фикус — раз в 5 дней! Алоэ — раз в 2 недели! Орхидею — когда корни серые! Как это запомнить?!"
+> Girlfriend: "Let's get a plant"
+> Me: "I'm a plant killer"
+> "Come on, it's easy — just water it once a week"
+> "What do you mean once a week?! Ficus — every 5 days! Aloe — every 2 weeks! Orchid — when the roots turn grey! How am I supposed to remember all that?!"
 >
-> **Сделай бота-няню:**
-> - "Добавить: Фикус Бенджамина, полив 5 дней, свет яркий"
-> - "Добавить: Алоэ, полив 14 дней, свет любой"
-> - Каждое утро бот: "🌱 Сегодня полить: Фикус (последний раз 5 дней назад)"
-> - Отвечаю "полил" — таймер сбросился
-> - Не ответил — вечером напомнит
-> - "Статистика":
+> **Build a caretaker bot:**
+> - "Add: Ficus Benjamina, water every 5 days, bright light"
+> - "Add: Aloe, water every 14 days, any light"
+> - Every morning the bot says: "🌱 Water today: Ficus (last watered 5 days ago)"
+> - I reply "watered" — timer resets
+> - If I don't reply — evening reminder
+> - "Stats":
 >   ```
->   Фикус: поливаешь вовремя 70% ✅
->   Алоэ: поливаешь слишком часто! 😱
+>   Ficus: on-time watering 70% ✅
+>   Aloe: you're watering too often! 😱
 >   ```
 
-**Стек**: `Python` `aiogram` `APScheduler`
+**Stack**: `Python` `aiogram` `APScheduler`
 
 ---
 
-### 18. 🎮 НАСТОЛКИ (пятничный выбор)
+### 18. 🎮 BOARD GAMES (the Friday night dilemma)
 
-> Пятница, 19:00. Пришли пацаны. На полке 30 коробок с играми.
+> Friday, 7:00 PM. The boys are here. 30 boxes on the shelf.
 >
-> "Во что играем?"
-> "Не знаю, во что давно не играли?"
-> "Хз"
-> "Давай в Каркассон?"
-> "Мы в него три недели подряд играем"
-> "А в Манчкин?"
-> "Серёга не любит Манчкин"
-> "Тогда что?"
-> *смотрим на полку 15 минут*
-> "О, Колонизаторы!"
-> "Там правила час читать"
-> "Тогда..."
-> *ещё 10 минут*
-> "Ладно, давай опять Каркассон"
+> "What are we playing?"
+> "Dunno, what haven't we played in a while?"
+> "No idea"
+> "How about Carcassonne?"
+> "We've played it three weeks in a row"
+> "Munchkin?"
+> "Seryoga hates Munchkin"
+> "Then what?"
+> *staring at the shelf for 15 minutes*
+> "Oh, Settlers of Catan!"
+> "The rules take an hour to read"
+> "Then..."
+> *10 more minutes*
+> "Alright, Carcassonne again"
 >
-> **Сделай бота:**
-> - Добавляю игры: название, мин/макс игроков, время партии
-> - После игры: "играли Каркассон 4 человека Вася победил"
-> - "Давно не играли" — сортировка по дате последней партии
-> - "На 5 человек до часа" — фильтр
-> - "Рандом" — случайная подходящая игра
-> - "Статистика побед":
+> **Build a bot:**
+> - Add games: name, min/max players, game length
+> - After a game: "played Carcassonne 4 players Vasya won"
+> - "Haven't played in a while" — sorted by last played date
+> - "For 5 players under an hour" — filtered
+> - "Random" — a random game that fits
+> - "Win stats":
 >   ```
->   🏆 Вася: 15 побед
->   🥈 Петя: 12 побед
->   🥉 Я: 3 победы 😢
+>   🏆 Vasya: 15 wins
+>   🥈 Petya: 12 wins
+>   🥉 Me: 3 wins 😢
 >   ```
 
-**Стек**: `Python` `aiogram` `SQLite`
+**Stack**: `Python` `aiogram` `SQLite`
 
 ---
 
-### 19. 📖 ЦИТАТЫ (потерянная мудрость)
+### 19. 📖 QUOTES (lost wisdom)
 
-> Читаю книгу. Предложение настолько красивое, что останавливаюсь. Перечитываю. Ещё раз. Хочу запомнить навсегда.
+> I'm reading a book. A sentence so beautiful I stop. Read it again. One more time. I want to remember it forever.
 >
-> Выписываю в заметки телефона между "купить молоко" и "позвонить в банк".
+> I jot it down in my phone notes between "buy milk" and "call the bank."
 >
-> Через месяц:
-> "Была такая фраза... про время... или про память... у кого-то... Толстой? Маркес? Может Достоевский?"
-> *открываю заметки*
-> *там 200 заметок*
-> *половина — списки покупок*
-> *не нахожу*
+> A month later:
+> "There was this phrase... about time... or memory... by someone... Tolstoy? Marquez? Maybe Dostoevsky?"
+> *open notes*
+> *200 notes*
+> *half of them are grocery lists*
+> *can't find it*
 >
-> **Сделай CLI:**
-> - `quote add "Сто лет одиночества" "Маркес" "Прошло много лет, и полковник Аурелиано Буэндиа, стоя у стены в ожидании расстрела, вспомнил тот далёкий вечер, когда отец взял его с собой посмотреть на лёд."`
-> - `quote tag last #начало #смерть #память` — добавить теги
-> - `quote random` — случайная цитата (для утреннего вдохновения)
-> - `quote search время` — все цитаты со словом "время"
-> - `quote by "Маркес"` — все цитаты автора
-> - `quote tags #любовь` — все про любовь
+> **Build a CLI:**
+> - `quote add "One Hundred Years of Solitude" "Marquez" "Many years later, as he faced the firing squad, Colonel Aureliano Buendia was to remember that distant afternoon when his father took him to discover ice."`
+> - `quote tag last #opening #death #memory` — add tags
+> - `quote random` — a random quote (for morning inspiration)
+> - `quote search time` — all quotes containing the word "time"
+> - `quote by "Marquez"` — all quotes by author
+> - `quote tags #love` — everything about love
 
-**Стек**: `Python` `click` `SQLite`
+**Stack**: `Python` `click` `SQLite`
 
 ---
 
-### 20. 😴 СОН (хроники недосыпа)
+### 20. 😴 SLEEP (chronicles of sleep deprivation)
 
-> 2:30 ночи. "Ещё одну серию и спать"
-> 3:15 ночи. "Окей, теперь точно спать"
-> 3:40 ночи. *листаю Reddit*
-> 4:00 ночи. "Всё, сплю"
-> 7:00 утра. *будильник*
-> 7:15. *второй будильник*
-> 7:30. *третий будильник + звонок мамы "ты проснулся?"*
+> 2:30 AM. "One more episode and then bed"
+> 3:15 AM. "Okay, NOW I'm going to sleep"
+> 3:40 AM. *scrolling Reddit*
+> 4:00 AM. "That's it, sleeping"
+> 7:00 AM. *alarm*
+> 7:15. *second alarm*
+> 7:30. *third alarm + phone call from mom "are you up?"*
 >
-> Три часа сна. Пятый день подряд.
+> Three hours of sleep. Fifth day in a row.
 >
-> Смотрю в зеркало: мешки под глазами, серое лицо, глаза как у панды, но грустной.
+> Look in the mirror: bags under my eyes, grey face, eyes like a panda — a sad one.
 >
-> "Надо больше спать" — говорю каждый день.
-> "Сегодня лягу в 11" — говорю каждый вечер.
-> 2:30 ночи — *листаю TikTok*
+> "I need to sleep more" — I say every day.
+> "Tonight I'll be in bed by 11" — I say every evening.
+> 2:30 AM — *scrolling TikTok*
 >
-> Хочу хотя бы ВИДЕТЬ свой позор в цифрах.
+> I just want to at least SEE my shame in numbers.
 >
-> **Сделай CLI:**
-> - `sleep log 02:30 07:00` — записал ночь (4.5 часа 😱)
+> **Build a CLI:**
+> - `sleep log 02:30 07:00` — logged the night (4.5 hours 😱)
 > - `sleep week`:
 >   ```
->   Эта неделя: среднее 4.8 часа
->   Пн: 5ч | Вт: 4.5ч | Ср: 6ч | Чт: 4ч | Пт: 4.5ч
+>   This week: average 4.8 hours
+>   Mon: 5h | Tue: 4.5h | Wed: 6h | Thu: 4h | Fri: 4.5h
 >
->   ⚠️ ТЫ СПИШЬ МЕНЬШЕ КОТА
+>   ⚠️ YOU SLEEP LESS THAN YOUR CAT
 >   ```
-> - `sleep month` — за месяц
-> - `sleep goal 7h` — цель
-> - `sleep streak` — сколько дней подряд достигал цели (0...)
+> - `sleep month` — monthly stats
+> - `sleep goal 7h` — set a goal
+> - `sleep streak` — how many days in a row you hit your goal (0...)
 
-**Стек**: `Python` `click` `JSON`
+**Stack**: `Python` `click` `JSON`
 
 ---
 
-## 🚀 Как работать
+## 🚀 How to Work
 
 ```
-1. Выбери проект (что тебе откликается)
-2. Создай репозиторий на GitHub
-3. Напиши BDD сценарии в .feature файлах ПЕРВЫМ ДЕЛОМ
-4. Покажи их Claude, попроси сгенерировать код
-5. Коммить каждые 15-20 минут (маленькие шаги!)
-6. Напиши README и CLAUDE.md
-7. Убедись что тесты проходят
-8. Отправь ссылку на репозиторий
+1. Pick a project (whatever speaks to you)
+2. Create a GitHub repository
+3. Write BDD scenarios in .feature files FIRST THING
+4. Show them to Claude, ask it to generate the code
+5. Commit every 15-20 minutes (small steps!)
+6. Write the README and CLAUDE.md
+7. Make sure the tests pass
+8. Submit the repository link
 ```
 
-## 📁 Структура репозитория
+## 📁 Repository Structure
 
 ```
 my-project/
-├── README.md           # Описание + как запустить
-├── CLAUDE.md           # Как работал с AI
-├── requirements.txt    # Зависимости
+├── README.md           # Description + how to run
+├── CLAUDE.md           # How you worked with AI
+├── requirements.txt    # Dependencies
 ├── src/
-│   └── ...            # Код
+│   └── ...            # Code
 ├── tests/
-│   ├── features/      # BDD .feature файлы
+│   ├── features/      # BDD .feature files
 │   └── steps/         # Step definitions
 └── .gitignore
 ```
 
 ---
 
-**Удачи!** 🚀
+**Good luck!** 🚀
 
-*Оценивает: Claude Opus 4.5 + Алексей Комиссаров*
+*Graded by: Claude Opus 4.5 + Alexey Komissarov*
