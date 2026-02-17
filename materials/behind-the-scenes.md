@@ -1,32 +1,32 @@
-# 🎬 За кадром: Как создаётся этот курс
+# Behind the Scenes: How This Course Is Made
 
-> *Мы учим vibe coding и сами его практикуем*
+> *We teach vibe coding and practice it ourselves*
 
-Этот документ показывает реальный workflow создания курса — от первой идеи до готового репозитория. Здесь нет теории, только практика того, как человек и AI создают образовательный контент в симбиозе.
+This document shows the real workflow behind creating the course — from the first idea to a published repository. No theory here, just the practice of how a human and AI create educational content in symbiosis.
 
 ---
 
-## 🏗️ Архитектура системы
+## System Architecture
 
 ```mermaid
 graph TD
-    I[💡 Идея] --> MM[🧠 Материнская модель<br/>Claude Chat]
-    MM --> AP[📝 Промпт для аватара]
-    AP --> AV[🎭 Аватар<br/>11Labs + Claude]
-    AV --> TS[🧪 Тестовые сессии]
-    TS --> |Запись диалога| MM
-    MM --> |Новый аватар| AV
-    TS --> |Готов| LEC[🎙️ Лекция<br/>Zoom + 11Labs]
-    LEC --> |Аудио| TR[📻 Транскрипция<br/>11Labs auto]
-    TR --> |Текст| CN[📄 Конспект<br/>Gemini/GPT-5]
-    CN --> |Итерации| CN
-    CN --> |Финальный| MM
-    LEC --> |Опционально| MM
-    MM --> |Правки| CN
-    MM --> |План| NL[🔄 Следующая лекция]
+    I[Idea] --> MM[Mother Model<br/>Claude Chat]
+    MM --> AP[Avatar Prompt]
+    AP --> AV[Avatar<br/>11Labs + Claude]
+    AV --> TS[Test Sessions]
+    TS --> |Dialogue recording| MM
+    MM --> |New avatar| AV
+    TS --> |Ready| LEC[Lecture<br/>Zoom + 11Labs]
+    LEC --> |Audio| TR[Transcription<br/>11Labs auto]
+    TR --> |Text| CN[Lecture Notes<br/>Gemini/GPT-5]
+    CN --> |Iterations| CN
+    CN --> |Final| MM
+    LEC --> |Optional| MM
+    MM --> |Edits| CN
+    MM --> |Plan| NL[Next Lecture]
 
-    LEC --> |Аудио + конспекты| CC[💻 Claude Code]
-    CC --> |README, диаграммы| REPO[📦 Репозиторий]
+    LEC --> |Audio + notes| CC[Claude Code]
+    CC --> |README, diagrams| REPO[Repository]
 
     style MM fill:#ffd43b
     style AV fill:#51cf66
@@ -37,374 +37,374 @@ graph TD
 
 ---
 
-## 👥 Ключевые роли
+## Key Roles
 
-| Компонент | Инструмент | Функция | Важные детали |
-|-----------|-----------|---------|---------------|
-| **Материнская модель** | Claude Chat | Формализация контекста, создание аватаров, итоговое обогащение | Максимальный контекст курса |
-| **Аватар** | 11Labs + Claude | Голосовое взаимодействие на лекции | Эволюционирует через тестовые сессии |
-| **Транскрибатор** | 11Labs (авто) | Аудио → текст | Первичная транскрипция |
-| **Конспектёр** | Gemini/GPT-5 | Транскрипция → конспект | Лучше держат 2ч контекст, итеративная проверка |
-| **Репо-менеджер** | Claude Code | Структура, README, диаграммы, связность | Быстрая итерация, визуализация |
-
----
-
-## 📋 Workflow создания лекции: 7 этапов
-
-### Этап 1: Зарождение идеи 💡
-
-**Источники:**
-- Чат с AI
-- Обсуждение с реальными людьми
-- Статьи в интернете
-- Конференции
-- Предыдущий опыт преподавания
-
-**Результат:** сформированная потребность в новой теме лекции
+| Component | Tool | Function | Key Details |
+|-----------|------|----------|-------------|
+| **Mother Model** | Claude Chat | Context formalization, avatar creation, final enrichment | Maximum course context |
+| **Avatar** | 11Labs + Claude | Voice interaction during lectures | Evolves through test sessions |
+| **Transcriber** | 11Labs (auto) | Audio to text | Initial transcription |
+| **Note-Taker** | Gemini/GPT-5 | Transcription to lecture notes | Better at holding 2h context, iterative review |
+| **Repo Manager** | Claude Code | Structure, README, diagrams, cross-linking | Fast iteration, visualization |
 
 ---
 
-### Этап 2: Формализация (Материнская модель) 🧠
+## Lecture Creation Workflow: 7 Stages
 
-**Инструмент:** Claude Chat
+### Stage 1: Idea Genesis
 
-**Что происходит:**
-- Создание контекста лекции
-- Формирование промпта для аватара
-- Материнская модель ЗНАЕТ весь курс целиком
+**Sources:**
+- Chat with AI
+- Discussions with real people
+- Online articles
+- Conferences
+- Previous teaching experience
 
-**Результат:** промпт для создания аватара, который будет вести лекцию
-
----
-
-### Этап 3: Эволюция аватара (Тестовые сессии) 🧪
-
-**⚠️ Важное правило: Нет права править код аватара руками**
-
-**Процесс:**
-1. Создаётся аватар в 11Labs на базе промпта
-2. Алексей проводит тестовую голосовую сессию с аватаром
-3. Только голосовая обратная связь: "что хорошо, что плохо"
-4. Запись диалога передаётся материнской модели
-5. Материнская модель создаёт **нового** аватара с улучшениями
-6. Повторяется 3-5 раз до удовлетворительного результата
-
-**Почему это работает:**
-- Эволюционный отбор через практику
-- Обратная связь через естественный интерфейс (голос)
-- Материнская модель накапливает контекст улучшений
-
-**Результат:** готовый к лекции аватар
+**Output:** a formed need for a new lecture topic
 
 ---
 
-### Этап 4: Лекция 🎙️
+### Stage 2: Formalization (Mother Model)
 
-**Формат:** Zoom + 11Labs
+**Tool:** Claude Chat
 
-**Участники:**
-- Алексей (человек-преподаватель)
-- Аватар Claude (AI-соведущий через 11Labs)
-- Студенты (слушают реальное взаимодействие)
+**What happens:**
+- Creating the lecture context
+- Forming the avatar prompt
+- The mother model KNOWS the entire course
 
-**Что происходит:**
-- Алексей и аватар ведут диалог в реальном времени
-- Студенты задают вопросы
-- Запись ведётся автоматически
-
-**Длительность:** 80-110 минут (2 части по 40-55 мин)
-
-**Результат:** аудиозапись лекции
+**Output:** a prompt for creating the avatar that will deliver the lecture
 
 ---
 
-### Этап 5: От аудио к конспекту 📄
+### Stage 3: Avatar Evolution (Test Sessions)
 
-**⚠️ Подводные камни:**
-- Простая транскрипция с кодом работает плохо
-- Нужны модели с большим контекстом
-- Итеративная проверка обязательна
+**Important rule: No manual editing of the avatar's code**
 
-**Процесс:**
+**Process:**
+1. An avatar is created in 11Labs based on the prompt
+2. Alexey conducts a test voice session with the avatar
+3. Voice-only feedback: "what's good, what's bad"
+4. The dialogue recording is passed to the mother model
+5. The mother model creates a **new** avatar with improvements
+6. Repeated 3-5 times until satisfactory
+
+**Why this works:**
+- Evolutionary selection through practice
+- Feedback through a natural interface (voice)
+- The mother model accumulates improvement context
+
+**Output:** an avatar ready for the lecture
+
+---
+
+### Stage 4: The Lecture
+
+**Format:** Zoom + 11Labs
+
+**Participants:**
+- Alexey (human instructor)
+- Claude Avatar (AI co-lecturer via 11Labs)
+- Students (witnessing real human-AI interaction)
+
+**What happens:**
+- Alexey and the avatar have a real-time dialogue
+- Students ask questions
+- Recording runs automatically
+
+**Duration:** 80-110 minutes (2 parts, 40-55 min each)
+
+**Output:** audio recording of the lecture
+
+---
+
+### Stage 5: From Audio to Lecture Notes
+
+**Pitfalls:**
+- Simple transcription with code works poorly
+- Models with large context windows are needed
+- Iterative review is mandatory
+
+**Process:**
 
 ```mermaid
 graph TD
-    A[🎧 Аудио Zoom] --> B[📻 Транскрипция<br/>11Labs auto]
-    B --> C1[💬 Новый чат<br/>Gemini/GPT-5]
+    A[Zoom Audio] --> B[Transcription<br/>11Labs auto]
+    B --> C1[New chat<br/>Gemini/GPT-5]
     B --> C1
-    C1 --> D1[📝 Первая версия конспекта]
-    D1 --> E1{Проверка:<br/>ничего не пропустил?}
-    E1 --> |Нет| D1
-    E1 --> |Да| C2[💬 Новый чат<br/>конспект + транскрипция]
-    C2 --> D2[🔍 Что можно обогатить?]
-    D2 --> E2{Достаточно?}
-    E2 --> |Нет| D2
-    E2 --> |Да| F[✅ Итоговый конспект]
+    C1 --> D1[First draft of notes]
+    D1 --> E1{Review:<br/>anything missed?}
+    E1 --> |No| D1
+    E1 --> |Yes| C2[New chat<br/>notes + transcription]
+    C2 --> D2[What can be enriched?]
+    D2 --> E2{Sufficient?}
+    E2 --> |No| D2
+    E2 --> |Yes| F[Final notes]
 
     style C1 fill:#845ef7
     style C2 fill:#845ef7
     style F fill:#20c997
 ```
 
-**Почему Gemini/GPT-5, а не Claude?**
-- Лучше держат 2-часовой контекст
-- Более рациональны для технических деталей
-- Итеративная работа с длинным текстом
+**Why Gemini/GPT-5 instead of Claude?**
+- Better at holding 2-hour context
+- More rigorous with technical details
+- Iterative work with long text
 
-**Итерации:**
-1. Первый проход: транскрипция → конспект
-2. Проверка полноты: "ничего не пропустил?"
-3. Новый чат: конспект + транскрипция → обогащение
-4. Проверка качества
-5. Повторяем до удовлетворения
+**Iterations:**
+1. First pass: transcription to notes
+2. Completeness check: "anything missed?"
+3. New chat: notes + transcription to enrichment
+4. Quality check
+5. Repeat until satisfactory
 
-**Результат:** структурированный конспект лекции (markdown)
-
----
-
-### Этап 6: Фидбэк материнской модели 🔄
-
-**Входные данные для материнской модели:**
-- Итоговый конспект
-- (Опционально) Транскрипция лекции
-
-**Почему материнская модель:**
-- У неё максимальный контекст всего курса
-- Она видит связи между лекциями
-- Она формировала исходный промпт для аватара
-
-**Что делает материнская модель:**
-- Даёт правки конспекту
-- Обновляет контекст курса
-- Формулирует тему следующей лекции
-- Создаёт промпт для следующего аватара
-- Правит домашние задания
-
-**Результат:** обновлённый контекст курса, план следующей лекции
+**Output:** structured lecture notes (markdown)
 
 ---
 
-### Этап 7: Репозиторий (Claude Code) 💻
+### Stage 6: Mother Model Feedback
 
-**Входные данные:**
-- Аудиофайлы в папке `audio/`
-- Конспекты в папке `materials/`
+**Input to the mother model:**
+- Final lecture notes
+- (Optional) Lecture transcription
 
-**Что делает Claude Code:**
-- Создаёт единую структуру репозитория
-- Пишет README с навигацией
-- Добавляет перелинковку материалов
-- Интегрирует аудиофайлы
-- **Рисует диаграммы** (делает это лучше чатов!)
-- Причёсывает форматирование
-- Добавляет метаданные (лицензия, контакты)
+**Why the mother model:**
+- It has maximum context of the entire course
+- It sees connections between lectures
+- It formed the original avatar prompt
 
-**💡 Лайфхак:**
+**What the mother model does:**
+- Provides edits to the notes
+- Updates the course context
+- Formulates the next lecture topic
+- Creates the prompt for the next avatar
+- Reviews homework assignments
+
+**Output:** updated course context, plan for the next lecture
+
+---
+
+### Stage 7: Repository (Claude Code)
+
+**Input:**
+- Audio files in the `audio/` folder
+- Lecture notes in the `materials/` folder
+
+**What Claude Code does:**
+- Creates unified repository structure
+- Writes README with navigation
+- Adds cross-linking between materials
+- Integrates audio files
+- **Draws diagrams** (does this better than chat interfaces!)
+- Polishes formatting
+- Adds metadata (license, contacts)
+
+**Pro tip:**
 
 ```
-Базовый текст из чата →
-Claude Code для итеративной доводки →
-Быстрее и красивее, чем в чате
+Base text from chat →
+Claude Code for iterative refinement →
+Faster and better-looking than in chat
 ```
 
-**Почему Claude Code для репо:**
-- Быстрая итерация по файлам
-- Лучшие mermaid диаграммы
-- Видит всю структуру проекта
-- Может коммитить изменения
+**Why Claude Code for the repo:**
+- Fast iteration across files
+- Better mermaid diagrams
+- Sees the entire project structure
+- Can commit changes directly
 
-**Результат:** публичный GitHub репозиторий с курсом
-
----
-
-## 🤔 Почему такая архитектура?
-
-### Сравнение компонентов
-
-| Аспект | Материнская модель | Аватар | Конспектёр | Claude Code |
-|--------|-------------------|--------|------------|-------------|
-| **Инструмент** | Claude Chat | 11Labs + Claude | Gemini/GPT-5 | Claude Code |
-| **Контекст** | Весь курс | Одна лекция | Транскрипция | Структура репо |
-| **Задача** | Стратегия, эволюция | Тактика, диалог | Документация | Визуализация, структура |
-| **Интерфейс** | Чат | Голос | Чат | Терминал + файлы |
-| **Итерации** | Медленные, дорогие | Быстрые, голосовые | Средние | Быстрые, файловые |
-| **Результат** | Аватары, план курса | Лекция | Конспект | README, диаграммы |
-
-### Разделение труда
-
-**Почему не один инструмент для всего?**
-
-1. **Разные оптимизации:**
-   - Gemini/GPT-5 лучше держат длинный контекст (2 часа аудио)
-   - Claude Chat лучше формирует стратегию и удерживает контекст курса
-   - Claude Code лучше рисует диаграммы и структурирует файлы
-   - 11Labs даёт реальный голос для лекций
-
-2. **Разные интерфейсы:**
-   - Голос — для лекций и тестирования аватара
-   - Чат — для стратегии и конспектов
-   - Терминал — для работы с файлами
-
-3. **Специализация:**
-   - Каждый инструмент делает то, что у него лучше всего получается
-   - Это и есть концепция мультиагентности!
+**Output:** public GitHub repository with the course
 
 ---
 
-## 📊 Метрики и наблюдения
+## Why This Architecture?
 
-### По лекциям 1-3
+### Component Comparison
 
-**Объём материалов:**
-- Аудио: 6 файлов × 40-55 мин = ~5 часов живого диалога
-- Конспекты: 3 файла × 5000+ слов
-- Диаграмм: 11 mermaid в workshop3.md
-- Модели: Sonnet 4 (лекции 1-2) → Sonnet 4.5 (лекция 3)
+| Aspect | Mother Model | Avatar | Note-Taker | Claude Code |
+|--------|-------------|--------|------------|-------------|
+| **Tool** | Claude Chat | 11Labs + Claude | Gemini/GPT-5 | Claude Code |
+| **Context** | Entire course | Single lecture | Transcription | Repo structure |
+| **Task** | Strategy, evolution | Tactics, dialogue | Documentation | Visualization, structure |
+| **Interface** | Chat | Voice | Chat | Terminal + files |
+| **Iterations** | Slow, expensive | Fast, voice-based | Medium | Fast, file-based |
+| **Output** | Avatars, course plan | Lecture | Notes | README, diagrams |
 
-**Итерации:**
-- По аватару: обычно 3-5 тестовых сессий
-- По конспекту: 3-4 итерации с разными моделями
-- По диаграммам: 2-3 правки каждой (mermaid капризный!)
+### Division of Labor
 
-### Что работает ✅
+**Why not one tool for everything?**
 
-- **Голосовой интерфейс для лекций** — студенты видят реальный AI-симбиоз в действии
-- **Итеративная эволюция аватара** — через практику, без правки промпта руками
-- **Разные модели для разных задач** — каждая делает то, что лучше умеет
-- **Материнская модель держит целостность** — курс эволюционирует как единое целое
-- **Автоматизация рутины** — транскрипция, базовые конспекты, структура репо
-- **Claude Code для визуализации** — диаграммы получаются лучше, чем в чатах
+1. **Different optimizations:**
+   - Gemini/GPT-5 handle long context better (2 hours of audio)
+   - Claude Chat is better at forming strategy and retaining course context
+   - Claude Code is better at drawing diagrams and structuring files
+   - 11Labs provides a real voice for lectures
 
-### Что не работает / сложно ❌
+2. **Different interfaces:**
+   - Voice — for lectures and avatar testing
+   - Chat — for strategy and notes
+   - Terminal — for file operations
 
-- **Транскрипция кода и технических терминов** — требует ручной проверки
-- **Править аватара руками** — нарушает принцип vibe coding, нужна голосовая обратная связь
-- **Создавать сложные диаграммы в чатах** — mermaid в Claude Code работает лучше
-- **Использовать одну модель для всего** — специализация эффективнее
-
----
-
-## 🎯 Вывод: Мы практикуем то, чему учим
-
-Этот курс — **живая демонстрация принципов vibe coding:**
-
-### ✅ Спецификация > Код
-- Материнская модель формирует **спецификацию** (промпт для аватара)
-- Аватары **исполняют** спецификацию
-- Код аватара не правится руками — только через новую спецификацию
-
-### ✅ Эволюция через практику
-- Тестовые сессии улучшают аватара
-- Обратная связь через естественный интерфейс (голос)
-- Итеративное улучшение всех компонентов
-
-### ✅ Специализация агентов
-- Разные инструменты для разных задач
-- Каждый делает то, что лучше умеет
-- Материнская модель координирует
-
-### ✅ Человек = Product Owner
-- Алексей принимает стратегические решения
-- AI исполняет тактические задачи
-- Голосовая обратная связь вместо правки кода
-
-### ✅ Итеративность
-- Все процессы итеративны
-- Постоянное улучшение через практику
-- Нет "финальной версии" — только эволюция
+3. **Specialization:**
+   - Each tool does what it does best
+   - This IS the multi-agent concept!
 
 ---
 
-## 🔮 Следующий шаг: Мультиагентная архитектура
+## Metrics and Observations
 
-**Текущее состояние:** все роли выполняет один человек (Алексей) + несколько инструментов
+### From Lectures 1-3
 
-**Следующий этап:** явное разделение на специализированных агентов:
-- **Course Manager Agent** — координация
-- **Lecture Transcription Agent** — транскрипция
-- **Diagram Specialist Agent** — диаграммы
-- **Content Editor Agent** — редактура
-- **Example Curator Agent** — сбор кейсов
-- **Git & Repo Manager Agent** — управление репо
-- **Q&A Agent** — ответы на вопросы студентов
-- **Evolution Agent** — предложение улучшений
+**Volume of materials:**
+- Audio: 6 files x 40-55 min = ~5 hours of live dialogue
+- Notes: 3 files x 5,000+ words
+- Diagrams: 11 mermaid diagrams in workshop3.md
+- Models: Sonnet 4 (lectures 1-2) -> Sonnet 4.5 (lecture 3)
 
-**Зачем:** ещё больше автоматизации, ещё быстрее итерации, ещё полнее демонстрация концепций курса
+**Iterations:**
+- Avatar: typically 3-5 test sessions
+- Notes: 3-4 iterations with different models
+- Diagrams: 2-3 edits each (mermaid is finicky!)
+
+### What Works
+
+- **Voice interface for lectures** — students see real AI symbiosis in action
+- **Iterative avatar evolution** — through practice, without manually editing the prompt
+- **Different models for different tasks** — each does what it does best
+- **Mother model maintains coherence** — the course evolves as a unified whole
+- **Routine automation** — transcription, basic notes, repo structure
+- **Claude Code for visualization** — diagrams turn out better than in chats
+
+### What Doesn't Work / Is Difficult
+
+- **Transcription of code and technical terms** — requires manual review
+- **Manually editing the avatar** — violates vibe coding principles; voice feedback is needed
+- **Creating complex diagrams in chats** — mermaid works better in Claude Code
+- **Using one model for everything** — specialization is more effective
 
 ---
 
-## 📈 Жизненный цикл лекции: Полная картина
+## Conclusion: We Practice What We Teach
+
+This course is a **living demonstration of vibe coding principles:**
+
+### Specification > Code
+- The mother model creates the **specification** (avatar prompt)
+- Avatars **execute** the specification
+- Avatar code is never edited manually — only through a new specification
+
+### Evolution Through Practice
+- Test sessions improve the avatar
+- Feedback through a natural interface (voice)
+- Iterative improvement of all components
+
+### Agent Specialization
+- Different tools for different tasks
+- Each does what it does best
+- The mother model coordinates
+
+### Human = Product Owner
+- Alexey makes strategic decisions
+- AI executes tactical tasks
+- Voice feedback instead of code editing
+
+### Iterative by Nature
+- All processes are iterative
+- Constant improvement through practice
+- There is no "final version" — only evolution
+
+---
+
+## Next Step: Multi-Agent Architecture
+
+**Current state:** all roles are performed by one person (Alexey) + several tools
+
+**Next stage:** explicit separation into specialized agents:
+- **Course Manager Agent** — coordination
+- **Lecture Transcription Agent** — transcription
+- **Diagram Specialist Agent** — diagrams
+- **Content Editor Agent** — editing
+- **Example Curator Agent** — case collection
+- **Git & Repo Manager Agent** — repo management
+- **Q&A Agent** — answering student questions
+- **Evolution Agent** — suggesting improvements
+
+**Why:** even more automation, even faster iterations, even fuller demonstration of course concepts
+
+---
+
+## Lecture Lifecycle: The Full Picture
 
 ```mermaid
 sequenceDiagram
-    participant A as 👤 Алексей
-    participant MM as 🧠 Материнская модель<br/>(Claude Chat)
-    participant AV as 🎭 Аватар<br/>(11Labs)
-    participant ST as 👥 Студенты
-    participant TR as 📻 Транскрипция<br/>(11Labs auto)
-    participant CN as 📄 Конспектёр<br/>(Gemini/GPT-5)
-    participant CC as 💻 Claude Code
-    participant GH as 📦 GitHub
+    participant A as Alexey
+    participant MM as Mother Model<br/>(Claude Chat)
+    participant AV as Avatar<br/>(11Labs)
+    participant ST as Students
+    participant TR as Transcription<br/>(11Labs auto)
+    participant CN as Note-Taker<br/>(Gemini/GPT-5)
+    participant CC as Claude Code
+    participant GH as GitHub
 
-    Note over A,MM: Этап 1-2: Идея и формализация
-    A->>MM: Идея новой лекции
-    MM->>MM: Формализация контекста
-    MM->>A: Промпт для аватара
+    Note over A,MM: Stages 1-2: Idea and formalization
+    A->>MM: New lecture idea
+    MM->>MM: Context formalization
+    MM->>A: Avatar prompt
 
-    Note over A,AV: Этап 3: Эволюция аватара
-    A->>AV: Создание аватара в 11Labs
-    loop 3-5 тестовых сессий
-        A->>AV: Голосовая тестовая сессия
-        AV->>A: Диалог
-        A->>A: Голосовая обратная связь<br/>"что хорошо, что плохо"
-        A->>MM: Запись диалога
-        MM->>MM: Анализ и улучшение промпта
-        MM->>AV: Новый аватар
+    Note over A,AV: Stage 3: Avatar evolution
+    A->>AV: Create avatar in 11Labs
+    loop 3-5 test sessions
+        A->>AV: Voice test session
+        AV->>A: Dialogue
+        A->>A: Voice feedback<br/>"what's good, what's bad"
+        A->>MM: Dialogue recording
+        MM->>MM: Analysis and prompt improvement
+        MM->>AV: New avatar
     end
 
-    Note over A,ST: Этап 4: Лекция
-    A->>AV: Начало лекции (Zoom)
-    AV->>ST: Голосовой диалог
-    A->>ST: Голосовой диалог
-    ST->>A: Вопросы
-    A->>AV: Ответы и обсуждение
+    Note over A,ST: Stage 4: Lecture
+    A->>AV: Start lecture (Zoom)
+    AV->>ST: Voice dialogue
+    A->>ST: Voice dialogue
+    ST->>A: Questions
+    A->>AV: Answers and discussion
 
-    Note over TR,CN: Этап 5: Транскрипция и конспект
-    AV->>TR: Аудиозапись лекции
-    TR->>TR: Автоматическая транскрипция
-    TR->>CN: Текст транскрипции
-    loop 3-4 итерации
-        CN->>CN: Создание/обогащение конспекта
-        CN->>CN: Проверка полноты
+    Note over TR,CN: Stage 5: Transcription and notes
+    AV->>TR: Lecture audio recording
+    TR->>TR: Automatic transcription
+    TR->>CN: Transcription text
+    loop 3-4 iterations
+        CN->>CN: Create/enrich notes
+        CN->>CN: Completeness check
     end
 
-    Note over MM,CN: Этап 6: Фидбэк материнской модели
-    CN->>MM: Итоговый конспект
-    TR-->>MM: (Опционально) Транскрипция
-    MM->>MM: Анализ с контекстом всего курса
-    MM->>CN: Правки конспекта
-    MM->>MM: Обновление контекста курса
-    MM->>MM: План следующей лекции
+    Note over MM,CN: Stage 6: Mother model feedback
+    CN->>MM: Final notes
+    TR-->>MM: (Optional) Transcription
+    MM->>MM: Analysis with full course context
+    MM->>CN: Notes edits
+    MM->>MM: Update course context
+    MM->>MM: Plan next lecture
 
-    Note over A,GH: Этап 7: Репозиторий
-    A->>CC: Аудиофайлы + конспекты
-    CC->>CC: Создание структуры
-    CC->>CC: README, диаграммы, навигация
-    CC->>GH: Коммит и push
-    GH->>ST: Публичный доступ к материалам
+    Note over A,GH: Stage 7: Repository
+    A->>CC: Audio files + notes
+    CC->>CC: Create structure
+    CC->>CC: README, diagrams, navigation
+    CC->>GH: Commit and push
+    GH->>ST: Public access to materials
 
-    Note over MM,AV: Цикл повторяется
-    MM->>AV: Новый аватар для следующей лекции
+    Note over MM,AV: Cycle repeats
+    MM->>AV: New avatar for next lecture
 ```
 
 ---
 
-> 💡 **Этот документ сам создан по описанному workflow:**
+> **This document was itself created using the described workflow:**
 >
-> Алексей описал голосом процесс → транскрипция → базовая структура в чате → Claude Code довёл до текущего вида с диаграммами
+> Alexey described the process by voice -> transcription -> basic structure in chat -> Claude Code refined it to the current state with diagrams
 >
-> *Мы практикуем то, чему учим.*
+> *We practice what we teach.*
 
 ---
 
-*Обновлено: Октябрь 2025*
+*Updated: October 2025*
