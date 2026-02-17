@@ -9,3 +9,6 @@ exam/
 
 # Слайды для конференций (не публикуем)
 slides/
+
+# NeurIPS grant files (private)
+NeurIPS_*
