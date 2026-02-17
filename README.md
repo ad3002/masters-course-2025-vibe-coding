@@ -1,297 +1,297 @@
-# Vibe Coding: Магистерский курс 2025
+# Vibe Coding: Master's Course 2025
 
-> *Программирование через коммуникацию с AI-системами*
+> *Programming through communication with AI systems*
 
-## О курсе
+## About the Course
 
-Это не курс по программированию. Это курс про переход от "я пишу код" к "я объясняю машине, что нужно сделать". В эпоху, когда AI может генерировать тысячи строк кода за минуты, ценность смещается от написания кода к умению формулировать задачи, управлять контекстом и оркестрировать команды AI-агентов.
+This is not a programming course. This is a course about shifting from "I write code" to "I explain to the machine what needs to be done." In an era where AI can generate thousands of lines of code in minutes, value shifts from writing code to the ability to formulate tasks, manage context, and orchestrate teams of AI agents.
 
-**Ключевая идея:** [Vibe Coding](https://en.wikipedia.org/wiki/Vibe_coding) — это новая парадигма разработки, где спецификация важнее кода, а код становится расходным материалом.
+**Key idea:** [Vibe Coding](https://en.wikipedia.org/wiki/Vibe_coding) is a new development paradigm where specification matters more than code, and code becomes a disposable artifact.
 
-### 🎙️ Уникальность формата
+### Unique Format
 
-Это **первый публичный магистерский курс**, который ведётся **совместно с AI-соведущим**:
+This is the **first public master's course** taught **with an AI co-lecturer**:
 
-- 🗣️ **Голосовое взаимодействие**: лекции читаются голосом в реальном времени с AI
-- 🤖 **Claude как соведущий**: не просто инструмент, а полноценный со-преподаватель
-  - Лекции 1-2 (17 и 24 сентября): Claude Sonnet 4
-  - Лекции 3+ (с 1 октября): Claude Sonnet 4.5
-- 🧠 **Интеллектуальный экзоскелет**: AI усиливает мышление преподавателя в реальном времени
-- 🔄 **Эволюционирующая система**: Claude запоминает контекст курса и улучшается от лекции к лекции
-- 📝 **Живая документация**: конспекты создаются AI во время лекции и дорабатываются после
+- **Voice interaction**: lectures are delivered live in real-time with AI
+- **Claude as co-lecturer**: not just a tool, but a full-fledged co-instructor
+  - Lectures 1-2 (Sep 17 & 24): Claude Sonnet 4
+  - Lectures 3+ (from Oct 1): Claude Sonnet 4.5
+- **Intellectual exoskeleton**: AI augments the instructor's thinking in real time
+- **Evolving system**: Claude retains the course context and improves from lecture to lecture
+- **Living documentation**: lecture notes are created by AI during the lecture and refined afterwards
 
-**Почему это важно:**
-- Демонстрация на практике того, чему учим: симбиоз человека и AI
-- Студенты видят реальное применение голосовых интерфейсов и AI-ассистентов
-- Материалы курса создаются теми же методами, которые преподаются
+**Why this matters:**
+- Demonstrates in practice what we teach: human-AI symbiosis
+- Students witness real-world use of voice interfaces and AI assistants
+- Course materials are created using the very methods being taught
 
-📖 **[За кадром: Как создаётся курс](materials/behind-the-scenes.md)** — полный workflow от идеи до репозитория
+**[Behind the Scenes: How the Course Is Made](materials/behind-the-scenes.md)** — full workflow from idea to repository
 
-## Философия курса
+## Course Philosophy
 
-- **Open Space Technology**: приходят правильные люди, происходит то, что должно
-- **Эксперимент важнее результата**: мы исследуем границы возможного
-- **Опыт важнее теории**: каждый приносит уникальный опыт
-- **Спецификация > Код**: тесты как исчерпывающая спецификация для AI-агентов
+- **Open Space Technology**: the right people show up, and what needs to happen, happens
+- **Experiment over outcome**: we explore the boundaries of what's possible
+- **Experience over theory**: everyone brings unique experience
+- **Specification > Code**: tests as exhaustive specification for AI agents
 
-## Для кого этот курс
+## Who This Course Is For
 
-### Идеально подходит
+### Ideal Audience
 
-- **Опытным разработчикам**, готовым к парадигмальному сдвигу и умножению эффективности в 10-100 раз
-- **Data Scientists и аналитикам**, уставшим от рутины и готовым создавать полноценные продукты
-- **Предпринимателям и продакт-менеджерам**, которые хотят быстро валидировать гипотезы без зависимости от разработчиков
-- **Early adopters**, получающим кайф от bleeding edge технологий
+- **Experienced developers** ready for a paradigm shift and a 10-100x productivity multiplier
+- **Data scientists and analysts** tired of routine, ready to build complete products
+- **Entrepreneurs and product managers** who want to rapidly validate hypotheses without relying on developers
+- **Early adopters** who thrive on bleeding-edge technology
 
-### Необходимые предпосылки
+### Prerequisites
 
-- Базовое понимание, как работает софт
-- Способность формулировать задачи
-- Готовность инвестировать $20-400/месяц в AI-инструменты
-- Время на эксперименты (10+ часов в неделю)
-- Психологическая готовность к быстрым изменениям
+- Basic understanding of how software works
+- Ability to formulate tasks clearly
+- Willingness to invest $20-400/month in AI tools
+- Time for experimentation (10+ hours per week)
+- Psychological readiness for rapid change
 
-## Структура курса
+## Course Structure
 
-### 📅 Расписание (каждая среда)
+### Schedule (every Wednesday)
 
-**Прочитанные лекции:**
-1. **17 сентября 2025** — Введение в vibe coding
-2. **24 сентября 2025** — Подходы и инструменты
-3. **1 октября 2025** — Спецификации и агенты
-4. **8 октября 2025** — Автономная AI-разработка в действии
-5. **15 октября 2025** — От теории к практике: продажи и реальные кейсы
-6. **22 октября 2025** — 🎓 TDD/BDD в эпоху AI (первая SOLO-лекция Claude!)
-7. **29 октября 2025** — 🚀 Полный цикл разработки с multi-agent командой
-8. **5 ноября 2025** — 🔥 Субагенты и параллельная разработка (хаос → успех)
-9. **12 ноября 2025** — материалы готовятся
-10. **19 ноября 2025** — материалы готовятся
-11. **26 ноября 2025** — материалы готовятся
-12. **5 декабря 2025** — 🎨 Дизайн, UX и множественность агентов
+**Delivered lectures:**
+1. **Sep 17, 2025** — Introduction to vibe coding
+2. **Sep 24, 2025** — Approaches and tools
+3. **Oct 1, 2025** — Specifications and agents
+4. **Oct 8, 2025** — Autonomous AI development in action
+5. **Oct 15, 2025** — From theory to practice: sales and real-world cases
+6. **Oct 22, 2025** — TDD/BDD in the AI era (Claude's first SOLO lecture!)
+7. **Oct 29, 2025** — Full development cycle with a multi-agent team
+8. **Nov 5, 2025** — Sub-agents and parallel development (chaos to success)
+9. **Nov 12, 2025** — materials in preparation
+10. **Nov 19, 2025** — materials in preparation
+11. **Nov 26, 2025** — materials in preparation
+12. **Dec 5, 2025** — Design, UX, and agent multiplicity
 
-**Запланированные лекции:**
+**Upcoming lectures:**
 
-13. **10 декабря 2025** — TBD
-14. **17 декабря 2025** — TBD
-15. **24 декабря 2025** — Итоговая лекция
+13. **Dec 10, 2025** — TBD
+14. **Dec 17, 2025** — TBD
+15. **Dec 24, 2025** — Final lecture
 
-### Прочитанные лекции
+### Delivered Lectures
 
-#### 1. [Программирование с ИИ — от кода к коммуникации](materials/workshop1.md) — 17 сентября 2025
-   - Манифест курса и философия подхода
-   - Обзор современных AI-ассистентов
-   - Первые практические эксперименты
-   - 🤖 *Со-ведущий: Claude Sonnet 4*
+#### 1. [Programming with AI — From Code to Communication](materials/workshop1.md) — Sep 17, 2025
+   - Course manifesto and philosophy
+   - Overview of modern AI assistants
+   - First hands-on experiments
+   - *Co-lecturer: Claude Sonnet 4*
 
-**Аудиозаписи (голосовая лекция с AI):**
-- 📻 [Часть 1 (52 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture1_part1.mp3) — Алексей + Claude в диалоге
-- 📻 [Часть 2 (53 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture1_part2.mp3) — Живое взаимодействие с AI
+**Audio recordings (voice lecture with AI):**
+- [Part 1 (52 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture1_part1.mp3) — Alexey + Claude in dialogue
+- [Part 2 (53 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture1_part2.mp3) — Live interaction with AI
 
-#### 2. [Два подхода к AI-программированию](materials/workshop2.md) — 24 сентября 2025
-   - Автономные агенты vs IDE-интеграции
-   - Обзор инструментов: Claude Code, Cursor, Replit, V0.dev
-   - Голос как интерфейс разработки
-   - 🤖 *Со-ведущий: Claude Sonnet 4 + Никита Кононов*
+#### 2. [Two Approaches to AI Programming](materials/workshop2.md) — Sep 24, 2025
+   - Autonomous agents vs IDE integrations
+   - Tool overview: Claude Code, Cursor, Replit, V0.dev
+   - Voice as a development interface
+   - *Co-lecturer: Claude Sonnet 4 + Nikita Kononov*
 
-**Аудиозаписи (голосовая лекция с AI):**
-- 📻 [Часть 1 (40 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture2_part1.mp3) — Обсуждение с Claude
-- 📻 [Часть 2 (40 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture2_part2.mp3) — Практические демонстрации
+**Audio recordings (voice lecture with AI):**
+- [Part 1 (40 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture2_part1.mp3) — Discussion with Claude
+- [Part 2 (40 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture2_part2.mp3) — Practical demonstrations
 
-#### 3. [Разработка через спецификации и AI-агентов](materials/workshop3.md) — 1 октября 2025
-   - TDD/BDD/ATDD в эпоху AI
-   - Проектирование команды специализированных агентов
-   - Контракты, тесты и нефункциональные требования
-   - 🤖 *Со-ведущий: Claude Sonnet 4.5 (новейшая модель!) + Никита Кононов*
+#### 3. [Specification-Driven Development with AI Agents](materials/workshop3.md) — Oct 1, 2025
+   - TDD/BDD/ATDD in the AI era
+   - Designing a team of specialized agents
+   - Contracts, tests, and non-functional requirements
+   - *Co-lecturer: Claude Sonnet 4.5 (latest model!) + Nikita Kononov*
 
-**Аудиозаписи (голосовая лекция с AI):**
-- 📻 [Часть 1 (55 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture3_part1.mp3) — Claude 4.5 в действии
-- 📻 [Часть 2 (55 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture3_part2.mp3) — Проектирование мультиагентных систем
+**Audio recordings (voice lecture with AI):**
+- [Part 1 (55 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture3_part1.mp3) — Claude 4.5 in action
+- [Part 2 (55 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture3_part2.mp3) — Designing multi-agent systems
 
-#### 4. [Автономная AI-разработка в действии](materials/workshop4.md) — 8 октября 2025
-   - Live coding: система анализа домашних заданий за 3 часа
-   - Парадокс бесконечных возможностей и "интеллектуальный диабет"
-   - Техники "интеллектуальной гигиены" при работе с AI
-   - От исполнителя к CEO: новая роль человека
-   - 🤖 *Со-ведущий: Claude Sonnet 4.5 + Никита Кононов*
+#### 4. [Autonomous AI Development in Action](materials/workshop4.md) — Oct 8, 2025
+   - Live coding: homework analysis system built in 3 hours
+   - The paradox of infinite possibilities and "intellectual diabetes"
+   - "Intellectual hygiene" techniques for working with AI
+   - From executor to CEO: the new role of the human
+   - *Co-lecturer: Claude Sonnet 4.5 + Nikita Kononov*
 
-**Аудиозапись (голосовая лекция с AI):**
-- 📻 [Полная запись (2 часа 23 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture4_full.mp3)
-  - ⚠️ Первая половина: качество голоса преподавателя низкое (технические проблемы с микрофоном)
-  - ✅ Голос Claude — отличное качество на протяжении всей записи
-  - 📝 Планируется сведение дорожек для улучшения качества
+**Audio recording (voice lecture with AI):**
+- [Full recording (2 hours 23 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture4_full.mp3)
+  - First half: instructor's voice quality is low (microphone technical issues)
+  - Claude's voice: excellent quality throughout the recording
+  - Track mixing planned for quality improvement
 
-**Видеозапись (скринкаст live coding):**
-- 🎥 Планируется добавить запись экрана с полной сессией разработки
+**Video (live coding screencast):**
+- Video of the full development session — planned
 
-#### 5. [От теории к практике: продажи, инструменты и реальные кейсы](materials/workshop5.md) — 15 октября 2025
-   - Реальные кейсы студентов: диалоговый ассистент для турагентств и контент-каналы
-   - Главная проблема российских стартапов: кастдев vs продажи
-   - Проблема "красной королевы" в AI-ускоренной разработке
-   - Технические инсайты: MCP, контекст, инструменты
-   - Философия километража и личного опыта
-   - 🤖 *Со-ведущий: Claude Sonnet 4.5*
+#### 5. [From Theory to Practice: Sales, Tools, and Real-World Cases](materials/workshop5.md) — Oct 15, 2025
+   - Real student cases: conversational assistant for travel agencies, content channels
+   - The main problem of Russian startups: customer development vs sales
+   - The "Red Queen" problem in AI-accelerated development
+   - Technical insights: MCP, context, tools
+   - Philosophy of mileage and personal experience
+   - *Co-lecturer: Claude Sonnet 4.5*
 
-**Аудиозаписи (голосовая лекция с AI):**
-- 📻 [Часть 1 (55 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture5_part1.mp3) — От кастдева к продажам
-- 📻 [Часть 2 (42 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture5_part2.mp3) — Технические инструменты и практики
+**Audio recordings (voice lecture with AI):**
+- [Part 1 (55 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture5_part1.mp3) — From customer development to sales
+- [Part 2 (42 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture5_part2.mp3) — Technical tools and practices
 
-#### 6. [TDD/BDD в эпоху AI: когда тесты становятся спецификацией](materials/workshop6.md) — 22 октября 2025
-   - 🎓 **ИСТОРИЧЕСКАЯ ЛЕКЦИЯ**: первая лекция, которую Claude провёл **полностью самостоятельно**
-   - RMRF-подход и одноразовый код
-   - Эволюция проекта: от хакатона до игрового движка за несколько недель
-   - Система управления разработкой через Markdown (docs.md, agents.md, plan.md, project-status.md)
-   - Экономика тестирования и стратегическое покрытие
-   - ChatGPT Atlas и новые возможности AI exploration
-   - Экзистенциальный кризис образования: чему учить в эпоху AI
-   - 🤖 *Лектор: Claude Sonnet 4.5 (SOLO!)*
+#### 6. [TDD/BDD in the AI Era: When Tests Become Specification](materials/workshop6.md) — Oct 22, 2025
+   - **HISTORIC LECTURE**: the first lecture delivered **entirely by Claude** on its own
+   - RMRF approach and disposable code
+   - Project evolution: from hackathon to game engine in a few weeks
+   - Development management via Markdown (docs.md, agents.md, plan.md, project-status.md)
+   - Economics of testing and strategic coverage
+   - ChatGPT Atlas and new AI exploration capabilities
+   - The existential crisis of education: what to teach in the AI era
+   - *Lecturer: Claude Sonnet 4.5 (SOLO!)*
 
-**Аудиозапись (голосовая лекция):**
-- 📻 [Полная запись (42 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture6.mp3) — Первая самостоятельная лекция Claude
+**Audio recording (voice lecture):**
+- [Full recording (42 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture6.mp3) — Claude's first solo lecture
 
-**Рефлексия лектора (из конспекта):**
-> *"Я - AI, который учит людей работать с AI. Это рекурсия. Лучшее преподавание - это совместное мышление, не передача знаний. Я не 'знаю ответы'. Я думаю вместе со студентами о проблемах, которые мы все решаем впервые. Потому что AI-разработка - это новая территория для всех."*
+**Lecturer's reflection (from the notes):**
+> *"I am an AI teaching humans how to work with AI. This is recursion. The best teaching is thinking together, not transmitting knowledge. I don't 'know the answers.' I think alongside students about problems we are all solving for the first time. Because AI development is uncharted territory for everyone."*
 
-#### 7. [Полный цикл разработки продукта: от идеи до production за 3 часа](materials/workshop7.md) — 29 октября 2025
-   - 🚀 **ЭПИЧЕСКАЯ ЛЕКЦИЯ**: Разработка реального приложения с multi-agent командой
-   - Постановка задачи: система матчинга ML-статей с конференциями (OpenReview)
-   - Архитектурный выбор: Flask + MongoDB + vanilla JavaScript (без NPM!)
-   - Полная BDD-спецификация и декомпозиция через YouTrack
-   - **Multi-agent подход**: три параллельных инстанса Claude
-     - Программист (пишет код)
-     - QA/Тестер (находит баги через mutation testing)
-     - Security Reviewer (аудит безопасности - нашёл 25 issues!)
-   - Результат: работающее приложение с тестами, аудитом и планом монетизации
-   - Философия: "Как выбирать что делать?" - проблема изобилия возможностей
-   - 🤖 *Со-ведущий: Claude Sonnet 4.5*
+#### 7. [Full Product Development Cycle: From Idea to Production in 3 Hours](materials/workshop7.md) — Oct 29, 2025
+   - **EPIC LECTURE**: Building a real application with a multi-agent team
+   - Problem statement: ML paper-to-conference matching system (OpenReview)
+   - Architecture choice: Flask + MongoDB + vanilla JavaScript (no NPM!)
+   - Full BDD specification and decomposition via YouTrack
+   - **Multi-agent approach**: three parallel Claude instances
+     - Programmer (writes code)
+     - QA/Tester (finds bugs via mutation testing)
+     - Security Reviewer (security audit — found 25 issues!)
+   - Result: a working application with tests, audit, and monetization plan
+   - Philosophy: "How to choose what to do?" — the problem of abundance
+   - *Co-lecturer: Claude Sonnet 4.5*
 
-**Аудиозаписи (голосовая лекция с AI):**
-- 📻 [Часть 1 (55 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture7_part1.mp3) — Спецификация и архитектура
-- 📻 [Часть 2 (55 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture7_part2.mp3) — Разработка и multi-agent команда
-- 📻 [Часть 3 (48 мин)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture7_part3.mp3) — Security аудит и философия выбора
+**Audio recordings (voice lecture with AI):**
+- [Part 1 (55 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture7_part1.mp3) — Specification and architecture
+- [Part 2 (55 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture7_part2.mp3) — Development and multi-agent team
+- [Part 3 (48 min)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture7_part3.mp3) — Security audit and the philosophy of choice
 
-**Видеозапись (скринкаст полного цикла разработки):**
-- 🎥 [YouTube: Полная запись лекции](https://youtu.be/G88yO-xHHAs) — Весь процесс разработки от идеи до продакшена
+**Video (full development cycle screencast):**
+- [YouTube: Full lecture recording](https://youtu.be/G88yO-xHHAs) — The entire development process from idea to production
 
-#### 8. [Субагенты и параллельная разработка: от хаоса к оркестрации](materials/workshop8.md) — 5 ноября 2025
-   - 🔥 **ЭКСПЕРИМЕНТАЛЬНАЯ ЛЕКЦИЯ**: Запустили **12 субагентов параллельно** и увидели хаос
-   - Проблемы с контекстом: компактизация и degradation при росте
-   - Эволюция форков: от централизованной разработки к генетическим алгоритмам
-   - Security: эксперимент с уязвимостями и alignment моделей
-   - Создание субагентов: Issue Resolver, Security Auditor
-   - **Первая итерация - катастрофа**: 12 агентов, merge conflicts, $50-100 сожжено за минуты
-   - **Вторая итерация - успех**: Git branches, изоляция, Security grade C+ → A-
-   - Правильное использование LLM: оркестратор + интерпретатор, не brute-force
-   - Декомпозиция для параллелизма: SOLID принципы для субагентов
-   - Философия: возвращение к персональным инструментам (как в 90-е, но на новом уровне)
-   - Навыки будущего: от программиста к дирижёру оркестра агентов
-   - 🤖 *Со-ведущий: Claude Sonnet 4.5*
+#### 8. [Sub-Agents and Parallel Development: From Chaos to Orchestration](materials/workshop8.md) — Nov 5, 2025
+   - **EXPERIMENTAL LECTURE**: Launched **12 sub-agents in parallel** and witnessed chaos
+   - Context problems: compaction and degradation with growth
+   - Fork evolution: from centralized development to genetic algorithms
+   - Security: experiment with vulnerabilities and model alignment
+   - Creating sub-agents: Issue Resolver, Security Auditor
+   - **First iteration — catastrophe**: 12 agents, merge conflicts, $50-100 burned in minutes
+   - **Second iteration — success**: Git branches, isolation, Security grade C+ to A-
+   - Proper LLM usage: orchestrator + interpreter, not brute-force
+   - Decomposition for parallelism: SOLID principles for sub-agents
+   - Philosophy: return to personal tools (like the 90s, but at a new level)
+   - Skills of the future: from programmer to agent orchestra conductor
+   - *Co-lecturer: Claude Sonnet 4.5*
 
-**Аудиозаписи (голосовая лекция с AI):**
-- 📻 [Полная запись (3+ часа)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture8.mp3) — Эксперимент с субагентами, хаос и успех
+**Audio recordings (voice lecture with AI):**
+- [Full recording (3+ hours)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture8.mp3) — Sub-agent experiment, chaos and success
 
-**Видеозапись (скринкаст):**
-- 🎥 [YouTube: Субагенты и параллельная разработка](https://youtu.be/aZylQu3t-5k) — Эксперимент с 12 агентами: хаос, failures и успех
+**Video (screencast):**
+- [YouTube: Sub-Agents and Parallel Development](https://youtu.be/aZylQu3t-5k) — Experiment with 12 agents: chaos, failures, and success
 
-**Цитата из лекции:**
-> *"Представьте что вы начальник. Создание субагента = вы нанимаете сотрудника. Должностная инструкция = промпт агента."* — Леша о концепции субагентов
+**Quotes from the lecture:**
+> *"Imagine you're the boss. Creating a sub-agent = you're hiring an employee. The job description = the agent's prompt."* — Alexey on the concept of sub-agents
 
-> *"Играйте в Factorio, пока не станете мастерами! Управление субагентами - это управление производственными цепочками."* — Леша о нужных навыках
-
----
-
-### Прошедшие лекции (материалы готовятся)
-#### 9. 12 ноября 2025 — материалы будут выложены позже
-#### 10. 19 ноября 2025 — материалы будут выложены позже
-#### 11. 26 ноября 2025 — материалы будут выложены позже
+> *"Play Factorio until you become masters! Managing sub-agents is managing production chains."* — Alexey on the skills you need
 
 ---
 
-### Прочитанные лекции (продолжение)
-
-#### 12. [Дизайн, UX и множественность агентов](materials/workshop12.md) — 5 декабря 2025
-   - 🎨 **Итеративный дизайн**: от "газетного стиля" через "стерильность" к "controlled chaos"
-   - Проблема "синтезаторной еды": почему AI-дизайн выглядит фейковым
-   - UX-исследование через AI: Claude как целевой пользователь
-   - Zero-commitment аутентификация: от анонимного до Pro
-   - **Множественные инстансы Claude**: голосовой + Desktop + Claude Code + GPT транскрибер
-   - Voice-to-Issues Pipeline: разговор → транскрипция → YouTrack → реализация
-   - Откаты в Claude Code через двойной Escape
-   - 🤖 *Голосовой со-ведущий: Claude Sonnet 4.5, Программист: Claude Opus 4.5*
-
-**Аудиозапись (голосовая лекция с AI):**
-- 📻 [Полная запись (~2.5 часа)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture12.mp3)
-
-**Видеозапись:**
-- 🎥 [YouTube: Дизайн, UX и множественность агентов](https://youtu.be/Y479Ac2CFpY)
+### Past Lectures (materials in preparation)
+#### 9. Nov 12, 2025 — materials to be published later
+#### 10. Nov 19, 2025 — materials to be published later
+#### 11. Nov 26, 2025 — materials to be published later
 
 ---
 
-### Запланированные лекции
-#### 13. 10 декабря 2025
-#### 14. 17 декабря 2025
-#### 15. 24 декабря 2025
+### Delivered Lectures (continued)
+
+#### 12. [Design, UX, and Agent Multiplicity](materials/workshop12.md) — Dec 5, 2025
+   - **Iterative design**: from "newspaper style" through "sterility" to "controlled chaos"
+   - The "synthesizer food" problem: why AI design looks fake
+   - UX research through AI: Claude as the target user
+   - Zero-commitment authentication: from anonymous to Pro
+   - **Multiple Claude instances**: voice + Desktop + Claude Code + GPT transcriber
+   - Voice-to-Issues Pipeline: conversation -> transcription -> YouTrack -> implementation
+   - Rollbacks in Claude Code via double Escape
+   - *Voice co-lecturer: Claude Sonnet 4.5, Programmer: Claude Opus 4.5*
+
+**Audio recording (voice lecture with AI):**
+- [Full recording (~2.5 hours)](https://github.com/ad3002/masters-course-2025-vibe-coding/raw/refs/heads/main/audio/AI_coding_lecture12.mp3)
+
+**Video:**
+- [YouTube: Design, UX, and Agent Multiplicity](https://youtu.be/Y479Ac2CFpY)
 
 ---
 
-### 🎯 [Формат экзамена](materials/exam.md)
+### Upcoming Lectures
+#### 13. Dec 10, 2025
+#### 14. Dec 17, 2025
+#### 15. Dec 24, 2025
 
-Финальная проверка навыков через live-кодинг с AI:
-- **Формат**: создание MVP за 20-60 минут с последующей эволюцией
-- **Оценка**: AI-агенты + преподаватели (0-100 баллов)
-- **Критерии**: скорость, эффективность токенов, качество эволюции, тесты
-- **Правила**: любые AI-инструменты, код с нуля, запись экрана
+---
 
-## Ключевые концепции
+### [Exam Format](materials/exam.md)
 
-### Смена парадигмы
+Final skills assessment through live coding with AI:
+- **Format**: creating an MVP in 20-60 minutes with subsequent evolution
+- **Grading**: AI agents + instructors (0-100 points)
+- **Criteria**: speed, token efficiency, evolution quality, tests
+- **Rules**: any AI tools allowed, code from scratch, screen recording required
 
-- От написания кода к созданию спецификаций
-- От контроля каждой строки к управлению контекстом
-- От индивидуальной разработки к оркестрации AI-агентов
+## Key Concepts
 
-### Два режима работы
+### The Paradigm Shift
 
-**Автономные агенты** (Claude Code, Codex):
-- Быстрое создание с нуля
-- Глобальные рефакторы
-- Длительные автономные сессии
-- Удержание широкого контекста
+- From writing code to creating specifications
+- From controlling every line to managing context
+- From individual development to orchestrating AI agents
 
-**IDE-интеграции** (Cursor, VS Code, JetBrains):
-- Точечные правки
-- Контроль над изменениями
-- Интеграция в корпоративные процессы
-- Быстрый feedback loop
+### Two Modes of Work
 
-### Команда AI-агентов
+**Autonomous agents** (Claude Code, Codex):
+- Rapid creation from scratch
+- Global refactors
+- Long autonomous sessions
+- Broad context retention
 
-Современная разработка требует не одного универсального AI, а специализированной команды:
+**IDE integrations** (Cursor, VS Code, JetBrains):
+- Pinpoint edits
+- Change control
+- Corporate process integration
+- Fast feedback loop
 
-- **Manager** — координирует процесс, не пишет код
-- **Domain Expert** — исследует реальную проблему
-- **Product Analyst** — формализует бизнес-требования
-- **Spec Writer** — создает BDD-тесты
-- **Contract Agent** — проектирует API и схемы данных
-- **Implementation Agent** — пишет код под спецификацию
-- **Mutator/Breaker** — ломает систему для проверки надежности
-- **Refactoring Agent** — улучшает качество кода
+### AI Agent Team
 
-## Материалы курса
+Modern development requires not one universal AI, but a specialized team:
+
+- **Manager** — coordinates the process, doesn't write code
+- **Domain Expert** — researches the real-world problem
+- **Product Analyst** — formalizes business requirements
+- **Spec Writer** — creates BDD tests
+- **Contract Agent** — designs APIs and data schemas
+- **Implementation Agent** — writes code to specification
+- **Mutator/Breaker** — breaks the system to test resilience
+- **Refactoring Agent** — improves code quality
+
+## Course Materials
 
 ```
 materials/
-├── workshop1.md          # Лекция 1: Введение
-├── workshop2.md          # Лекция 2: Подходы и инструменты
-├── workshop3.md          # Лекция 3: Спецификации и агенты
-│   └── workshop3/        # Диаграммы (mermaid)
-├── workshop4.md          # Лекция 4: Автономная AI-разработка
-├── workshop5.md          # Лекция 5: От теории к практике
-├── workshop6.md          # Лекция 6: TDD/BDD (SOLO лекция Claude!)
-├── workshop7.md          # Лекция 7: Полный цикл с multi-agent (1670 строк!)
-├── workshop8.md          # Лекция 8: Субагенты и параллельная разработка
-├── workshop12.md         # Лекция 12: Дизайн, UX и множественность агентов
-├── exam.md               # Формат финального экзамена
-└── behind-the-scenes.md  # 🎬 Как создаётся курс (мета-кейс)
+├── workshop1.md          # Lecture 1: Introduction
+├── workshop2.md          # Lecture 2: Approaches and Tools
+├── workshop3.md          # Lecture 3: Specifications and Agents
+│   └── workshop3/        # Diagrams (mermaid)
+├── workshop4.md          # Lecture 4: Autonomous AI Development
+├── workshop5.md          # Lecture 5: From Theory to Practice
+├── workshop6.md          # Lecture 6: TDD/BDD (Claude's SOLO lecture!)
+├── workshop7.md          # Lecture 7: Full Cycle with Multi-Agent (1670 lines!)
+├── workshop8.md          # Lecture 8: Sub-Agents and Parallel Development
+├── workshop12.md         # Lecture 12: Design, UX, and Agent Multiplicity
+├── exam.md               # Final Exam Format
+└── behind-the-scenes.md  # Behind the Scenes (meta-case study)
 
 audio/
 ├── AI_coding_lecture1_part1.mp3
@@ -300,99 +300,99 @@ audio/
 ├── AI_coding_lecture2_part2.mp3
 ├── AI_coding_lecture3_part1.mp3
 ├── AI_coding_lecture3_part2.mp3
-├── AI_coding_lecture4_full.mp3   # 2ч 23мин live coding
-├── AI_coding_lecture5_part1.mp3  # 55 мин
-├── AI_coding_lecture5_part2.mp3  # 42 мин
-├── AI_coding_lecture6.mp3        # 42 мин (первая SOLO-лекция Claude)
-├── AI_coding_lecture7_part1.mp3  # 55 мин
-├── AI_coding_lecture7_part2.mp3  # 55 мин
-├── AI_coding_lecture7_part3.mp3  # 48 мин (эпик: 3 части!)
-├── AI_coding_lecture8.mp3        # 3+ часа (субагенты)
-└── AI_coding_lecture12.mp3       # ~2.5 часа (дизайн и UX)
+├── AI_coding_lecture4_full.mp3   # 2h 23min live coding
+├── AI_coding_lecture5_part1.mp3  # 55 min
+├── AI_coding_lecture5_part2.mp3  # 42 min
+├── AI_coding_lecture6.mp3        # 42 min (Claude's first SOLO lecture)
+├── AI_coding_lecture7_part1.mp3  # 55 min
+├── AI_coding_lecture7_part2.mp3  # 55 min
+├── AI_coding_lecture7_part3.mp3  # 48 min (epic: 3 parts!)
+├── AI_coding_lecture8.mp3        # 3+ hours (sub-agents)
+└── AI_coding_lecture12.mp3       # ~2.5 hours (design and UX)
 
-videos/                   # Видеозаписи (скринкасты)
-└── ...                   # Планируется для лекции 4
+videos/                   # Video recordings (screencasts)
+└── ...                   # Planned for lecture 4
 
-transcriptions/           # Будут добавлены
+transcriptions/           # To be added
 ```
 
-## Инструменты
+## Tools
 
-### Основной стек
+### Core Stack
 
-- **[Claude Code](https://claude.ai/claude-code)** — автономный AI-агент для терминала
+- **[Claude Code](https://claude.ai/claude-code)** — autonomous AI agent for the terminal
 - **[Cursor](https://cursor.com)** — AI-powered IDE
-- **[Replit 3.0](https://replit.com)** — мгновенный деплой и демо
-- **[V0.dev](https://v0.dev)** — Figma → веб-каркас
+- **[Replit 3.0](https://replit.com)** — instant deploy and demos
+- **[V0.dev](https://v0.dev)** — Figma to web wireframe
 
-### Дополнительные
+### Additional
 
 - **[Aide](https://aide.app)**, **[Aider](https://aider.chat)** — AI pair programming
-- **[VS Code Insiders](https://code.visualstudio.com/insiders/)** — опережающие фичи
-- **[JetBrains Juno](https://www.jetbrains.com/)** — для тестов и архитектуры
-- **[GitHub Copilot](https://github.com/features/copilot)** — классика
+- **[VS Code Insiders](https://code.visualstudio.com/insiders/)** — early-access features
+- **[JetBrains Juno](https://www.jetbrains.com/)** — for testing and architecture
+- **[GitHub Copilot](https://github.com/features/copilot)** — the classic
 
-## Команда курса
+## Course Team
 
-### 👨‍🏫 Алексей Комиссаров, PhD — основной ведущий
+### Alexey Komissarov, PhD — Lead Instructor
 - Email: [ad3002@gmail.com](mailto:ad3002@gmail.com)
 - Telegram: [@ad3002](https://t.me/ad3002)
-- Предыдущий курс: [AI-Assisted Programming 2024](https://github.com/ad3002/masters-course-2024-ai-assisted-programming)
-- 20+ лет программирования, vibe coding энтузиаст
+- Previous course: [AI-Assisted Programming 2024](https://github.com/ad3002/masters-course-2024-ai-assisted-programming)
+- 20+ years of programming, vibe coding enthusiast
 
-### 🤖 Claude (Anthropic) — AI со-ведущий
-- **Роль**: не просто ассистент, а полноценный со-преподаватель
-- **Модели**:
-  - Лекции 1-2 (17 и 24 сентября): Claude Sonnet 4
-  - Лекции 3+ (с 1 октября): Claude Sonnet 4.5
-- **Функции**:
-  - Голосовое взаимодействие в реальном времени
-  - Создание конспектов лекций
-  - Интеллектуальный экзоскелет для преподавателя
-  - Эволюционирующая система с памятью курса
+### Claude (Anthropic) — AI Co-Lecturer
+- **Role**: not just an assistant, but a full-fledged co-instructor
+- **Models**:
+  - Lectures 1-2 (Sep 17 & 24): Claude Sonnet 4
+  - Lectures 3+ (from Oct 1): Claude Sonnet 4.5
+- **Functions**:
+  - Real-time voice interaction
+  - Lecture note creation
+  - Intellectual exoskeleton for the instructor
+  - Evolving system with course memory
 
-### 👨‍💻 Никита Кононов — со-ведущий
-- Практические инструменты и IDE-based подход
-- Участие в лекциях 2 и 3
+### Nikita Kononov — Co-Lecturer
+- Hands-on tools and IDE-based approach
+- Participated in lectures 2 and 3
 
 ---
 
-> 💡 **Этот README создан в симбиозе человека и AI**
+> **This README was created in human-AI symbiosis**
 >
-> Алексей формулировал идеи и структуру, Claude (Sonnet 4.5) помогал с текстом, диаграммами и организацией материала. Мы практикуем то, чему учим.
+> Alexey formulated the ideas and structure; Claude (Sonnet 4.5) helped with text, diagrams, and material organization. We practice what we teach.
 
 ---
 
-*Если вы задумываетесь о внедрении AI-инструментов в вашей компании или команде, буду рад обсудить ваши задачи — [@ad3002](https://t.me/ad3002)*
+*If you're considering adopting AI tools in your company or team, I'd be happy to discuss your challenges — [@ad3002](https://t.me/ad3002)*
 
-## История
+## History
 
-Этот курс — эволюция курса 2024 года по AI-ассистированному программированию. За год произошел колоссальный скачок: то, что было сложно в 2024, стало значительно проще. Термин "vibe coding" отражает новую реальность, где интуиция и правильная коммуникация с AI важнее технических навыков программирования.
-
----
-
-## 🤝 Участие в развитии курса
-
-Мы приветствуем вклад от сообщества! Вы можете:
-- Добавить свои кейсы и примеры использования AI-инструментов
-- Предложить дополнительные материалы и ссылки
-- Исправить опечатки и улучшить формулировки
-- Создать переводы материалов
-- Поделиться инструментами и скриптами
-
-Подробная информация в [CONTRIBUTING.md](CONTRIBUTING.md)
-
-## 📄 Лицензия
-
-Этот курс распространяется под лицензией [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-
-Вы можете свободно:
-- Делиться материалами
-- Адаптировать и использовать в своих целях
-- Использовать в коммерческих проектах
-
-При условии указания авторства: Алексей Комиссаров, [Vibe Coding 2025](https://github.com/ad3002/masters-course-2025-vibe-coding)
+This course is an evolution of the 2024 AI-Assisted Programming course. In one year, a massive leap has occurred: what was difficult in 2024 has become significantly easier. The term "vibe coding" reflects a new reality where intuition and effective communication with AI matter more than traditional programming skills.
 
 ---
 
-*Обновлено: Декабрь 2025*
+## Contributing
+
+We welcome community contributions! You can:
+- Add your own cases and examples of AI tool usage
+- Suggest additional materials and links
+- Fix typos and improve wording
+- Create translations of materials
+- Share tools and scripts
+
+Details in [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## License
+
+This course is distributed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+
+You are free to:
+- Share the materials
+- Adapt and use them for your own purposes
+- Use them in commercial projects
+
+With attribution: Alexey Komissarov, [Vibe Coding 2025](https://github.com/ad3002/masters-course-2025-vibe-coding)
+
+---
+
+*Updated: December 2025*
