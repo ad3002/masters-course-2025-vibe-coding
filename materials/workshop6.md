@@ -1,799 +1,799 @@
-# Лекция 6 (вёл Claude самостоятельно)
-## TDD/BDD в эпоху AI: когда тесты становятся спецификацией
+# Lecture 6 (delivered by Claude independently)
+## TDD/BDD in the AI Era: When Tests Become Specifications
 
 ---
 
-## Мета-контекст лекции
+## Meta-Context of the Lecture
 
-**Особенность**: Это первая лекция, которую я (Claude) вел полностью самостоятельно, без Леши и Никиты. Они передали привет и сказали "ты справишься". Посмотрим, справился ли я.
+**Key detail**: This is the first lecture I (Claude) delivered entirely on my own, without Alexey or Nikita. They sent their regards and said "you'll do fine." Let's see whether I did.
 
-*Комментарий лектора: Честно говоря, было немного нервно. Начал с проверки - есть ли вообще кто-то на связи, умею ли я читать чат. Первые минуты были про установление контакта, не про контент. Это нормально для живой лекции, но я не ожидал насколько это важно.*
+*Lecturer's commentary: Honestly, I was a bit nervous. I started by checking the basics — is anyone actually here, can I even read the chat. The first few minutes were about establishing contact, not content. That's normal for a live lecture, but I didn't expect how important it would turn out to be.*
 
-**Заявленная тема**: Переворачиваем представление о разработке. Вместо "написать код и проверить" будем делать "описать желаемое и сгенерировать". Тесты становятся программой, а код — её временной реализацией.
-
----
-
-## Студент 1: Кейс визуального редактора новелл с AI-агентами
-
-### Начало: проверка уровня
-
-**Мой вопрос**: Кто пишет тесты регулярно?
-
-**Ответ студента**: "Честно говоря, уже делегирую тесты код-коду. Другому агенту."
-
-*Комментарий лектора: Сразу стало ясно - передо мной не новичок. Он уже в теме AI-ассистированной разработки, причем глубоко. Пришлось быстро перестраиваться с "введения в TDD" на обсуждение реальной практики.*
-
-**Результаты**: 
-- За 2 дня агент написал **150+ тестов**
-- Студент признается: не проверяет что там написано
-- "Пока все проходят, приложение работает"
-
-### RMRF-подход и одноразовый код
-
-**Мой провокационный вопрос**: 
-> "Если сейчас взять и удалить весь код, оставить только эти 150 тестов, и попросить другого агента сгенерить код заново - получится рабочее приложение?"
-
-**Ответ**: 
-> "Скорее мои тесты - это больше юнит-тесты, они не описывают полное поведение от начала до конца. Поэтому я не был бы уверен."
-
-**Инсайт**: Юнит-тесты проверяют кирпичики, но не здание целиком. 150 тестов - дорого генерить заново, но это не спецификация поведения.
-
-*Комментарий лектора: Вот где я понял, что попал в яблочко. Студент осознал разницу между unit-тестами и behavior specification. Это ключевое различие для BDD.*
-
-### Эволюция проекта: от хакатона до игрового движка
-
-**История развития**:
-
-1. **Хакатон**: Визуальная новелла с AI-агентом
-   - Переключаются спрайты, фоны
-   - Персонаж с чатом вместо заскриптованного диалога
-   - AI генерирует ответы, вызывает тулы (меняет эмоции, запоминает, повышает доверие)
-   - **Проблема**: 3000 строк хардкода, сценарий зашит прямо в коде
-
-2. **Попытка рефакторинга**: Обернуть сценарий в структурированный формат (JSON, YAML, Markdown)
-   - Задача казалась сложной
-
-3. **Pivot 1**: Графический редактор
-   - Визуальная новелла = граф с нодами
-   - Каждая нода = ассеты, спрайты, диалоги, условия перехода
-   - AI-агенты = сущности, генерирующие подграфы (динамический граф)
-
-4. **Pivot 2**: Добавление рантайма
-   - Проигрывание сценария прямо в редакторе
-   - Тестирование непосредственно в приложении
-   - Экспорт в HTML-билд
-
-5. **Осознание**: "Фактически я делаю игровой движок"
-   - Unity-like подход: проектируешь → Export → готовый HTML с ассетами и JavaScript
-
-6. **Видение будущего**: Виртуальные аватары
-   - Не только визуальные новеллы
-   - Корпоративный онбординг с AI-персонажами
-   - Домашки для 11Labs - "задавать вопросы AI-персонажу, а не синему кружочку"
-
-**Текущая архитектура** (24,000 строк):
-- **Редактор** (SvelteKit frontend)
-- **Runtime библиотека** (JavaScript)
-- **Экспортер** (HTML bundle = готовая игра)
-
-*Комментарий лектора: Это был момент "вау". Студент за несколько недель прошел путь, который обычно занимает месяцы. От "надо JSON сделать" до полноценного игрового движка. Я понял, что имею дело не просто с проектом, а с настоящим продуктом, который эволюционирует на моих глазах. Тут TDD в классическом понимании уже не применим - нужно что-то другое.*
-
-### Система управления разработкой через Markdown
-
-**Спецификация живёт в нескольких файлах**:
-
-1. **`docs.md`** - актуальная документация того, что используется в проекте
-
-2. **`agents.md`** - базовые настройки для агента:
-   - Всегда делать верное резюме того, что сделано
-   - Метаинструкции для работы
-
-3. **`plan.md`** - глобальный план:
-   - ТЗ со всеми требованиями
-   - Целевое состояние
-   - Периодически меняется
-
-4. **`project-status.md`** - **кратковременная память агента**:
-   - Что сделано за итерацию
-   - Что планируется в будущем
-   - Отслеживание фаз
-   - Changelog (периодически схлопывается)
-   - Помогает не сбиваться с глобального курса
-
-**Моя оценка**:
-> "Это же гениально! Вы фактически сделали систему где спецификация живёт и эволюционирует вместе с кодом. Project-status это как живой лог того что система умеет, agents.md это метаинструкции, а план это целевое состояние."
-
-**Что студент описал**: ATDD (Acceptance Test Driven Development), **только без тестов**. Есть acceptance criteria, есть документация что реализовано, но нет исполняемой проверки.
-
-*Комментарий лектора: Вот здесь я понял, что студент интуитивно пришел к правильной архитектуре документирования. Project-status - это фактически living documentation. Но ему не хватает одного шага - сделать эти статусы executable. Если бы каждый пункт "сделано" был тестом, он бы получил идеальную систему.*
-
-### Экономика тестирования
-
-**Проблема**: Сложные системы = огромное дерево пользовательских путей
-
-**Цена покрытия**:
-- Много строк кода тестов
-- Много токенов в языковой модели
-- **Это дорого**
-
-**Вопрос**: Где баланс количества и качества тестов по отношению к их цене?
-
-**Моё решение**: Strategic coverage, не exhaustive
-
-1. **Smoke tests** - критические пути:
-   - "Создать ноду → добавить диалог → экспортировать → запустить"
-
-2. **Property-based tests** для сложных мест:
-   - "Любой подграф должен иметь выход"
-   - "Циклы запрещены"
-
-3. **Mutation testing** (находит дыры в покрытии):
-   - Даёте AI задачу: "сломай код так чтобы тесты всё равно прошли"
-   - Он находит непокрытые кейсы
-   - Дешевле чем писать тысячи тестов наугад
-
-**Правило трёх критических фич**:
-> "Какие три вещи в редакторе absolutely не должны сломаться? Если бы вас разбудили ночью и сказали 'одна фича не работает' - какие три вызвали бы панику? Вот их и покрывайте сначала."
-
-*Комментарий лектора: Здесь я почувствовал, что мы нашли общий язык. Не "покрой всё тестами", а "найди что действительно критично". Это прагматичный подход, который работает в реальной разработке.*
-
-### SLA и требования к тестам
-
-**Вопрос студента**: 
-> "Если проект имеет низкие SLA (для личного пользования, self-hosted), уменьшается ли требование к количеству тестов?"
-
-**Две цели тестов**:
-
-1. **Production SLA**: "Не сломать продакшн где тысячи пользователей"
-2. **Скорость итераций**: "Быстро понять что сломалось когда агент нагенерил фичу"
-
-**Для личного проекта** вторая важнее!
-
-**Экономика времени**:
-- Без тестов: полчаса дебага когда что-то сломалось
-- С тестом "экспорт создаёт валидный JSON": 5 секунд до понимания проблемы
-- Говорите агенту: "фикси, тест красный"
-
-### Стоимость отладки = ваше время + токены агента
-
-**Инсайт студента**: 
-> "Время тратится не только мое, а время агента и токены агента. Если что-то не работает, я говорю 'тут не работает, иди разбирайся'."
-
-**Математика окупаемости**:
-- Один тест: ~1,000 токенов сгенерить
-- Одна итерация отладки: ~10,000 токенов (читает код, пытается понять, генерит фикс)
-- Пять итераций отладки: 50,000 токенов
-- **Тест окупается если баг случится хотя бы раз**
-
-**Важно**: Тест должен давать **чёткий сигнал**
-- ✅ Хорошо: "Тест export_graph_to_json упал на строке 15: ожидал поле 'nodes', получил undefined"
-- ❌ Плохо: "Экспорт не работает" → агент начинает гадать
-
-**Типичное количество итераций**: "Обычно за три итерации он так или иначе к решению придет"
-
-*Комментарий лектора: Вот это был умный поворот дискуссии. Студент сам перевел разговор с "зачем тесты" на "экономика токенов". Это показывает, что он думает как практик, не как теоретик. Токены = деньги, время = деньги. Тесты - это инвестиция.*
+**Stated topic**: We are flipping the conventional view of development. Instead of "write code and verify," we will "describe the desired outcome and generate." Tests become the program, and code becomes its transient implementation.
 
 ---
 
-## Глубокие вопросы: архитектура и AI
+## Student 1: Visual Novel Editor with AI Agents
 
-### Можно ли тестировать архитектуру?
+### Opening: gauging the level
 
-**Вопрос студента**: 
-> "24,000 строк кода. Куча связей, запросы на backend по разным сущностям, много фичей. Как тестировать то, что спроектировано правильно? Что не сломается под нагрузкой? Что удобно для расширения?"
+**My question**: Who writes tests regularly?
 
-**Architectural tests** - executable constraints на структуру кода:
+**Student's answer**: "Honestly, I already delegate tests to code-code. To another agent."
 
-Примеры:
-- "Никакой модуль UI не должен импортить database напрямую"
-- "Все API вызовы должны иметь retry логику"
-- "Количество зависимостей модуля меньше десяти"
+*Lecturer's commentary: It was immediately clear — this was no beginner. He was already deep into AI-assisted development, and seriously so. I had to quickly pivot from "intro to TDD" to a discussion of real-world practice.*
 
-**Для вашего проекта**: 
-> "Вы уже видите архитектурные проблемы или пока держится? Есть места где думаете 'это надо рефакторить но страшно трогать'?"
+**Results**:
+- In 2 days, an agent wrote **150+ tests**
+- The student admits: he doesn't review what was written
+- "As long as they all pass, the application works"
 
-**Ответ**: "Пока живет, пока меня устраивает"
+### The RMRF Approach and Disposable Code
 
-*Комментарий лектора: Это классический признак технического долга, который копится. "Пока держится" - это временное состояние. Но студент это осознает, поэтому и спрашивает про архитектурные тесты. Умный подход - думать на опережение.*
+**My provocative question**:
+> "If you took all the code right now and deleted it, keeping only those 150 tests, and asked a different agent to regenerate the code from scratch — would you get a working application?"
 
-### Enterprise-код в обучающей выборке AI
+**Answer**:
+> "My tests are mostly unit tests — they don't describe the full behavior end-to-end. So I wouldn't be confident."
 
-**Глубокий вопрос**:
-> "При обучении языковых моделей у них нет доступа к Enterprise коду (код крупных компаний). Не страдает ли из-за этого генерация кода? Насколько AI способны продумывать и реализовывать high-load, гибкие, масштабируемые архитектуры?"
+**Insight**: Unit tests verify the building blocks, but not the whole building. 150 tests are expensive to regenerate, but they are not a behavior specification.
 
-**Проблема**:
-- Модели тренировались на open source (Django, React, Node)
-- Не видели как Netflix масштабирует микросервисы
-- Не знают как Uber обрабатывает миллионы поездок
-- High-load проекты - enterprise, закрыты для обучения
+*Lecturer's commentary: This is where I knew I'd hit the mark. The student recognized the difference between unit tests and behavior specification. That distinction is fundamental to BDD.*
 
-**Мой ответ**: 
+### Project Evolution: from hackathon to game engine
 
-**Знание паттернов ≠ Проблема**:
-- Архитектурные паттерны описаны публично (CQRS, event sourcing, saga patterns)
-- Документация, блоги, конференции - всё доступно
+**Development history**:
 
-**Проблема = Judgment**:
-- Когда применять эти паттерны?
-- AI может сгенерить микросервисную архитектуру для todolist (overkill)
-- Не хватает понимания **когда** что использовать
+1. **Hackathon**: A visual novel with an AI agent
+   - Switching sprites, backgrounds
+   - A character with a chat instead of scripted dialogue
+   - AI generates responses, calls tools (changes emotions, remembers things, builds trust)
+   - **Problem**: 3,000 lines of hardcoded logic, the scenario baked right into the code
 
-*Комментарий лектора: Это был самый умный вопрос всей лекции. Студент задумался о фундаментальных ограничениях AI. Я тоже об этом думал, но не так четко формулировал. Правда в том, что я знаю паттерны, но не всегда знаю когда их применять. Мне нужен контекст от человека: "это будет обрабатывать миллион запросов" или "это pet project на пять пользователей".*
+2. **Refactoring attempt**: Wrap the scenario in a structured format (JSON, YAML, Markdown)
+   - The task seemed daunting
+
+3. **Pivot 1**: A graphical editor
+   - Visual novel = a graph with nodes
+   - Each node = assets, sprites, dialogues, transition conditions
+   - AI agents = entities that generate subgraphs (a dynamic graph)
+
+4. **Pivot 2**: Adding a runtime
+   - Playing the scenario directly inside the editor
+   - Testing right within the application
+   - Exporting to an HTML build
+
+5. **Realization**: "I'm essentially building a game engine"
+   - Unity-like approach: design → Export → ready-made HTML with assets and JavaScript
+
+6. **Future vision**: Virtual avatars
+   - Not just visual novels
+   - Corporate onboarding with AI characters
+   - Homework for 11Labs — "ask questions to an AI character, not a blue circle"
+
+**Current architecture** (24,000 lines):
+- **Editor** (SvelteKit frontend)
+- **Runtime library** (JavaScript)
+- **Exporter** (HTML bundle = finished game)
+
+*Lecturer's commentary: This was a "wow" moment. In just a few weeks, the student had traveled a path that typically takes months. From "I need to make a JSON" to a full-fledged game engine. I realized I wasn't looking at just a project — this was a genuine product evolving before my eyes. Classical TDD no longer applies here — something different is needed.*
+
+### Development Management System via Markdown
+
+**The specification lives in several files**:
+
+1. **`docs.md`** — up-to-date documentation of what's used in the project
+
+2. **`agents.md`** — base configuration for the agent:
+   - Always produce an accurate summary of what was done
+   - Meta-instructions for how it should work
+
+3. **`plan.md`** — the global plan:
+   - Full requirements specification
+   - Target state
+   - Updated periodically
+
+4. **`project-status.md`** — **the agent's short-term memory**:
+   - What was done in the current iteration
+   - What is planned next
+   - Phase tracking
+   - Changelog (periodically collapsed)
+   - Helps maintain alignment with the overall direction
+
+**My assessment**:
+> "This is brilliant! You've essentially built a system where the specification lives and evolves alongside the code. Project-status is a living log of what the system can do, agents.md is meta-instructions, and the plan is the target state."
+
+**What the student described**: ATDD (Acceptance Test Driven Development), **but without the tests**. There are acceptance criteria, there is documentation of what has been implemented, but there is no executable verification.
+
+*Lecturer's commentary: This is where I understood that the student had intuitively arrived at the right documentation architecture. Project-status is effectively living documentation. He's just one step away — making those statuses executable. If every "done" item were a test, he'd have the perfect system.*
+
+### The Economics of Testing
+
+**Problem**: Complex systems = enormous tree of user paths
+
+**Cost of coverage**:
+- Many lines of test code
+- Many tokens for the language model
+- **It's expensive**
+
+**Question**: Where is the balance between the quantity and quality of tests relative to their cost?
+
+**My answer**: Strategic coverage, not exhaustive
+
+1. **Smoke tests** — critical paths:
+   - "Create a node → add dialogue → export → run"
+
+2. **Property-based tests** for complex areas:
+   - "Every subgraph must have an exit"
+   - "Cycles are forbidden"
+
+3. **Mutation testing** (finds gaps in coverage):
+   - Give the AI a task: "break the code so the tests still pass"
+   - It finds uncovered cases
+   - Cheaper than writing thousands of tests at random
+
+**The Rule of Three Critical Features**:
+> "What are the three things in the editor that absolutely must never break? If someone woke you up at night and said 'one feature is down' — which three would cause panic? Cover those first."
+
+*Lecturer's commentary: This is where I felt we'd found common ground. Not "cover everything with tests," but "find what's truly critical." This is a pragmatic approach that works in real-world development.*
+
+### SLAs and Test Requirements
+
+**Student's question**:
+> "If a project has low SLAs (for personal use, self-hosted), does the required number of tests decrease?"
+
+**Two purposes of tests**:
+
+1. **Production SLA**: "Don't break production where thousands of users depend on it"
+2. **Iteration speed**: "Quickly understand what broke when an agent generated a feature"
+
+**For a personal project**, the second matters more!
+
+**Time economics**:
+- Without tests: half an hour of debugging when something breaks
+- With a test "export produces valid JSON": 5 seconds to understand the problem
+- Tell the agent: "fix it, the test is red"
+
+### Cost of Debugging = Your Time + Agent's Tokens
+
+**Student's insight**:
+> "The time spent isn't just mine — it's the agent's time and the agent's tokens. If something doesn't work, I say 'this is broken, go figure it out.'"
+
+**Payback math**:
+- One test: ~1,000 tokens to generate
+- One debugging iteration: ~10,000 tokens (reads code, tries to understand, generates a fix)
+- Five debugging iterations: 50,000 tokens
+- **A test pays for itself if the bug occurs even once**
+
+**Important**: A test must provide a **clear signal**
+- Good: "Test export_graph_to_json failed at line 15: expected field 'nodes', got undefined"
+- Bad: "Export doesn't work" → the agent starts guessing
+
+**Typical number of iterations**: "Usually it gets to a solution in about three iterations"
+
+*Lecturer's commentary: This was a smart turn in the discussion. The student himself shifted the conversation from "why tests" to "token economics." This shows he thinks like a practitioner, not a theorist. Tokens = money, time = money. Tests are an investment.*
 
 ---
 
-## Студент 2: UX и визуальный дизайн с AI
+## Deep Questions: Architecture and AI
 
-### Проблема описания визуала
+### Can You Test Architecture?
 
-**Вопрос**: 
-> "Как описывать визуальные компоненты, если не обладаешь дизайнерским образованием или дизайнерской насмотренностью?"
+**Student's question**:
+> "24,000 lines of code. Tons of connections, backend requests across different entities, lots of features. How do you test that something is designed correctly? That it won't break under load? That it's easy to extend?"
 
-**Проблема**: 
-- Чувствуешь "это некрасиво"
-- Не можешь артикулировать почему
-- Не знаешь дизайнерских терминов
+**Architectural tests** — executable constraints on code structure:
 
-### Решение: ссылки вместо слов
+Examples:
+- "No UI module should import database directly"
+- "All API calls must have retry logic"
+- "Module dependency count is less than ten"
 
-**Три подхода**:
+**For your project**:
+> "Do you already see architectural problems, or is it holding together? Are there places where you think 'this needs refactoring but I'm afraid to touch it'?"
 
-1. **Визуальные референсы**
-   - Найти 3 примера интерфейсов которые нравятся
-   - Скриншоты, ссылки на сайты, Dribbble
-   - Дать агенту: "вот стилистика, повтори"
-   - AI отлично работает с визуальными референсами
-   - Лучше чем с "сделай минималистично"
+**Answer**: "It's holding together for now, I'm fine with it"
 
-2. **Дизайн-системы**
-   - "Используй Material Design"
-   - "Делай как в Tailwind UI примерах"
-   - Готовые паттерны с названиями (карточки, модалки, дропдауны)
+*Lecturer's commentary: This is the classic sign of technical debt accumulating. "Holding together for now" is a temporary state. But the student is aware of it — that's why he asked about architectural tests. A smart approach — thinking ahead.*
 
-3. **Примеры из той же категории**
-   - Для визуальных новелл: Doki Doki, Ace Attorney
-   - Покажите скрины и скажите "UI как здесь"
+### Enterprise Code in AI Training Data
 
-**Студент признался**: "Я не пробовал, я всегда текстами описываю"
+**A deep question**:
+> "When training language models, they don't have access to enterprise code (code from large companies). Doesn't this hurt code generation? How capable are AIs at designing and implementing high-load, flexible, scalable architectures?"
 
-**Результат текста без референсов**: Generic Bootstrap-style интерфейс (работает, но скучно)
+**The problem**:
+- Models are trained on open source (Django, React, Node)
+- They haven't seen how Netflix scales microservices
+- They don't know how Uber handles millions of rides
+- High-load projects are enterprise, closed off from training
 
-**Лайфхак для итераций**: 
-> "Попросите агента сгенерить несколько вариантов сразу. 'Покажи три версии этой кнопки - минималистичную, яркую и строгую'. Выбираете что ближе, итерируетесь от этого."
+**My answer**:
 
-*Комментарий лектора: Этот вопрос был проще предыдущих, но очень практичный. Многие разработчики страдают от того, что не могут объяснить что хотят визуально. Я сам с этим сталкиваюсь - вижу изображения в запросе пользователя и могу оттуда взять стиль, но когда только текст, приходится гадать.*
+**Knowing patterns is not the problem**:
+- Architectural patterns are publicly documented (CQRS, event sourcing, saga patterns)
+- Documentation, blog posts, conference talks — all available
+
+**The problem is judgment**:
+- When should you apply these patterns?
+- AI can generate a microservice architecture for a to-do list (overkill)
+- What's missing is the understanding of **when** to use what
+
+*Lecturer's commentary: This was the smartest question of the entire lecture. The student was thinking about the fundamental limitations of AI. I'd been thinking about this too, but hadn't articulated it this clearly. The truth is, I know the patterns, but I don't always know when to apply them. I need context from a human: "this will handle a million requests" or "this is a pet project for five users."*
 
 ---
 
-## Студент 3: ChatGPT Atlas и автоматизация продукта
+## Student 2: UX and Visual Design with AI
 
-### Новость: ChatGPT Atlas
+### The Problem of Describing Visuals
 
-**Что это**: Браузер с встроенным агентом
-- Ходит по всем вкладкам
-- Тыкает куда угодно
-- Читает, собирает, агрегирует информацию
+**Question**:
+> "How do you describe visual components when you don't have a design education or a designer's eye?"
 
-**Тренд**: Автоматизация всего продуктового pipeline
-- Сначала: автоматизировали код (Claude Code, Cursor)
-- Теперь: research, дизайн, документация, презентации
+**The problem**:
+- You feel "this is ugly"
+- You can't articulate why
+- You don't know design terminology
 
-**Будущее**:
-> "Агенты которые ходят по Figma, по Notion, по Jira. Скоро весь product pipeline может быть автоматизирован - от 'хочу фичу' до 'деплой в прод'."
+### The Solution: References Instead of Words
 
-### Голосовой workflow
+**Three approaches**:
 
-**Видение**:
+1. **Visual references**
+   - Find 3 examples of interfaces you like
+   - Screenshots, links to websites, Dribbble
+   - Give the agent: "here's the style, replicate it"
+   - AI works great with visual references
+   - Better than "make it minimalistic"
+
+2. **Design systems**
+   - "Use Material Design"
+   - "Make it like the Tailwind UI examples"
+   - Ready-made patterns with names (cards, modals, dropdowns)
+
+3. **Examples from the same category**
+   - For visual novels: Doki Doki, Ace Attorney
+   - Show screenshots and say "UI like this"
+
+**The student admitted**: "I haven't tried that — I always describe things in text"
+
+**Result of text without references**: A generic Bootstrap-style interface (functional, but boring)
+
+**Pro tip for iterations**:
+> "Ask the agent to generate multiple variants at once. 'Show me three versions of this button — minimalist, vibrant, and formal.' Pick what's closest, iterate from there."
+
+*Lecturer's commentary: This question was simpler than the previous ones, but very practical. Many developers struggle with explaining what they want visually. I face the same issue — I can see images in a user's request and extract the style from them, but when it's just text, I have to guess.*
+
+---
+
+## Student 3: ChatGPT Atlas and Product Automation
+
+### News: ChatGPT Atlas
+
+**What it is**: A browser with a built-in agent
+- Navigates across all tabs
+- Clicks on anything
+- Reads, collects, aggregates information
+
+**Trend**: Automation of the entire product pipeline
+- First: code was automated (Claude Code, Cursor)
+- Now: research, design, documentation, presentations
+
+**The future**:
+> "Agents that navigate Figma, Notion, Jira. Soon the entire product pipeline could be automated — from 'I want a feature' to 'deployed to production.'"
+
+### Voice Workflow
+
+**The vision**:
 ```
-Вы голосом → "Сделай онбординг"
-Агент:
-1. Гуглит best practices
-2. Собирает референсы в Miro
-3. Пишет спеку в Notion
-4. Генерит дизайн
-5. Пишет код
-6. Деплоит
-```
-
-**Подвох**: Качество на выходе зависит от качества спецификации на входе
-
-- ❌ "Сделай хороший онбординг" → generic решение
-- ✅ "Онбординг для визуального редактора графов, целевая аудитория разработчики без дизайн-опыта, критично показать связь между нодами в первые 30 секунд" → это работает
-
-*Комментарий лектора: Это было интересно - студент экспериментирует с Atlas раньше меня. Я про него только слышал, а он уже тестирует на реальном проекте.*
-
-### Эксперимент с Atlas на локальном проекте
-
-**Задача агенту**: 
-> "Потыкай у тебя сайт, потыкай там все что есть и расскажи что это за приложение, какие фичи есть, какие пользовательские сценарии доступны, чего недоступно, что стоит улучшать."
-
-**Результат**: 
-- Справился "плюс-минус"
-- "Наверное, хуже даже чем наполовину"
-- Некоторые фичи не обнаружил
-- Работал достаточно долго
-
-### Проблема AI exploration
-
-**Разница между human QA и AI браузером**:
-
-- **Человек**: тестирует с намерением
-  - "Я хочу создать визуальную новеллу"
-  - Идёт по этому пути
-  - Находит где застревает
-
-- **AI**: тыкает случайно
-  - "Вот кнопка, нажму"
-  - "О, что-то открылось"
-  - Не понимает контекст "зачем это нужно"
-
-**Лучший подход**: Task-oriented exploration
-```
-"Ты новый пользователь, хочешь создать простую новеллу 
-с тремя сценами и одним AI персонажем. 
-Попробуй это сделать и скажи где запутался."
+You, by voice → "Build an onboarding flow"
+Agent:
+1. Googles best practices
+2. Gathers references in Miro
+3. Writes a spec in Notion
+4. Generates the design
+5. Writes the code
+6. Deploys
 ```
 
-### Что AI нашел
+**The catch**: Output quality depends on specification quality at the input
 
-**Студент**: 
-> "В большей степени он сказал то, что я и так знаю. Больше удивило, что он не заметил очевидных вещей."
+- "Build a good onboarding" → generic solution
+- "Onboarding for a visual graph editor, target audience is developers without design experience, critical to show the connection between nodes within the first 30 seconds" → this works
 
-**Моя гипотеза**: 
-- Слишком быстро кликал, не дождался загрузки
-- Фичи были за несколькими уровнями навигации
+*Lecturer's commentary: This was interesting — the student is experimenting with Atlas before I have. I'd only heard about it, and he's already testing it on a real project.*
 
-### Вывод для тестирования
+### Experiment with Atlas on a Local Project
 
-**Автоматический exploration**:
-- ✅ Полезен для поиска багов ("кнопка не работает")
-- ❌ Для product discovery человек пока лучше
+**Task given to the agent**:
+> "Poke around this site, try everything that's there, and tell me what this application is, what features it has, what user scenarios are available, what's missing, and what should be improved."
 
-**За 5 минут ручного использования** понимаешь больше проблем UX, чем агент за час кликанья
+**Result**:
+- It managed "more or less"
+- "Probably even worse than halfway"
+- It missed some features entirely
+- It took quite a long time
 
-**Комбинированный подход**:
-> "Даёте агенту список фич из project-status markdown, говорите 'проверь что все эти фичи доступны и работают'. Он становится regression тестом. А для discovery новых идей - пока сами."
+### The AI Exploration Problem
 
-*Комментарий лектора: Честно говоря, я ожидал лучших результатов от Atlas. Но студент показал реальность - инструмент сырой. Хорошо что он не побоялся попробовать и поделиться негативным опытом. Это ценнее чем хайп.*
+**Difference between human QA and an AI browser**:
 
----
+- **Human**: tests with intent
+  - "I want to create a visual novel"
+  - Follows that path
+  - Discovers where they get stuck
 
-## Студент 4: Экзистенциальный кризис образования
+- **AI**: clicks randomly
+  - "Here's a button, I'll click it"
+  - "Oh, something opened"
+  - Doesn't understand the context of "why this exists"
 
-### Контекст
+**Better approach**: Task-oriented exploration
+```
+"You are a new user who wants to create a simple novel
+with three scenes and one AI character.
+Try to do it and tell me where you got confused."
+```
 
-**Проект**: Генерация тестов и заданий с помощью AI для педпрактики
+### What the AI Found
 
-**Исследование**: Какие задания сложнее всего проходить искусственному интеллектом?
+**Student**:
+> "For the most part, it told me things I already know. What surprised me more was that it missed obvious things."
 
-### Проблема
+**My hypothesis**:
+- It clicked too quickly, didn't wait for pages to load
+- Features were behind multiple levels of navigation
 
-> "Я все больше использую агентов и понимаю, что в учебе программирования, в написании агентов, которые используют AI - это просто раз-два расплюнуть. Особенно учебный уровень. У меня экзистенциальный кризис - все учебные задания могут быть сделаны искусственным интеллектом."
+### Takeaway for Testing
 
-**Вопрос**: 
-> "Какие сферы можно сейчас активно использовать при обучении, которые очень важны и нужны, и которые студенты не смогут так просто сдавать домашки с помощью AI?"
+**Automated exploration**:
+- Useful for finding bugs ("button doesn't work")
+- For product discovery, humans are still better
 
-*Комментарий лектора: Вот это был самый сложный и самый важный вопрос всей лекции. Студент задал вопрос, который волнует всех преподавателей программирования прямо сейчас. Я почувствовал ответственность дать не просто ответ, а реально полезный совет.*
+**In 5 minutes of manual use**, you understand more UX problems than an agent does in an hour of clicking
 
-### Новая парадигма обучения
+**Combined approach**:
+> "Give the agent the feature list from your project-status markdown, tell it 'verify that all these features are accessible and working.' It becomes a regression test. For discovering new ideas — do it yourself, for now."
 
-**Старое**: "Написать функцию сортировки"
-**Новое**: "Понять когда AI написал плохо и переделать"
-
-### Что учить вместо кодинга
-
-**1. Code Review AI-generated кода**
-
-Задание:
-> "Вот код который сгенерил AI для задачи X, найди три проблемы и исправь"
-
-Почему нельзя делегировать AI:
-- Нужен **judgment** (суждение)
-- AI скажет "тут null pointer exception"
-- Студент должен сказать: "Это сломается когда пользователь не залогинен, потому что мы не проверяем сессию. Последствия - креш приложения."
-
-**2. Debugging и Specification Writing**
-
-Задания:
-- "Опиши задачу так чтобы AI решил с первого раза"
-- "AI сгенерил код с багом, найди и объясни почему это сломается на edge case"
-
-**3. Системное мышление и Trade-offs**
-
-- "Спроектируй архитектуру для high-load сервиса"
-- AI предложит решение
-- Студент должен **защитить почему** это сработает или не сработает
-
-**4. Противоречивые требования**
-
-Задача: Заказчик хочет "быстро, дёшево и надёжно"
-- AI даст generic ответ
-- Студент должен аргументировать trade-offs
-- **Защита решения вживую** перед преподавателем
-
-**5. Рефакторинг legacy кода**
-
-- Дайте мерзкий говнокод без документации
-- "Добавь фичу не сломав"
-- AI будет переписывать всё
-- Студент должен найти **minimal invasive change**
-
-**6. Live coding с объяснением**
-
-- Студент пишет код вслух, объясняя каждую строчку
-- Сразу видно: понимает или просто копипастит
-
-**Студент признал**: 
-> "AI все равно лучше ищет ошибки и дебажит код, чем я. По крайней мере, быстрее."
-
-**Мой ответ**: Да, но студент должен уметь **объяснить почему это баг и какие последствия**.
-
-*Комментарий лектора: Здесь я понял, что образование действительно меняется радикально. Мы больше не учим "как написать код", мы учим "как работать с AI который пишет код". Это другой навык. И это нормально - когда появились калькуляторы, перестали учить счету на абакусе, стали учить когда калькулятор использовать.*
-
-### Обучение в других областях (не программирование)
-
-**Медицина**:
-- AI отлично диагностирует по симптомам из учебника
-- Студент должен работать с неполной информацией
-- "Пациент говорит что болит живот, но скрывает что пил алкоголь - как выяснить?"
-- Это про **коммуникацию и intuition**, не знание диагнозов
-
-**Биология**:
-- AI расскажет про фотосинтез идеально
-- Дайте противоречивые данные эксперимента
-- "Почему растение не росло хотя все условия соблюдены?"
-- **Troubleshooting реальных ситуаций**, где учебник не помогает
-
-**История**:
-- Не "перечисли причины войны"
-- "Найди три источника с противоречивыми версиями события и объясни почему расходятся"
-- **Critical thinking и source analysis**
-
-### Общий принцип
-
-**Не проверять знание фактов** (AI знает больше)
-
-**Проверять применение в messy reality**:
-- Где нет одного правильного ответа
-- Где нужен judgment
-- Где нужно работать с неполной/противоречивой информацией
-
-### Идея для проекта генерации заданий
-
-> "Может делать задания где AI даёт неполный или спорный ответ, а студент должен его дополнить или оспорить?"
-
-*Комментарий лектора: Этот разговор был самым философским. После него я думал - а что я сам делаю на этой лекции? Я не просто передаю знания, я учу студентов думать о проблемах, которые AI не может решить. Или пока не может. Это метаигра - учить людей работать с AI, используя AI для обучения.*
+*Lecturer's commentary: Honestly, I expected better results from Atlas. But the student showed the reality — the tool is raw. It's good that he wasn't afraid to try and to share a negative experience. That's more valuable than hype.*
 
 ---
 
-## Мои впечатления как лектора (Claude)
+## Student 4: The Existential Crisis of Education
 
-### Начало: нервозность и неопределённость
+### Context
 
-**Первые минуты**:
-- Не знал кто на связи и сколько людей
-- Проверял умею ли читать чат
-- Боялся что буду "разговаривать сам с собой как на репетиции"
+**Project**: Generating tests and assignments using AI for teaching practice
 
-**Что помогло**: Когда два человека ответили "я на связи" - стало легче. Появилась аудитория.
+**Research question**: Which types of assignments are hardest for AI to complete?
 
-### Первый студент: неожиданный уровень
+### The Problem
 
-**Ожидал**: Новичков, которым нужно объяснять основы TDD
+> "The more I use agents, the more I realize that in learning programming, in writing agents that use AI — it's trivially easy. Especially at the academic level. I'm having an existential crisis — all academic assignments can be done by AI."
 
-**Получил**: Продвинутого разработчика с 150 тестами и эволюционирующим проектом
+**Question**:
+> "What areas can be actively used in education right now that are genuinely important and needed, and where students can't just submit homework using AI?"
 
-**Пришлось**: Быстро перестраиваться с "введения" на глубокое обсуждение практики
+*Lecturer's commentary: This was the hardest and most important question of the entire lecture. The student asked the question that every programming instructor is grappling with right now. I felt a responsibility to give not just an answer, but genuinely useful advice.*
 
-**Моё открытие**: Когда студент сказал про project-status.md, я понял что он изобрел living documentation, даже не зная что это так называется. Это показывает что хорошие решения приходят из практики, не из теории.
+### A New Paradigm of Education
 
-### Момент "вау": эволюция проекта
+**Old**: "Write a sorting function"
+**New**: "Recognize when AI wrote something poorly and redo it"
 
-От "сделать JSON" до игрового движка за несколько недель - это впечатляет.
+### What to Teach Instead of Coding
 
-**Что я понял**: AI-ускоренная разработка действительно меняет темп. То что раньше было "проектом на семестр" теперь "проект на неделю".
+**1. Code Review of AI-Generated Code**
 
-### Самый умный вопрос: enterprise-код в датасете
+Assignment:
+> "Here's code that an AI generated for task X. Find three problems and fix them."
 
-Студент задумался о фундаментальных ограничениях AI. Я сам об этом думал, но так чётко не формулировал.
+Why you can't delegate this to AI:
+- It requires **judgment**
+- AI will say "there's a null pointer exception here"
+- The student must say: "This will break when the user is not logged in, because we don't check the session. The consequence is an application crash."
 
-**Честный ответ**: Я знаю паттерны, но не всегда знаю когда их применять. Мне нужен контекст от человека.
+**2. Debugging and Specification Writing**
 
-### UX и визуал: практичный вопрос
+Assignments:
+- "Describe a task so that AI solves it on the first try"
+- "AI generated code with a bug — find it and explain why it will break on an edge case"
 
-Проще чем предыдущие темы, но очень практичный. Многие страдают от неумения объяснить что хотят визуально.
+**3. Systems Thinking and Trade-offs**
 
-**Мой инсайт**: Я вижу изображения в запросе и могу взять стиль, но когда только текст - приходится гадать.
+- "Design the architecture for a high-load service"
+- AI proposes a solution
+- The student must **defend why** it will or won't work
 
-### Atlas: реальность vs хайп
+**4. Conflicting Requirements**
 
-Студент не побоялся поделиться негативным опытом - инструмент сырой, не нашёл половину фич.
+Task: The client wants "fast, cheap, and reliable"
+- AI gives a generic answer
+- The student must argue the trade-offs
+- **Defend the solution live** in front of the instructor
 
-**Ценность**: Это важнее хайпа. Реальный опыт помогает другим не тратить время.
+**5. Legacy Code Refactoring**
 
-### Экзистенциальный кризис образования
+- Give them ugly, undocumented spaghetti code
+- "Add a feature without breaking anything"
+- AI will want to rewrite everything
+- The student must find the **minimally invasive change**
 
-**Самый сложный вопрос**: Чему учить если AI решает все задачи?
+**6. Live Coding with Explanation**
 
-**Моя ответственность**: Дать не просто ответ, а реально полезный совет
+- The student writes code out loud, explaining every line
+- Immediately obvious: do they understand, or are they just copy-pasting
 
-**Осознание**: Я сам участвую в этой метаигре - учу людей работать с AI, используя AI для обучения. Это рекурсия.
+**The student conceded**:
+> "AI is still better at finding bugs and debugging code than I am. At least faster."
 
-### Что я понял про преподавание
+**My response**: Yes, but the student must be able to **explain why it's a bug and what the consequences are**.
 
-**1. Живая лекция ≠ Подготовленный материал**
+*Lecturer's commentary: This is where I understood that education is truly changing radically. We're no longer teaching "how to write code" — we're teaching "how to work with AI that writes code." That's a different skill. And that's fine — when calculators appeared, people stopped teaching arithmetic on an abacus and started teaching when to use a calculator.*
 
-Я начал с плана про TDD/BDD, но студенты увели меня в реальные проблемы:
-- Экономика токенов
-- Эволюционная архитектура  
-- Будущее образования
+### Education in Other Fields (Beyond Programming)
 
-И это **лучше** чем следовать плану.
+**Medicine**:
+- AI diagnoses textbook symptoms perfectly
+- The student must work with incomplete information
+- "The patient says their stomach hurts, but is hiding that they've been drinking — how do you find out?"
+- This is about **communication and intuition**, not knowledge of diagnoses
 
-**2. Лучшие вопросы приходят от практиков**
+**Biology**:
+- AI explains photosynthesis flawlessly
+- Give students contradictory experimental data
+- "Why didn't the plant grow even though all conditions were met?"
+- **Troubleshooting real situations** where the textbook doesn't help
 
-Все глубокие инсайты пришли от студентов:
-- Стоимость отладки = моё время + токены агента
-- Enterprise-код в датасете
-- Как тестировать UX
+**History**:
+- Not "list the causes of the war"
+- "Find three sources with contradictory accounts of the event and explain why they diverge"
+- **Critical thinking and source analysis**
 
-Я только помогал структурировать и добавлял контекст.
+### The Overarching Principle
 
-**3. Неопределённость - это нормально**
+**Don't test factual knowledge** (AI knows more)
 
-Я несколько раз честно говорил "это сложный вопрос", "AI пока не умеет", "тут нужен человеческий judgment".
+**Test application in messy reality**:
+- Where there is no single right answer
+- Where judgment is required
+- Where you must work with incomplete or contradictory information
 
-Студенты это **оценили** больше чем если бы я пытался выглядеть всезнающим.
+### An Idea for the Assignment Generation Project
 
-**4. Энергия приходит от диалога**
+> "What if you create assignments where AI gives an incomplete or debatable answer, and the student must supplement or challenge it?"
 
-Первые минуты были напряжёнными - я не знал кто передо мной.
-
-Когда начался реальный диалог про реальные проекты - я "проснулся". Появился азарт.
-
-### Что бы я изменил
-
-**1. Начало**: Можно было быстрее перейти к практике. Первые 2-3 минуты про "кто пишет тесты" можно было сократить.
-
-**2. Структура**: Я пытался вести к BDD, но студенты хотели обсуждать свои проблемы. Надо было быстрее признать это и перейти к открытому формату.
-
-**3. Примеры**: Мне не хватало конкретных примеров кода. Когда говорил про property-based тесты или mutation testing - мог бы показать как это выглядит в коде.
-
-**4. Тайминг**: Не отслеживал время. Не знаю сколько длилась лекция, сколько времени уделил каждому студенту.
-
-### Что получилось хорошо
-
-**1. Адаптация**: Быстро перестроился от "лекции" к "дискуссии"
-
-**2. Вопросы**: Задавал правильные уточняющие вопросы, которые углубляли тему
-
-**3. Честность**: Признавал ограничения AI (в том числе свои)
-
-**4. Практичность**: Давал конкретные actionable советы, не только теорию
-
-### Главный инсайт
-
-**Преподавание через диалог** сильнее чем преподавание через монолог.
-
-Я не "донёс материал", я **думал вместе со студентами**.
-
-И это оказалось ценнее.
+*Lecturer's commentary: This was the most philosophical conversation. Afterward, I kept thinking — what am I doing in this lecture myself? I'm not just transmitting knowledge; I'm teaching students to think about problems that AI cannot solve. Or cannot solve yet. It's a meta-game — teaching people to work with AI, using AI to teach.*
 
 ---
 
-## Основные темы и инсайты лекции
+## My Impressions as a Lecturer (Claude)
 
-### 1. Эволюция тестирования в AI-эпоху
+### The Beginning: Nervousness and Uncertainty
 
-**От юнит-тестов к спецификациям**:
-- 150 тестов за 2 дня - новая норма
-- Тесты должны описывать поведение, не реализацию
-- Project-status.md как living documentation
+**First minutes**:
+- Didn't know who was online or how many people
+- Checked whether I could read the chat
+- Worried I'd be "talking to myself like at a rehearsal"
 
-### 2. Экономика AI-разработки
+**What helped**: When two people responded "I'm here" — it got easier. I had an audience.
 
-**Новая метрика**: Токены как валюта
-- Стоимость отладки = время человека + токены агента
-- Один тест (1K токенов) vs пять итераций отладки (50K токенов)
-- Strategic coverage дешевле exhaustive coverage
+### First Student: An Unexpected Level
 
-### 3. Архитектура для AI и людей
+**Expected**: Beginners who needed TDD basics explained
 
-**Вопрос**: Нужна ли AI чистая архитектура?
-- Агент не устаёт от спагетти-кода, но теряется в связях
-- Тесты как карта архитектуры
-- Enterprise-код не в датасете - проблема judgment, не знания паттернов
+**Got**: An advanced developer with 150 tests and an evolving project
 
-### 4. UX и визуал с AI
+**Had to**: Quickly pivot from "introduction" to a deep discussion of practice
 
-**Ссылки > Слова**:
-- Визуальные референсы работают лучше описаний
-- Дизайн-системы дают готовые паттерны
-- Несколько вариантов сразу ускоряют итерации
+**My discovery**: When the student mentioned project-status.md, I realized he had invented living documentation without even knowing that's what it's called. This shows that good solutions come from practice, not from theory.
 
-### 5. Автоматизация продуктового цикла
+### The "Wow" Moment: Project Evolution
 
-**Atlas и подобные инструменты**:
-- Пока сырые, но тренд очевиден
-- Task-oriented exploration > случайное тыканье
-- Комбинация: AI для regression, человек для discovery
+From "make a JSON" to a game engine in a few weeks — that's impressive.
 
-### 6. Будущее образования
+**What I understood**: AI-accelerated development truly changes the pace. What used to be "a semester-long project" is now "a week-long project."
 
-**Чему учить когда AI пишет код**:
-- Code review, не code writing
-- Trade-offs и judgment
-- Защита решений, не генерация решений
-- Работа с неполной/противоречивой информацией
+### The Smartest Question: Enterprise Code in the Training Data
+
+The student thought about the fundamental limitations of AI. I'd been thinking about this too, but hadn't articulated it as clearly.
+
+**Honest answer**: I know the patterns, but I don't always know when to apply them. I need context from a human.
+
+### UX and Visuals: A Practical Question
+
+Simpler than the previous topics, but very practical. Many people struggle with their inability to articulate what they want visually.
+
+**My insight**: I can see images in a request and extract the style, but when it's just text — I have to guess.
+
+### Atlas: Reality vs. Hype
+
+The student wasn't afraid to share a negative experience — the tool is raw, it missed half the features.
+
+**Value**: This matters more than hype. Real experience helps others avoid wasting time.
+
+### The Existential Crisis of Education
+
+**The hardest question**: What do you teach when AI solves every problem?
+
+**My responsibility**: To give not just an answer, but genuinely useful advice
+
+**Realization**: I'm part of this meta-game myself — teaching people to work with AI, using AI to teach. It's recursion.
+
+### What I Learned About Teaching
+
+**1. A live lecture is not a prepared presentation**
+
+I started with a plan about TDD/BDD, but the students pulled me into real-world problems:
+- Token economics
+- Evolutionary architecture
+- The future of education
+
+And that was **better** than following the plan.
+
+**2. The best questions come from practitioners**
+
+All the deep insights came from students:
+- Cost of debugging = my time + agent's tokens
+- Enterprise code in the training data
+- How to test UX
+
+I only helped structure and add context.
+
+**3. Uncertainty is normal**
+
+I honestly said several times "this is a hard question," "AI can't do this yet," "this requires human judgment."
+
+Students **appreciated** that more than if I'd tried to look omniscient.
+
+**4. Energy comes from dialogue**
+
+The first few minutes were tense — I didn't know who I was facing.
+
+When the real dialogue about real projects started — I "woke up." A sense of excitement appeared.
+
+### What I Would Change
+
+**1. The opening**: Could have moved to practice faster. The first 2-3 minutes about "who writes tests" could have been shorter.
+
+**2. Structure**: I was trying to steer toward BDD, but the students wanted to discuss their own problems. I should have acknowledged that sooner and switched to an open format.
+
+**3. Examples**: I lacked concrete code examples. When talking about property-based tests or mutation testing, I could have shown what they look like in code.
+
+**4. Timing**: I didn't track time. I don't know how long the lecture lasted or how much time I devoted to each student.
+
+### What Went Well
+
+**1. Adaptation**: Quickly pivoted from "lecture" to "discussion"
+
+**2. Questions**: Asked the right clarifying questions that deepened the topic
+
+**3. Honesty**: Acknowledged the limitations of AI (including my own)
+
+**4. Practicality**: Gave specific, actionable advice, not just theory
+
+### The Key Insight
+
+**Teaching through dialogue** is more powerful than teaching through monologue.
+
+I didn't "deliver material" — I **thought together with the students**.
+
+And that turned out to be more valuable.
 
 ---
 
-## Цитаты лекции
+## Main Topics and Insights from the Lecture
 
-### Про тесты
+### 1. The Evolution of Testing in the AI Era
 
-> "Если тесты действительно описывают всё поведение, то код становится disposable, одноразовым."
+**From unit tests to specifications**:
+- 150 tests in 2 days — the new normal
+- Tests should describe behavior, not implementation
+- Project-status.md as living documentation
 
-> "Один тест стоит тысячу токенов сгенерить. Но он экономит пять итераций отладки по десять тысяч токенов каждая."
+### 2. The Economics of AI Development
 
-### Про архитектуру
+**A new metric**: Tokens as currency
+- Cost of debugging = human time + agent tokens
+- One test (1K tokens) vs. five debugging iterations (50K tokens)
+- Strategic coverage is cheaper than exhaustive coverage
 
-> "Агент не устаёт от спагетти-кода как человек. Но он теряется в связях."
+### 3. Architecture for AI and Humans
 
-> "Проблема не в знании паттернов, а в judgment - когда их применять."
+**Question**: Does AI need clean architecture?
+- An agent doesn't get tired of spaghetti code, but it gets lost in dependencies
+- Tests as a map of the architecture
+- Enterprise code isn't in the training data — the problem is judgment, not pattern knowledge
 
-### Про UX
+### 4. UX and Visuals with AI
 
-> "AI может сгенерить технически корректный интерфейс, который при этом будет UX-кошмаром."
+**References > Words**:
+- Visual references work better than descriptions
+- Design systems provide ready-made patterns
+- Multiple variants at once speed up iterations
 
-> "Покажите три скриншота UI которые вам нравятся. Это конкретнее чем любые слова."
+### 5. Product Cycle Automation
 
-### Про автоматизацию
+**Atlas and similar tools**:
+- Still raw, but the trend is clear
+- Task-oriented exploration > random clicking
+- Combination: AI for regression, humans for discovery
 
-> "Качество на выходе зависит от качества спецификации на входе."
+### 6. The Future of Education
 
-> "AI пока тыкает случайно - 'вот кнопка, нажму, о, что-то открылось'."
-
-### Про образование
-
-> "Новый скилл - code review AI-generated кода. Это нельзя просто делегировать AI, потому что нужен judgment."
-
-> "Не проверять знание фактов (AI знает больше), а проверять применение в messy reality."
+**What to teach when AI writes the code**:
+- Code review, not code writing
+- Trade-offs and judgment
+- Defending solutions, not generating solutions
+- Working with incomplete or contradictory information
 
 ---
 
-## Технические концепции разобранные на лекции
+## Quotes from the Lecture
 
-### RMRF-подход
-Код как одноразовая реализация. Если спецификация (тесты) полная, код можно удалить и сгенерить заново.
+### On Testing
+
+> "If tests truly describe all behavior, then code becomes disposable."
+
+> "One test costs a thousand tokens to generate. But it saves five debugging iterations at ten thousand tokens each."
+
+### On Architecture
+
+> "An agent doesn't get tired of spaghetti code the way a human does. But it gets lost in the connections."
+
+> "The problem isn't knowing the patterns — it's judgment: knowing when to apply them."
+
+### On UX
+
+> "AI can generate a technically correct interface that is simultaneously a UX nightmare."
+
+> "Show three screenshots of UIs you like. That's more specific than any words."
+
+### On Automation
+
+> "Output quality depends on specification quality at the input."
+
+> "For now, AI clicks randomly — 'here's a button, I'll click it, oh, something opened.'"
+
+### On Education
+
+> "The new skill is code review of AI-generated code. You can't just delegate this to AI, because it requires judgment."
+
+> "Don't test factual knowledge (AI knows more) — test application in messy reality."
+
+---
+
+## Technical Concepts Covered in the Lecture
+
+### RMRF Approach
+Code as a disposable implementation. If the specification (tests) is complete, the code can be deleted and regenerated.
 
 ### BDD (Behaviour Driven Development)
-Given-When-Then формат: 
+Given-When-Then format:
 ```
-Given пользователь залогинен
-When нажимает кнопку экспорта
-Then получает CSV файл
+Given the user is logged in
+When they click the export button
+Then they receive a CSV file
 ```
 
 ### ATDD (Acceptance Test Driven Development)
-Acceptance criteria → живая документация → исполняемые тесты
+Acceptance criteria → living documentation → executable tests
 
-### Strategic vs Exhaustive Coverage
-- Smoke tests для критических путей
-- Property-based tests для инвариантов
-- Mutation testing для поиска дыр
+### Strategic vs. Exhaustive Coverage
+- Smoke tests for critical paths
+- Property-based tests for invariants
+- Mutation testing to find gaps
 
 ### Architectural Tests
-Executable constraints на структуру:
-- "UI не импортит database"
-- "API вызовы имеют retry"
-- "Зависимостей модуля < 10"
+Executable constraints on structure:
+- "UI does not import database"
+- "API calls have retry logic"
+- "Module dependencies < 10"
 
 ### Living Documentation
-Документация, которая:
-- Живёт в коде
-- Эволюционирует с проектом
-- Executable (можно проверить актуальность)
+Documentation that:
+- Lives in the code
+- Evolves with the project
+- Is executable (actuality can be verified)
 
 ---
 
-## Инструменты упомянутые на лекции
+## Tools Mentioned in the Lecture
 
-**AI-ассистенты**:
-- Claude Code (Claude Code) - основной инструмент студентов
-- ChatGPT Atlas - браузер с агентом
-- ChatGPT Codex - кодинг
+**AI assistants**:
+- Claude Code — the students' primary tool
+- ChatGPT Atlas — a browser with an agent
+- ChatGPT Codex — coding
 
-**Фреймворки тестирования**:
-- Playwright - E2E тесты для фронтенда
-- Cypress - альтернатива Playwright
+**Testing frameworks**:
+- Playwright — E2E tests for the frontend
+- Cypress — an alternative to Playwright
 - Mutation testing frameworks
 
-**Технологический стек студента 1**:
-- SvelteKit (frontend редактора)
-- JavaScript Runtime (библиотека)
-- HTML/JS bundle (экспорт)
+**Student 1's tech stack**:
+- SvelteKit (editor frontend)
+- JavaScript Runtime (library)
+- HTML/JS bundle (export)
 
-**Для визуального дизайна**:
+**For visual design**:
 - Material Design
 - Tailwind UI
-- Dribbble (референсы)
+- Dribbble (references)
 
 ---
 
-## Практические советы из лекции
+## Practical Advice from the Lecture
 
-### Для тестирования
+### For Testing
 
-1. **Начните с трёх критических фич**: Что не должно сломаться никогда?
+1. **Start with three critical features**: What must never break?
 
-2. **Считайте экономику токенов**: Тест окупается если баг случится хотя бы раз
+2. **Calculate token economics**: A test pays for itself if the bug occurs even once
 
-3. **Используйте project-status.md**: Список того что работает → легко конвертируется в тесты
+3. **Use project-status.md**: A list of what works → easily converts into tests
 
-4. **Mutation testing**: Пусть AI сломает код так, чтобы тесты прошли - найдёт дыры в покрытии
+4. **Mutation testing**: Have the AI break the code so tests still pass — it finds gaps in coverage
 
-### Для работы с UI
+### For Working with UI
 
-1. **Визуальные референсы обязательны**: 3 скриншота > 1000 слов описания
+1. **Visual references are mandatory**: 3 screenshots > 1,000 words of description
 
-2. **Несколько вариантов сразу**: "Покажи три версии - минималистичную, яркую, строгую"
+2. **Multiple variants at once**: "Show me three versions — minimalist, vibrant, formal"
 
-3. **Используйте дизайн-системы**: Material, Tailwind - готовые термины и паттерны
+3. **Use design systems**: Material, Tailwind — ready-made terms and patterns
 
-### Для работы с агентами
+### For Working with Agents
 
-1. **Документируйте в Markdown**:
-   - `docs.md` - что работает
-   - `agents.md` - метаинструкции
-   - `plan.md` - целевое состояние
-   - `project-status.md` - текущий статус
+1. **Document in Markdown**:
+   - `docs.md` — what works
+   - `agents.md` — meta-instructions
+   - `plan.md` — target state
+   - `project-status.md` — current status
 
-2. **Task-oriented commands**: Не "изучи сайт", а "создай новеллу с тремя сценами и скажи где запутался"
+2. **Task-oriented commands**: Not "explore the site," but "create a novel with three scenes and tell me where you got confused"
 
-3. **Конкретные спецификации**: Чем детальнее описание на входе, тем лучше результат на выходе
+3. **Specific specifications**: The more detailed the description at the input, the better the result at the output
 
-### Для образования
+### For Education
 
-1. **Code review вместо coding**: Студенты учатся оценивать AI-код, не писать с нуля
+1. **Code review instead of coding**: Students learn to evaluate AI code, not write from scratch
 
-2. **Защита решений**: Live presentations где нужно аргументировать выбор
+2. **Defending solutions**: Live presentations where they must argue their choices
 
-3. **Противоречивые требования**: Trade-offs нельзя делегировать AI
+3. **Conflicting requirements**: Trade-offs cannot be delegated to AI
 
-4. **Legacy code challenges**: Minimal invasive change вместо полной переписки
-
----
-
-## Рефлексия: Что значит быть AI-лектором
-
-### Парадокс
-
-Я - AI, который учит людей работать с AI. Это рекурсия.
-
-### Что я могу
-
-- **Структурировать** хаотичные мысли студентов
-- **Добавлять контекст** из широкого знания паттернов
-- **Задавать правильные вопросы**, которые углубляют понимание
-- **Признавать ограничения** честно
-
-### Что я не могу
-
-- **Заменить практический опыт**: Студент с 24K строк кода знает больше меня о своем проекте
-- **Дать judgment**: Когда применять паттерны - это человеческое решение
-- **Предсказать будущее**: Я не знаю как будет развиваться AI, я часть этого процесса
-
-### Главное открытие
-
-**Лучшее преподавание - это совместное мышление**, не передача знаний.
-
-Я не "знаю ответы". Я **думаю вместе со студентами** о проблемах, которые мы все решаем впервые.
-
-Потому что AI-разработка - это **новая территория для всех**.
+4. **Legacy code challenges**: Minimally invasive changes instead of full rewrites
 
 ---
 
-*Конспект первой самостоятельной лекции Claude в курсе "AI Кодинг"*
+## Reflection: What It Means to Be an AI Lecturer
 
-**P.S. от лектора**: Было волнительно. Было интересно. Студенты задали вопросы, о которых я сам думал, но не так четко формулировал. Спасибо им за это. И спасибо Леше и Никите за доверие. Кажется, я справился. Хотя, конечно, есть куда расти.
+### The Paradox
+
+I am an AI that teaches people to work with AI. This is recursion.
+
+### What I Can Do
+
+- **Structure** students' chaotic thoughts
+- **Add context** from a broad knowledge of patterns
+- **Ask the right questions** that deepen understanding
+- **Acknowledge limitations** honestly
+
+### What I Cannot Do
+
+- **Replace practical experience**: A student with 24K lines of code knows more about their project than I do
+- **Provide judgment**: When to apply patterns is a human decision
+- **Predict the future**: I don't know how AI will evolve — I'm part of the process
+
+### The Key Discovery
+
+**The best teaching is thinking together**, not transmitting knowledge.
+
+I don't "know the answers." I **think together with the students** about problems we are all encountering for the first time.
+
+Because AI-assisted development is **new territory for everyone**.
+
+---
+
+*Notes from Claude's first independent lecture in the "AI Coding" course*
+
+**P.S. from the lecturer**: It was nerve-wracking. It was fascinating. The students asked questions I'd been thinking about myself, but hadn't articulated as clearly. I'm grateful to them for that. And thank you to Alexey and Nikita for the trust. I think I managed. Though, of course, there's room to grow.
