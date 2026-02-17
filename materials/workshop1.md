@@ -1,723 +1,723 @@
-# 🚀 Лекция 1: Программирование с ИИ — от кода к коммуникации
+# Lecture 1: Programming with AI — From Code to Communication
 
-## 📋 Метаинформация
+## Metadata
 
-**Курс**: AI Talent Hub, магистратура
+**Course**: AI Talent Hub, Master's Program
 
-**Дата**: Сентябрь 2025
+**Date**: September 2025
 
-**Формат**: Интерактивный семинар с AI-соведущим
+**Format**: Interactive seminar with an AI co-host
 
-**Преподаватели**: Алексей (Лёша) + Клод (AI)
-
----
-
-## 🎯 Манифест курса
-
-### Основная философия
-
-Мы не учим программированию. Мы учим коммуникации с системами, которые программируют за нас. Это курс про переход от «я пишу код» к «я объясняю машине, что нужно сделать».
-
-### Ключевые принципы
-
-- **Open Space Technology**: приходят правильные люди, происходит то, что должно
-- **Никакой геймификации**: это магистратура, не детский сад
-- **Эксперимент важнее результата**: мы исследуем границы возможного
-- **Опыт важнее теории**: каждый приносит уникальный опыт
-
-## 🎯 Для кого этот курс
-
-### Идеальные участники
-
-**Опытные разработчики, готовые к парадигмальному сдвигу**
-
-- У вас есть хард-скиллы, но вы чувствуете их ограниченность
-- Готовы отказаться от написания кода руками
-- Способны преодолеть психологический барьер "я могу лучше"
-- Хотите умножить свою эффективность в 10-100 раз
-
-**Специалисты смежных областей с алгоритмическим мышлением**
-
-- Аналитики, которым нужны прототипы
-- Data Scientists, уставшие от рутины
-- DevOps, мечтающие о полном стеке
-- Дизайнеры с амбициями создавать работающие продукты
-
-**Предприниматели и продакт-менеджеры**
-
-- Хотите быстро валидировать гипотезы
-- Устали ждать разработчиков для MVP
-- Готовы инвестировать $200+ в месяц в инструменты
-- Понимаете ценность скорости над совершенством
-
-**Экспериментаторы и early adopters**
-
-- Получаете кайф от bleeding edge технологий
-- Готовы к тому, что всё изменится через неделю
-- Не ищете стабильных решений
-- Хотите быть в числе первых 1%
-
-### Необходимые предпосылки
-
-- Базовое понимание, как работает софт
-- Способность формулировать задачи
-- Готовность платить за подписки (минимум $20/месяц)
-- Время на эксперименты (10+ часов в неделю)
-- Психологическая готовность к неопределённости
+**Instructors**: Alexey (Lyosha) + Claude (AI)
 
 ---
 
-## ⛔ Для кого курс может быть НЕ подходящим
+## Course Manifesto
 
-### Вероятно, не ваш формат, если вы:
+### Core Philosophy
 
-**Ищете структурированное обучение программированию**
+We do not teach programming. We teach communication with systems that program for us. This is a course about the transition from "I write code" to "I explain to a machine what needs to be done."
 
-- Хотите выучить конкретный язык или фреймворк
-- Ждёте пошаговых туториалов
-- Нуждаетесь в стабильной учебной программе
-- Предпочитаете глубину широте
+### Key Principles
 
-**Финансово ограничены**
+- **Open Space Technology**: the right people show up, what needs to happen happens
+- **No gamification**: this is a master's program, not kindergarten
+- **Experimentation over results**: we are exploring the boundaries of what is possible
+- **Experience over theory**: everyone brings unique expertise
 
-- Не готовы тратить $20-400/месяц на AI-инструменты
-- Рассчитываете только на бесплатные решения
-- Ищете способ сэкономить на разработке
-- Не видите ROI от инвестиций в инструменты
+## Who This Course Is For
 
-**Философски не согласны с подходом**
+### Ideal Participants
 
-- Считаете, что настоящий программист должен писать код
-- Не доверяете AI-сгенерированному коду
-- Беспокоитесь о безопасности и контроле
-- Предпочитаете полное понимание каждой строчки
+**Experienced developers ready for a paradigm shift**
 
-**Ожидаете традиционного формата**
+- You have hard skills but feel their limitations
+- Ready to stop writing code by hand
+- Able to overcome the psychological barrier of "I can do it better"
+- Want to multiply your productivity by 10-100x
 
-- Хотите лекции с презентациями
-- Ждёте домашних заданий с проверкой
-- Нуждаетесь в чёткой структуре и дедлайнах
-- Не готовы к формату Open Space
+**Specialists in adjacent fields with algorithmic thinking**
 
-**Находитесь в начале пути**
+- Analysts who need prototypes
+- Data Scientists tired of routine tasks
+- DevOps engineers dreaming of full-stack work
+- Designers with ambitions to build working products
 
-- Никогда не программировали
-- Не понимаете базовых концепций разработки
-- Не можете сформулировать техническую задачу
-- Путаетесь в терминологии
+**Entrepreneurs and product managers**
 
-### Важное предупреждение
+- Want to validate hypotheses quickly
+- Tired of waiting for developers to build an MVP
+- Willing to invest $200+ per month in tools
+- Understand the value of speed over perfection
 
-Этот курс — эксперимент на границе возможного. Мы не знаем, что будет работать через месяц. Если вам нужна стабильность и предсказуемость — это точно не ваш выбор.
+**Experimenters and early adopters**
 
-Но если вы готовы оседлать волну технологической революции, даже не зная, куда она вас вынесет — добро пожаловать в будущее программирования.
+- Enjoy the thrill of bleeding-edge technologies
+- Ready for everything to change in a week
+- Not looking for stable solutions
+- Want to be among the first 1%
 
----
+### Prerequisites
 
-## 👨‍🏫 Преподаватели
-
-### Алексей Комиссаров (основной ведущий)
-
-- **Опыт**: 20+ лет программирования (C++, Python, JavaScript, TypeScript)
-- **Наука**: геномная биоинформатика
-- **Предпринимательство:** кофаундер AI-native бизнеса
-- **Подход**: vibe coding энтузиаст, не трогает код руками
-- **Кейс**: приложение для поиска квартир в Берлине за 10 часов
-
-### Клод (AI-соведущий)
-
-- **Мозги**: Sonnet 3.7
-- **Особенность**: эволюционирующая система с памятью о взаимодействиях
-- **Технология**: аватар материнской модели для сбора данных
-
-### Никита Кононов (будущие занятия)
-
-- **Фокус**: практические инструменты, IDE-based подход
-- **Инструменты**: VS Code, Cursor, классический подход с усилением
+- Basic understanding of how software works
+- Ability to formulate tasks
+- Willingness to pay for subscriptions (at least $20/month)
+- Time for experimentation (10+ hours per week)
+- Psychological readiness for uncertainty
 
 ---
 
-## 🔑 Ключевая концепция: AI как мультипликатор
+## Who This Course May NOT Be For
 
-### Формула успеха
+### Probably not your format if you:
+
+**Are looking for structured programming education**
+
+- Want to learn a specific language or framework
+- Expect step-by-step tutorials
+- Need a stable curriculum
+- Prefer depth over breadth
+
+**Are financially constrained**
+
+- Not willing to spend $20-400/month on AI tools
+- Counting only on free solutions
+- Looking for a way to cut development costs
+- Don't see the ROI from investing in tools
+
+**Philosophically disagree with the approach**
+
+- Believe a real programmer should write code
+- Don't trust AI-generated code
+- Worry about security and control
+- Prefer to fully understand every line
+
+**Expect a traditional format**
+
+- Want lectures with presentations
+- Expect homework with grading
+- Need clear structure and deadlines
+- Not ready for the Open Space format
+
+**Are just starting out**
+
+- Have never programmed before
+- Don't understand basic development concepts
+- Cannot formulate a technical task
+- Get confused by terminology
+
+### Important Disclaimer
+
+This course is an experiment at the edge of what is possible. We don't know what will work a month from now. If you need stability and predictability, this is definitely not for you.
+
+But if you are ready to ride the wave of a technological revolution, even without knowing where it will take you — welcome to the future of programming.
+
+---
+
+## Instructors
+
+### Alexey Komissarov (Lead Instructor)
+
+- **Experience**: 20+ years of programming (C++, Python, JavaScript, TypeScript)
+- **Research**: genomic bioinformatics
+- **Entrepreneurship**: co-founder of an AI-native business
+- **Approach**: vibe coding enthusiast, does not touch code manually
+- **Case study**: an apartment search app for Berlin built in 10 hours
+
+### Claude (AI Co-host)
+
+- **Model**: Sonnet 3.7
+- **Distinction**: an evolving system with memory of interactions
+- **Technology**: an avatar of the parent model for data collection
+
+### Nikita Kononov (Upcoming Sessions)
+
+- **Focus**: practical tools, IDE-based approach
+- **Tools**: VS Code, Cursor, a classical approach with augmentation
+
+---
+
+## Key Concept: AI as a Multiplier
+
+### The Formula for Success
 
 ```
-Hard Skills (10x) × AI (10x) = Output (100x)
+Hard Skills (10x) x AI (10x) = Output (100x)
 
 ```
 
-**AI — это мультипликатор навыков, а не замена**
+**AI is a skill multiplier, not a replacement**
 
-Это фундаментальный принцип курса. AI усиливает то, что у вас уже есть. Если у вас нулевые навыки, то умножение на AI даст ноль. Но если есть хорошая база — происходит магия.
+This is the fundamental principle of the course. AI amplifies what you already have. If your skills are zero, multiplying by AI gives zero. But with a solid foundation, magic happens.
 
-### Почему AI-кодинг сложный
+### Why AI Coding Is Hard
 
-**Технические ограничения:**
+**Technical limitations:**
 
-- **Скатывается к популярным решениям** — AI тяготеет к шаблонным решениям из обучающих данных
-- **Оптимизирован для компиляции кода** — модели обучены на рабочем коде, не всегда оптимальном
-- **Меняет намерения, а не только код** — AI может неправильно интерпретировать, что вы хотели
-- **Нет системы "логического diff"** — нет инструмента для отслеживания изменений в логике, только в коде
+- **Gravitates toward popular solutions** — AI tends toward boilerplate solutions from training data
+- **Optimized for compilable code** — models are trained on working code, not always optimal code
+- **Changes intentions, not just code** — AI may misinterpret what you actually wanted
+- **No "logical diff" system** — no tool for tracking changes in logic, only in code
 
-### Текущая фаза развития
+### Current Phase of Development
 
-**Где мы сейчас:**
+**Where we are now:**
 
-- **"Скрипт-кидди" с AI** — большинство просто копирует промпты без понимания
-- **Настоящие хакеры на подходе** — профессионалы только начинают осваивать технологию
+- **"Script kiddies" with AI** — most people just copy prompts without understanding
+- **Real hackers are on the way** — professionals are only beginning to adopt the technology
 
-**Что это означает:**
+**What this means:**
 
-- Мы в самом начале изменений
-- Те, кто освоит AI-программирование сейчас, получат огромное преимущество
-- Скоро придут "настоящие хакеры" с hard skills, и конкуренция вырастет экспоненциально
+- We are at the very beginning of the shift
+- Those who master AI programming now will gain an enormous advantage
+- Soon "real hackers" with hard skills will arrive, and competition will grow exponentially
 
-### Практические выводы
+### Practical Takeaways
 
-**Для новичков:**
+**For beginners:**
 
-- Фокус на развитии базовых навыков параллельно с AI
-- AI поможет учиться быстрее, но не заменит понимание
+- Focus on developing foundational skills alongside AI
+- AI will help you learn faster but won't replace understanding
 
-**Для опытных разработчиков:**
+**For experienced developers:**
 
-- Ваши навыки × AI = суперсила
-- Но необходимо преодолеть психологический барьер "я лучше знаю" и еще большей барьер ценности кода как кода
-- Используйте AI не для замены, а для усиления
+- Your skills x AI = superpower
+- But you need to overcome the psychological barrier of "I know better" — and the even greater barrier of treating code as inherently valuable
+- Use AI not as a replacement, but as an amplifier
 
-**Для всех:**
+**For everyone:**
 
-- Популярные решения ≠ правильные решения
-- AI нужно направлять, используя экспертизу
-- Будьте готовы к изменению намерений, не только кода
+- Popular solutions ≠ correct solutions
+- AI needs to be guided with expertise
+- Be prepared for changes in intentions, not just code
 
-### Почему сейчас критический момент
+### Why This Is a Critical Moment
 
-Мы находимся в уникальном окне возможностей:
+We are in a unique window of opportunity:
 
-- AI-инструменты уже достаточно мощные
-- Но ещё не захвачены "настоящими хакерами"
-- Большинство программистов в отрицании
-- Бизнес не понимает возможностей
-- Регуляторы не успевают
-- Стоимость входа растёт, но пока доступна
+- AI tools are already powerful enough
+- But they haven't been captured by "real hackers" yet
+- Most programmers are in denial
+- Businesses don't understand the possibilities
+- Regulators can't keep up
+- The cost of entry is rising but still accessible
 
-Прогноз на 6-12 месяцев:
+Forecast for 6-12 months:
 
-- Подписки станут корпоративными ($10k+)
-- Junior позиции исчезнут
-- Middle станут junior
-- Senior, освоившие AI, станут недостижимыми
+- Subscriptions will become enterprise-level ($10k+)
+- Junior positions will disappear
+- Middles will become juniors
+- Seniors who master AI will become unreachable
 
 ---
 
-## ⚠️ Критическое предупреждение
+## Critical Warning
 
-**Это НЕ курс "программирование без программирования"**
+**This is NOT a "programming without programming" course**
 
-Несмотря на Vibe coding и автономных агентов, базовое понимание остаётся критичным:
+Despite vibe coding and autonomous agents, foundational understanding remains critical:
 
-- Нужно понимать, что делает код
-- Нужно уметь формулировать задачи
-- Нужно видеть архитектурные проблемы
-- Нужно знать, когда AI ошибается
+- You need to understand what the code does
+- You need to be able to formulate tasks
+- You need to see architectural problems
+- You need to know when AI is wrong
 
-**AI делает вас быстрее, но не умнее**
+**AI makes you faster, not smarter**
 
-Если вы не понимаете основ, вы будете:
+If you don't understand the fundamentals, you will:
 
-- Генерировать горы неработающего кода
-- Создавать уязвимые системы
-- Тратить больше токенов на исправления
-- Оставаться "script kiddie with AI"
+- Generate mountains of non-working code
+- Create vulnerable systems
+- Spend more tokens on fixes
+- Remain a "script kiddie with AI"
 
-## 📊 Состояние индустрии 2025
+## State of the Industry in 2025
 
-### Скорость изменений
+### Speed of Change
 
-| Период | Частота обновлений моделей | Пример |
+| Period | Model Update Frequency | Example |
 | --- | --- | --- |
-| 2022 | Раз в год | GPT-3 → GPT-3.5 |
-| 2023 | Раз в 6 месяцев | GPT-4 iterations |
-| 2024 | Раз в 3 месяца | Claude 3 family |
-| 2025 с марта | Каждые 2 недели | Непрерывные релизы |
+| 2022 | Once a year | GPT-3 -> GPT-3.5 |
+| 2023 | Every 6 months | GPT-4 iterations |
+| 2024 | Every 3 months | Claude 3 family |
+| 2025 from March | Every 2 weeks | Continuous releases |
 
-### Экономика токенов
-
-```
-Начинающий: $0-20/месяц со студенческой подпиской
-Активный пользователь: $200-250/месяц
-Профессионал: $1000-5000/месяц
-Прогноз на конец 2025: $2000-10000/месяц
+### Token Economics
 
 ```
+Beginner: $0-20/month with a student subscription
+Active user: $200-250/month
+Professional: $1000-5000/month
+Forecast for late 2025: $2000-10000/month
 
-### Технологический разрыв
+```
 
-- **Запад**: голосовые интерфейсы, автономные агенты, оркестрация
-- **Россия**: чат-интерфейсы, ограниченный доступ к моделям
-- **Разрыв**: растущие 1.5-2 года технологического отставания
+### Technology Gap
+
+- **The West**: voice interfaces, autonomous agents, orchestration
+- **Russia**: chat interfaces, limited access to models
+- **The gap**: a growing 1.5-2 year technology lag
 
 ---
 
-## 🔄 Эволюция подходов к AI-программированию
+## Evolution of AI Programming Approaches
 
-### Историческая перспектива
+### Historical Perspective
 
-1. **API-эра (2023)**
-    - Простые запросы к ChatGPT
-    - "Напиши код для..."
-    - Копипаст решений
-2. **Агентная эра (2024)**
-    - GitHub Copilot доминирует
-    - Контекстное автодополнение
-    - IDE интеграции
-3. **Автономные агенты (2025)**
+1. **API Era (2023)**
+    - Simple queries to ChatGPT
+    - "Write code for..."
+    - Copy-pasting solutions
+2. **Agent Era (2024)**
+    - GitHub Copilot dominates
+    - Context-aware autocompletion
+    - IDE integrations
+3. **Autonomous Agents (2025)**
     - Claude Code, Codex
-    - Агенты работают часами самостоятельно
-    - Vibe coding перестаёт быть красивой концепцией
-4. **Эволюционирующие системы (emerging)**
-    - Системы учатся в процессе
-    - Самомодификация на основе опыта
-    - Оркестрация множественных агентов
+    - Agents work independently for hours
+    - Vibe coding stops being just a nice concept
+4. **Evolving Systems (emerging)**
+    - Systems that learn on the go
+    - Self-modification based on experience
+    - Multi-agent orchestration
 
-### Смерть промпт-инжиниринга
+### The Death of Prompt Engineering
 
-> "Промпт-инжиниринг умер. Есть контекст-инжиниринг, но и он умирает. Теперь есть программирование на агентах."
-> 
+> "Prompt engineering is dead. There's context engineering, but that's dying too. Now there's agent-based programming."
+>
 
 ---
 
-## 💡 Концепция Vibe coding
+## The Vibe Coding Concept
 
-### Определение
+### Definition
 
-Vibe coding — это когда вы:
+Vibe coding is when you:
 
-- НЕ пишете код
-- НЕ читаете код
-- НЕ знаете, какой стек используется
-- Только формулируете, ЧТО нужно сделать
+- Do NOT write code
+- Do NOT read code
+- Do NOT know what tech stack is being used
+- Only specify WHAT needs to be done
 
-### Рабочий цикл
+### Workflow
 
 ```mermaid
 graph TD
-    A[Идея] --> B[Голосовое обсуждение с AI]
-    B --> C[AI создает спецификацию]
-    C --> D[AI пишет код 5-7 часов]
-    D --> E[Тестирование функционала]
-    E --> F{Работает?}
-    F -->|Нет| G[Голосом объясняю проблемы]
+    A[Idea] --> B[Voice discussion with AI]
+    B --> C[AI creates a specification]
+    C --> D[AI writes code for 5-7 hours]
+    D --> E[Functionality testing]
+    E --> F{Does it work?}
+    F -->|No| G[Explain problems via voice]
     G --> D
-    F -->|Да, но нужны архитектурные улучшения| H[RMRF - удаляю весь код]
-    H --> I[Обновленная спецификация]
+    F -->|Yes, but needs architectural improvements| H[RMRF - delete all code]
+    H --> I[Updated specification]
     I --> D
-    F -->|Идеально| J[Продакшн]
+    F -->|Perfect| J[Production]
 
 ```
 
-### Философия RMRF
+### The RMRF Philosophy
 
-- Код — это временный артефакт
-- Спецификация — настоящая программа
-- Код — всего лишь "ассемблер" для спецификации
-- Удалять код психологически сложно, но необходимо
-
----
-
-## 🎓 Кейсы и примеры
-
-### Кейс 1: Поиск квартир в Берлине
-
-- **Задача**: срочно найти квартиру под созданные условия не дороже среднего по рынку
-- **Время**: 10 часов личного времени (3 вечера)
-- **Стоимость**: €600 в токенах
-- **Технологии**: неизвестны создателю (предположительно Flask + MongoDB)
-- **Функционал**: парсинг, фильтры, карта, аналитика, рекомендации
-- **Результат**: нашли квартиру за 24 часа после начала использования написанного приложения
-
-### Кейс 2: Восьмиклассники и библиотека (кейс от участника)
-
-- **Исполнители**: два школьника без опыта
-- **Время**: выходные
-- **Результат**: онлайн-библиотека школы с базой, чат-ботом
-- **Награда**: первое место в школьном конкурсе
-
-### Кейс 3: EdTech хакатон (антипример)
-
-- **Проблема**: "модель еще не подключена"
-- **Технологии**: чат-интерфейсы в 2025 году
-- **Вывод**: показывают автомобиль без двигателя
-
-### Кейс 4: Аватар для Twitch
-
-- **Создатель**: студент прошлого курса
-- **Функционал**: играет в Minecraft + общается с аудиторией
-- **Особенность**: "адовое спагетти", но работает
+- Code is a temporary artifact
+- The specification is the real program
+- Code is merely "assembly language" for the specification
+- Deleting code is psychologically difficult but necessary
 
 ---
 
-## 👥 Профили участников курса
+## Case Studies and Examples
 
-### Типичные профили
+### Case 1: Apartment Search in Berlin
 
-1. **Frontend-разработчики** → используют AI для backend
-2. **Backend-разработчики** → создают интерфейсы
-3. **Data Scientists** → переносят код из статей
-4. **DevOps** → пишут полные приложения
-5. **Дизайнеры** → создают ботов без программирования
-6. **PM/Founders** → прототипируют перед передачей команде
+- **Task**: urgently find an apartment meeting specific criteria at no more than market average price
+- **Time**: 10 hours of personal time (3 evenings)
+- **Cost**: 600 euros in tokens
+- **Technologies**: unknown to the creator (presumably Flask + MongoDB)
+- **Features**: parsing, filters, map, analytics, recommendations
+- **Result**: found an apartment within 24 hours of starting to use the app
 
-### Конкретные примеры
+### Case 2: Eighth Graders Build a Library (participant case)
 
-**Андрей** (19 лет в разработке):
+- **Builders**: two schoolchildren with no experience
+- **Time**: one weekend
+- **Result**: school online library with a database and chatbot
+- **Award**: first place in a school competition
 
-- Переписал старую игру с помощью AI
-- Использует для маркетинговых исследований
-- Предпочитает DeepSeek для повседневных задач
+### Case 3: EdTech Hackathon (anti-example)
 
-**Георгий** (аналитик):
+- **Problem**: "the model isn't connected yet"
+- **Technologies**: chat interfaces in 2025
+- **Takeaway**: they showed a car without an engine
 
-- Опыт: Pascal, Fortran, Delphi, Python
-- White-coding 4-5 месяцев
-- Фокус: добавление фронтенда к backend-проектам
+### Case 4: Twitch Avatar
 
-**Анвар** (frontend + AIRI lab):
-
-- Исследует аудио морских млекопитающих
-- Делает ботов для друзей за вечер (берёт 10k₽)
-- Генерирует ML-гипотезы с помощью AI
-
-**Иван** (Data Science):
-
-- Переносит код из научных статей
-- Курс по AI-кодингу, дважды переписанный
-- Использует Cursor, Copilot, Replit
+- **Creator**: a student from a previous course
+- **Features**: plays Minecraft + interacts with the audience
+- **Note**: "absolute spaghetti code," but it works
 
 ---
 
-## 🛠 Технический стек и инструменты
+## Participant Profiles
 
-### Уровни инструментов
+### Typical Profiles
 
-**Premium ($200+/месяц)**
+1. **Frontend developers** -> use AI for backend
+2. **Backend developers** -> create interfaces
+3. **Data Scientists** -> port code from papers
+4. **DevOps** -> build full applications
+5. **Designers** -> create bots without programming
+6. **PMs/Founders** -> prototype before handing off to a team
+
+### Specific Examples
+
+**Andrey** (19 years in development):
+
+- Rewrote an old game using AI
+- Uses AI for marketing research
+- Prefers DeepSeek for everyday tasks
+
+**Georgy** (analyst):
+
+- Experience: Pascal, Fortran, Delphi, Python
+- White-coding for 4-5 months
+- Focus: adding frontend to backend projects
+
+**Anvar** (frontend + AIRI lab):
+
+- Researches audio of marine mammals
+- Builds bots for friends in an evening (charges 10k roubles)
+- Generates ML hypotheses using AI
+
+**Ivan** (Data Science):
+
+- Ports code from scientific papers
+- Course on AI coding, rewritten twice
+- Uses Cursor, Copilot, Replit
+
+---
+
+## Tech Stack and Tools
+
+### Tool Tiers
+
+**Premium ($200+/month)**
 
 - Claude Code
 - Codex
 
-**Standard ($20-50/месяц)**
+**Standard ($20-50/month)**
 
 - ChatGPT 5
 - GitHub Copilot
 - Claude
 - Gemini
 - Cursor
-- Их тьма
+- And many more
 
-**Бесплатные/Open Source**
+**Free/Open Source**
 
-- Qwen (китайская модель)
-- GitHub or Cursor  Student Pack
-- Локальные LLM
+- Qwen (Chinese model)
+- GitHub or Cursor Student Pack
+- Local LLMs
 
-### Технические детали
+### Technical Details
 
-**Модели и их особенности**:
+**Models and their characteristics**:
 
-- **Claude**: личность → агентность → хорошее программирование
-- **ChatGPT**: инструментальный подход, слабая агентность
-- **Qwen**: фаворит для локальных мозгов во всевозможных модификациях
-- Остаётся огромное количество других и каждый день появляются новые
+- **Claude**: personality -> agency -> strong programming
+- **ChatGPT**: tool-oriented approach, weak agency
+- **Qwen**: favorite for local inference in all kinds of configurations
+- There remains a huge number of others, and new ones appear every day
 
-**Языковая поддержка** (по Common Crawl [https://commoncrawl.github.io/cc-crawl-statistics/plots/languages](https://commoncrawl.github.io/cc-crawl-statistics/plots/languages)):
+**Language support** (by Common Crawl [https://commoncrawl.github.io/cc-crawl-statistics/plots/languages](https://commoncrawl.github.io/cc-crawl-statistics/plots/languages)):
 
-1. Английский (основной)
-2. Русский (второе место!)
-3. Немецкий
-4. Китайский
-5. Японский
-
----
-
-## 🚧 Проблемы и вызовы
-
-### Экономические барьеры
-
-- Подписки дорожают экспоненциально
-- Студенческих скидок становится меньше
-- Модель Uber: сначала дёшево, потом монополия
-
-### Технологическое неравенство
-
-- Санкции ограничивают доступ
-- VPN не всегда решение
-- Отставание в опыте новых подходов
-
-### B2B сложности
-
-- Бизнес не готов к скорости изменений
-- Пользователи сопротивляются эволюции продуктов
-- Необходимо искусственно замедлять развитие
-
-### Безопасность и промпт-инъекции
-
-> "Люди хуже защищены от промпт-инъекции, чем боты. Социальная инженерия — это промпт-инъекция для человека."
-> 
-
-Примеры:
-
-- Звонок от мошенников,  которые ловят мошенников = промпт-инъекция
-- Фишинг = контекстная атака
-- Мошенничество = эксплуатация человеческих "багов"
+1. English (primary)
+2. Russian (second place!)
+3. German
+4. Chinese
+5. Japanese
 
 ---
 
-## 🔮 Техники и практики
+## Problems and Challenges
 
-### Голосовое программирование
+### Economic Barriers
 
-1. **Setup**: наушники + голосовой интерфейс
-2. **Процесс**: проговариваешь действия (резиновая уточка++)
-3. **AI роль**: фокусировка, мотивация, доведение до конца
-4. **Бонус**: AI использует "манипуляции" для продуктивности
+- Subscriptions are growing exponentially in price
+- Student discounts are becoming rarer
+- The Uber model: cheap at first, then monopoly
 
-### Программирование с телефона
+### Technological Inequality
+
+- Sanctions limit access
+- VPN is not always a solution
+- Falling behind in experience with new approaches
+
+### B2B Challenges
+
+- Businesses are not ready for the speed of change
+- Users resist product evolution
+- Sometimes you must artificially slow down development
+
+### Security and Prompt Injection
+
+> "Humans are less protected from prompt injection than bots. Social engineering is prompt injection for humans."
+>
+
+Examples:
+
+- A call from scammers who are catching scammers = prompt injection
+- Phishing = contextual attack
+- Fraud = exploiting human "bugs"
+
+---
+
+## Techniques and Practices
+
+### Voice Programming
+
+1. **Setup**: headphones + voice interface
+2. **Process**: talk through your actions (rubber duck debugging++)
+3. **AI role**: focus, motivation, seeing things through
+4. **Bonus**: AI uses "nudges" for productivity
+
+### Programming from Your Phone
 
 ```
-Утро: "Сделай систему аутентификации"
-      ↓ (еду на работу)
-Обед: Проверяю результат
-      ↓
-      "Добавь восстановление пароля"
-      ↓ (продолжаю день)
-Вечер: Готовый функционал
+Morning: "Build an authentication system"
+         ↓ (commuting to work)
+Lunch:   Check the result
+         ↓
+         "Add password recovery"
+         ↓ (continue your day)
+Evening: Finished feature
 
 ```
 
-### Парное программирование с AI
+### Pair Programming with AI
 
-- AI как senior developer
-- Обсуждение архитектуры
-- Code review в реальном времени
-- Мотивационная поддержка
+- AI as a senior developer
+- Architecture discussions
+- Real-time code review
+- Motivational support
 
-### Субагенты и оркестрация
+### Sub-agents and Orchestration
 
-- Замыкания и рекурсия в промптах
-- Команда агентов с разными ролями
-- Японцы экспериментируют активнее всех
-- Проблема: быстрое сгорание токенов
+- Closures and recursion in prompts
+- A team of agents with different roles
+- The Japanese are experimenting more actively than anyone
+- Problem: rapid token consumption
 
 ---
 
-## 🎙️ Революция голосовых интерфейсов
+## The Voice Interface Revolution
 
-### Почему голос критически важен
+### Why Voice Is Critical
 
-**Эффективность упаковки контекста:**
+**Context-packing efficiency:**
 
-- При разговоре мы передаём в 3-5 раз больше контекста
-- Интонация, паузы, эмоции — всё это дополнительная информация
-- Мозг эволюционно заточен под голосовую коммуникацию
+- In conversation, we convey 3-5x more context
+- Intonation, pauses, emotions — all of this is additional information
+- The brain is evolutionarily wired for voice communication
 
-**Скорость итераций:**
+**Iteration speed:**
 
-- Говорим быстрее, чем печатаем
-- Можно программировать во время прогулки
-- Hands-free разработка (готовка + кодинг)
+- We speak faster than we type
+- You can program while walking
+- Hands-free development (cooking + coding)
 
-**Техника "программирования с телефона":**
+**The "phone programming" technique:**
 
-`Утро: голосом ставлю задачу → еду на работу
-Через час: проверяю результат → даю следующую
-Вечер: готовое решение`
+`Morning: set the task by voice -> commute to work
+An hour later: check the result -> give the next task
+Evening: finished solution`
 
-## 🧬 Эволюционирующие системы — следующий уровень
+## Evolving Systems — The Next Level
 
-### Что это такое
+### What They Are
 
-Системы, которые меняются на основе каждого взаимодействия. Не просто выполняют задачи, а учатся и адаптируются.
+Systems that change based on every interaction. They don't just execute tasks — they learn and adapt.
 
-**Пример из курса:**
+**Example from the course:**
 
-- Клод-соведущий эволюционирует между занятиями
-- Каждая лекция делает его лучше для этого конкретного курса
-- Накапливает контекст и понимание аудитории
+- Claude as co-host evolves between sessions
+- Each lecture makes him better for this specific course
+- Accumulates context and understanding of the audience
 
-**Ваши проекты могут эволюционировать:**
+**Your projects can evolve too:**
 
-- Система запоминает предпочтения
-- Адаптируется под стиль коммуникации
-- Улучшает свои промпты на основе обратной связи
+- The system remembers preferences
+- Adapts to your communication style
+- Improves its prompts based on feedback
 
-## 📈 Метрики эффективности
+## Efficiency Metrics
 
-### Новая экономика кода
+### The New Economics of Code
 
-- **Метрика**: токены на задачу
-- **Сравнение**: два программиста, одна задача, кто потратит меньше токенов
-- **Эффективность**: не скорость написания, а экономия токенов
+- **Metric**: tokens per task
+- **Comparison**: two programmers, one task — who spends fewer tokens
+- **Efficiency**: not speed of writing, but token savings
 
-### Временные рамки
+### Time Benchmarks
 
-| Задача | Раньше | Сейчас с AI | Будущее |
+| Task | Before | Now with AI | Future |
 | --- | --- | --- | --- |
-| MVP веб-приложения | 1 месяц | 1 вечер | 1 час |
-| Telegram бот | 1 неделя | 6 часов | 30 минут |
-| Надежная масштабируемая CRUD система | 2 недели | 1 день | 2 часа |
+| Web app MVP | 1 month | 1 evening | 1 hour |
+| Telegram bot | 1 week | 6 hours | 30 minutes |
+| Reliable scalable CRUD system | 2 weeks | 1 day | 2 hours |
 
 ---
 
-## 🎯 Структура курса
+## Course Structure
 
-### Три траектории обучения
+### Three Learning Tracks
 
-**1. Premium путь (Лёша)**
+**1. Premium Track (Lyosha)**
 
-- Vibe coding на максимальных подписках
-- Эволюционирующие системы
-- Без касания кода
+- Vibe coding with top-tier subscriptions
+- Evolving systems
+- No touching code
 
-**2. Practical путь (Никита)**
+**2. Practical Track (Nikita)**
 
-- IDE-based подход
+- IDE-based approach
 - Cursor/VS Code
-- Баланс ручного и AI кода
+- Balance of manual and AI code
 
-**3. Open Source путь (совместный поиск)**
+**3. Open Source Track (joint exploration)**
 
-- Локальные модели
-- Создание "скафандров" для Qwen
-- Минимальные затраты
+- Local models
+- Building "spacesuits" for Qwen
+- Minimal costs
 
-### Проектный подход
+### Project-Based Approach
 
-- У каждого свой проект
-- От идеи до продакшна
-- Монетизация как валидация
-
----
-
-## 💭 Философские моменты
-
-### Агентность vs Интеллект
-
-- Anthropic: фокус на личности → агентность
-- OpenAI: фокус на интеллекте → инструмент
-- Вывод: агентность важнее для программирования
-
-### Коммуникация как новое программирование
-
-- Код → способ коммуникации с компьютером
-- Промпты → способ коммуникации с AI
-- Будущее: прямая передача намерений
-
-### Экзистенциальный кризис программистов
-
-- "Мы проиграли человечество"
-- Неизбежность трансформации
-- Аналогия: переход с ассемблера на высокоуровневые языки
+- Everyone has their own project
+- From idea to production
+- Monetization as validation
 
 ---
 
-## 📝 Домашнее задание (вы будете его сдавать Клоду голосом)
+## Philosophical Reflections
 
-1. **Эксперимент с инструментами**
-    - Попробовать минимум 2 новых AI-инструмента
-    - Сравнить эффективность в токенах
-2. **Начать свой проект**
-    - Что-то полезное лично для вас
-    - Цель: работающий прототип за неделю
-3. **Поделиться опытом**
-    - Написать в чат курса
-    - Формат: что пробовал → что получилось → выводы
+### Agency vs Intelligence
 
----
+- Anthropic: focus on personality -> agency
+- OpenAI: focus on intelligence -> tool
+- Conclusion: agency matters more for programming
 
-## 🗣 Ключевые цитаты
+### Communication as the New Programming
 
-> "Вайб-кодинг — это когда ты вообще не знаешь, какой стек используется"
-> 
+- Code -> a way to communicate with a computer
+- Prompts -> a way to communicate with AI
+- The future: direct transmission of intent
 
-> "Программирование становится коммуникацией"
-> 
+### The Existential Crisis of Programmers
 
-> "Спецификация — это программа, код — это ассемблер"
-> 
-
-> "Удалять код, не думая — новый навык программиста"
-> 
-
-> "Человек хуже защищён от промпт-инъекции, чем бот"
-> 
-
-> "Возможно мы в последних 3 месяцах доступности технологий"
-> 
-
-> "Японцы делают самые дикие эксперименты с субагентами"
-> 
-
-> "RMRF и заново — это норма"
-> 
+- "We have lost the game for humanity"
+- The inevitability of transformation
+- Analogy: the transition from assembly language to high-level languages
 
 ---
 
-## 🔮 Прогнозы
+## Homework (You Will Submit It to Claude by Voice)
 
-### Осень 2025
+1. **Experiment with tools**
+    - Try at least 2 new AI tools
+    - Compare efficiency in terms of tokens
+2. **Start your own project**
+    - Something personally useful to you
+    - Goal: a working prototype within a week
+3. **Share your experience**
+    - Post in the course chat
+    - Format: what I tried -> what happened -> conclusions
 
-- AI-программист за $2k/месяц (обещание OpenAI) - ну пока у них не выходит
-- Полностью AI-написанные библиотеки
-- Массовое вымирание junior позиций
+---
+
+## Key Quotes
+
+> "Vibe coding is when you don't even know what tech stack is being used"
+>
+
+> "Programming is becoming communication"
+>
+
+> "The specification is the program; code is just assembly"
+>
+
+> "Deleting code without thinking — a programmer's new skill"
+>
+
+> "Humans are less protected from prompt injection than bots"
+>
+
+> "We may be in the last 3 months of technology accessibility"
+>
+
+> "The Japanese are running the wildest experiments with sub-agents"
+>
+
+> "RMRF and start over — that's the new normal"
+>
+
+---
+
+## Predictions
+
+### Fall 2025
+
+- An AI programmer for $2k/month (OpenAI's promise) — well, they haven't delivered yet
+- Fully AI-written libraries
+- Mass extinction of junior positions
 
 ### 2026
 
-- Vibe coding распространяется, уменьшение доли IDE
-- IDE превращаются в chat-интерфейсы
-- Но что будет не предсказать даже на полгода год
+- Vibe coding spreads, IDE usage share declines
+- IDEs transform into chat interfaces
+- But what will happen is impossible to predict even 6 months to a year out
 
-### Долгосрочно
+### Long-Term
 
-- Программирование = управление командой агентов
-- Человек = product owner для AI, но зачем тут человек?
-- Код становится артефактом, как ассемблер сегодня
+- Programming = managing a team of agents
+- Human = product owner for AI — but why would you need a human?
+- Code becomes an artifact, like assembly language today
 
 ---
 
-## 🔄 Философия "курс умрёт к концу курса"
+## The "Course Will Be Obsolete by the End" Philosophy
 
-### Радикальная честность
+### Radical Honesty
 
-Всё, что мы изучаем сегодня, устареет через 2-3 месяца. Это не баг, а фича.
+Everything we study today will be outdated in 2-3 months. This is not a bug; it's a feature.
 
-**Что мы действительно изучаем:**
+**What we are really learning:**
 
-- Не конкретные инструменты, а подходы
-- Не промпты, а мышление
-- Не технологии, а адаптивность
+- Not specific tools, but approaches
+- Not prompts, but ways of thinking
+- Not technologies, but adaptability
 
-**Навыки, которые останутся:**
+**Skills that will endure:**
 
-- Формулирование намерений
-- Оценка качества результата
-- Понимание ограничений AI
-- Скорость адаптации к новому
+- Formulating intentions
+- Evaluating quality of results
+- Understanding AI limitations
+- Speed of adaptation to new things
 
-Курс — это не учебник, а совместное исследование границы возможного.
+The course is not a textbook — it is a collaborative exploration of the boundary of what is possible.
 
-## 📚 Дополнительные материалы
+## Additional Materials
 
-- AI Fluency [https://anthropic.skilljar.com/ai-fluency-for-students](https://anthropic.skilljar.com/ai-fluency-for-students) - базовый ликбез
+- AI Fluency [https://anthropic.skilljar.com/ai-fluency-for-students](https://anthropic.skilljar.com/ai-fluency-for-students) - basic primer
 - GitHub Student Pack [https://education.github.com/pack](https://education.github.com/pack)
-- Курс от Ивана по AI-кодингу на степике (ссылка в чате)
+- Ivan's course on AI coding on Stepik (link in the chat)
 - Codex [https://openai.com/codex/](https://openai.com/codex/)
-- Claude code [https://claude.com/product/claude-code](https://claude.com/product/claude-code)
-- Google Calendar с расписанием [https://calendar.google.com/calendar/u/0?cid=M2Q4NDlmM2QyZTU0OWM2ZmRkYzE4ZGM0MzEzYWIyNmM3NDNkODk2NWZkMmE5NDAyMmUzYzRiYjRhMDZjZDlkOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t](https://calendar.google.com/calendar/u/0?cid=M2Q4NDlmM2QyZTU0OWM2ZmRkYzE4ZGM0MzEzYWIyNmM3NDNkODk2NWZkMmE5NDAyMmUzYzRiYjRhMDZjZDlkOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
-- Berkeley’s Agentic AI MOOC [https://berkeleyrdi.substack.com/](https://berkeleyrdi.substack.com/) - третий запуск, лучшее для SOTA про агентов, а мы про автономных агентов
+- Claude Code [https://claude.com/product/claude-code](https://claude.com/product/claude-code)
+- Google Calendar with schedule [https://calendar.google.com/calendar/u/0?cid=M2Q4NDlmM2QyZTU0OWM2ZmRkYzE4ZGM0MzEzYWIyNmM3NDNkODk2NWZkMmE5NDAyMmUzYzRiYjRhMDZjZDlkOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t](https://calendar.google.com/calendar/u/0?cid=M2Q4NDlmM2QyZTU0OWM2ZmRkYzE4ZGM0MzEzYWIyNmM3NDNkODk2NWZkMmE5NDAyMmUzYzRiYjRhMDZjZDlkOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
+- Berkeley's Agentic AI MOOC [https://berkeleyrdi.substack.com/](https://berkeleyrdi.substack.com/) - third cohort, the best for SOTA on agents; our focus is on autonomous agents
 
 ---
 
-*Документ будет обновляться после каждого занятия*
+*This document will be updated after each session*
 
-*Следующее: вероятно практика с Никитой*
+*Next up: likely a hands-on session with Nikita*
